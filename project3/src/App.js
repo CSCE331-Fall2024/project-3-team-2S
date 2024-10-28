@@ -1,15 +1,12 @@
-import './App.css';
+import './App.css'
+import ExamplePage from './pages/ExamplePage/ExamplePage'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <a>
-          Project 3
-        </a>
-      </header>
+    <div>
+      <ExamplePage />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
