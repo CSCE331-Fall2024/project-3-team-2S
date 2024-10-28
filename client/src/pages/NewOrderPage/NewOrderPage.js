@@ -8,10 +8,10 @@ function NewOrderPage() {
         <img src={Logo} />
         <h1>New Order</h1>
       </div>
-      <div class="menu-items-container">
+      <div class="menu-item-container">
         <button
           onClick={() => {
-            console.log("Redirect to bowl order page.")
+            console.log("Redirect to food item page.")
           }}
         >
             Bowl
@@ -22,7 +22,7 @@ function NewOrderPage() {
         <button>Appetizer</button>
         <button>Drink</button>
       </div>
-      <div class="nav-btns-container">
+      <div class="nav-btn-container">
         <button>Back</button>
         <button>Checkout</button>
       </div>
