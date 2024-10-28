@@ -6,7 +6,7 @@ function FoodItemPage() {
     <div>
       <div class="header-container">
         <img src={Logo} />
-        <h1>New Order</h1>
+        <h1>New MENUITEM</h1>
       </div>
       <div class="progress-bar-container">
         <h2>PLACEHOLDER FOR PROGRESS BAR ARROW</h2>
