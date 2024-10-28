@@ -1,10 +1,10 @@
 import './App.css'
-import ExamplePage from './pages/ExamplePage/ExamplePage'
+import StartPage from './pages/StartPage/StartPage'
 
 function App() {
   return (
     <div>
-      <ExamplePage />
+      <StartPage />
     </div>
   )
 }
