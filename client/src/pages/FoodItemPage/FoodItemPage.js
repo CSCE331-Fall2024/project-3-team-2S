@@ -1,6 +1,7 @@
 import './FoodItemPage.css'
 import Logo from "../../assets/images/logo.png"
 import { useNavigate } from 'react-router-dom'
+import FoodItemBtn from '../../components/FoodItemBtn/FoodItemBtn';
 
 function FoodItemPage() {
 
@@ -20,13 +21,10 @@ function FoodItemPage() {
       </div>
       <div class="food-item-container">
         {/* Hard-coded buttons for now, will eventually call API and create buttons based on results */}
-        <button
-          onClick={() => {
-            console.log("Redirect to food item page.")
-          }}
-        >
-            White Rice
-        </button>
+        <FoodItemBtn
+          name="Orange Chicken"
+          imgSrc="https://nomnom-files.pandaexpress.com/global/assets/modifiers/Chicken_OrangeChicken.png"
+        />
         <button>Fried Rice</button>
         <button>Chow Mein</button>
         <button>Super Greens</button>
