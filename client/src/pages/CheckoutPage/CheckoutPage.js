@@ -1,7 +1,11 @@
 import './CheckoutPage.css'
 import Logo from "../../assets/images/logo.png"
+import { useNavigate } from 'react-router-dom'
 
 function CheckoutPage() {
+
+  const navigate = useNavigate();
+
   return (
     <div>
       <div class="header-container">
@@ -13,7 +17,7 @@ function CheckoutPage() {
         <h3>Placeholder order</h3>
       </div>
       <div class="nav-btn-container">
-        <button>Back</button>
+        <button onClick={() => navigate("/new-order")}>Back</button>
         <button>Tendered</button>
       </div>
     </div>

@@ -1,7 +1,11 @@
 import './FoodItemPage.css'
 import Logo from "../../assets/images/logo.png"
+import { useNavigate } from 'react-router-dom'
 
 function FoodItemPage() {
+
+  const navigate = useNavigate();
+
   return (
     <div>
       <div class="header-container">
@@ -28,7 +32,8 @@ function FoodItemPage() {
         <button>Super Greens</button>
       </div>
       <div class="nav-btn-container">
-        <button>Back</button>
+        {/* Will eventually use logic to decide which page to route to because not always the same*/}
+        <button onClick={() => navigate("/new-order")}>Back</button>
       </div>
     </div>
   )
