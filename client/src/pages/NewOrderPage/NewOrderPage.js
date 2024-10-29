@@ -1,7 +1,11 @@
 import './NewOrderPage.css'
 import Logo from "../../assets/images/logo.png"
+import { useNavigate } from 'react-router-dom'
 
 function NewOrderPage() {
+
+  const navigate = useNavigate();
+
   return (
     <div>
       <div class="header-container">
@@ -9,22 +13,16 @@ function NewOrderPage() {
         <h1>New Order</h1>
       </div>
       <div class="menu-item-container">
-        <button
-          onClick={() => {
-            console.log("Redirect to food item page.")
-          }}
-        >
-            Bowl
-        </button>
-        <button>Plate</button>
-        <button>Bigger Plate</button>
-        <button>A La Carte</button>
-        <button>Appetizer</button>
-        <button>Drink</button>
+        <button onClick={() => navigate("/food-item")}>Bowl</button>
+        <button onClick={() => navigate("/food-item")}>Plate</button>
+        <button onClick={() => navigate("/food-item")}>Bigger Plate</button>
+        <button onClick={() => navigate("/food-item")}>A La Carte</button>
+        <button onClick={() => navigate("/food-item")}>Appetizer</button>
+        <button onClick={() => navigate("/food-item")}>Drink</button>
       </div>
       <div class="nav-btn-container">
-        <button>Back</button>
-        <button>Checkout</button>
+        <button onClick={() => navigate("/")}>Back</button>
+        <button onClick={() => navigate("/checkout")}>Checkout</button>
       </div>
     </div>
   )
