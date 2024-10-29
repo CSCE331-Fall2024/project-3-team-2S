@@ -7,7 +7,7 @@ import CheckoutPage from './pages/CheckoutPage/CheckoutPage'
 function App() {
   return (
     <div>
-      <CheckoutPage />
+      <StartPage />
     </div>
   )
 }

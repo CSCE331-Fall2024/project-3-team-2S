@@ -22,7 +22,7 @@ app.use(express.json());
 
 app.get('/api/fooditems', async (req, res) => {
     try {
-      const result = await pool.query('SELECT * FROM fooditems LIMIT 10');
+      const result = await pool.query('SELECT * FROM fooditems');
       res.json(result.rows);
     } catch (error) {
       console.error('Error executing query:', error.stack);
