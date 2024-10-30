@@ -9,6 +9,7 @@ const app = express();
 const port = 3001;
 
 app.use(cors());
+app.use(express.json());
 
 // Set up the PostgreSQL connection pool
 const pool = new Pool({
@@ -20,9 +21,6 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false },
 });
 
-// Middleware to parse JSON requests
-app.use(express.json());
-
 app.get('/api/fooditems', async (req, res) => {
     try {
       const result = await pool.query('SELECT * FROM fooditems');
@@ -31,7 +29,41 @@ app.get('/api/fooditems', async (req, res) => {
       console.error('Error executing query:', error.stack);
       res.status(500).json({ message: 'Internal server error' });
     }
-  });
+});
+
+app.post('/api/fooditems', async (req, res) => {
+  const { foodid, name, category, calories, isgf, isvegetarian, isspicy, ispremium } = req.body;
+
+  try {
+    const result = await pool.query(
+      `INSERT INTO fooditems (foodid, name, category, calories, isgf, isvegetarian, isspicy, ispremium)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+      [foodid, name, category, calories, isgf || false, isvegetarian || false, isspicy || false, ispremium || false]
+    );
+
+    res.status(201).json({ message: 'Food item added successfully', newItem: result.rows[0] });
+  } catch (error) {
+    console.error('Error adding food item:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.delete('/api/fooditems/:foodid', async (req, res) => {
+  const { foodid } = req.params;
+
+  try {
+    const result = await pool.query('DELETE FROM fooditems WHERE foodid = $1 RETURNING *', [foodid]);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: 'Food item not found' });
+    }
+
+    res.status(200).json({ message: 'Food item deleted successfully', deletedItem: result.rows[0] });
+  } catch (error) {
+    console.error('Error deleting food item:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 // Login endpoint
 app.post('/login', async (req, res) => {

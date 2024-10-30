@@ -28,7 +28,7 @@ function FoodItemPage() {
     <FoodItemBtn 
       key={item.foodid}
       name={item.name}
-      imgSrc="https://nomnom-files.pandaexpress.com/global/assets/modifiers/Chicken_OrangeChicken.png" // Replace with dynamic image URL if available
+      imgSrc={item.imagesrc}
     />
   ))
 
