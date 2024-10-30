@@ -33,26 +33,27 @@ function FoodItemPage() {
   ))
 
   return (
-    <div>
-      <div class="header-container">
-        <img src={Logo} />
-        <h1>New MENUITEM</h1>
+    <div className="container">
+      <div className="top-container">
+        <div className="header-container">
+          <img src={Logo} alt="Logo" />
+          <h1>New MENUITEM</h1>
+        </div>
+        <div className="progress-bar-container">
+          <h2>PLACEHOLDER FOR PROGRESS BAR ARROW</h2>
+        </div>
+        <div className="food-item-type-container">
+          <h3>Select CATEGORY</h3>
+        </div>
       </div>
-      <div class="progress-bar-container">
-        <h2>PLACEHOLDER FOR PROGRESS BAR ARROW</h2>
-      </div>
-      <div class="food-item-type-container">
-        Select FOODITEM TYPE
-      </div>
-      <div class="food-item-container">
+      <div className="food-item-container">
         {foodItemElements}
       </div>
-      <div class="nav-btn-container">
-        {/* Will eventually use logic to decide which page to route to because not always the same*/}
+      <div className="nav-btn-container">
         <button onClick={() => navigate("/new-order")}>Back</button>
       </div>
     </div>
   )
 }
 
-export default FoodItemPage
+export default FoodItemPage;
