@@ -1,10 +1,17 @@
 import './NewOrderPage.css'
 import Logo from "../../assets/images/logo.png"
 import { useNavigate } from 'react-router-dom'
+import { useOrderContext } from '../../context/OrderContext'
 
 function NewOrderPage() {
 
   const navigate = useNavigate();
+  const { setMenuItemType } = useOrderContext();
+  
+  const handleMenuItemSelection = (menuItemType) => {
+    setMenuItemType(menuItemType);
+    navigate("/food-item");
+  }
 
   return (
     <div>
@@ -13,12 +20,12 @@ function NewOrderPage() {
         <h1>New Order</h1>
       </div>
       <div class="menu-item-container">
-        <button onClick={() => navigate("/food-item")}>Bowl</button>
-        <button onClick={() => navigate("/food-item")}>Plate</button>
-        <button onClick={() => navigate("/food-item")}>Bigger Plate</button>
-        <button onClick={() => navigate("/food-item")}>A La Carte</button>
-        <button onClick={() => navigate("/food-item")}>Appetizer</button>
-        <button onClick={() => navigate("/food-item")}>Drink</button>
+        <button onClick={() => handleMenuItemSelection("Bowl")}>Bowl</button>
+        <button onClick={() => handleMenuItemSelection("Plate")}>Plate</button>
+        <button onClick={() => handleMenuItemSelection("Bigger Plate")}>Bigger Plate</button>
+        <button onClick={() => handleMenuItemSelection("A La Carte")}>A La Carte</button>
+        <button onClick={() => handleMenuItemSelection("Appetizer")}>Appetizer</button>
+        <button onClick={() => handleMenuItemSelection("Drink")}>Drink</button>
       </div>
       <div class="nav-btn-container">
         <button onClick={() => navigate("/")}>Back</button>
