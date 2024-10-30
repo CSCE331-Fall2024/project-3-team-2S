@@ -11,7 +11,7 @@ function StartPage() {
     <div className="start-page">
       <img src={Logo} alt="Panda Express Logo" />
       <button onClick={() => navigate("/new-order")}>New Order</button>
-      <button onClick={() => getFoodItems()}>Enter Customer ID</button>
+      <button>Enter Customer ID</button>
     </div>
   )
 }
