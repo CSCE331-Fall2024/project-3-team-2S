@@ -5,18 +5,22 @@ import NewOrderPage from './pages/NewOrderPage/NewOrderPage'
 import FoodItemPage from './pages/FoodItemPage/FoodItemPage'
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage'
 import InventoryPage from './pages/manager/InventoryPage'
+import { OrderProvider } from './context/OrderContext'
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<StartPage />} />
-        <Route path="/new-order" element={<NewOrderPage />} />
-        <Route path="/food-item" element={<FoodItemPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/inventory" element={<InventoryPage />} />
-      </Routes>
-    </Router>
+    <OrderProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<StartPage />} />
+          <Route path="/new-order" element={<NewOrderPage />} />
+          <Route path="/food-item" element={<FoodItemPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/inventory" element={<InventoryPage />} />
+        </Routes>
+      </Router>
+    </OrderProvider>
+
   )
 }
 
