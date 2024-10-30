@@ -23,7 +23,7 @@ const pool = new Pool({
 
 app.get('/api/fooditems', async (req, res) => {
     try {
-      const result = await pool.query('SELECT * FROM fooditems');
+      const result = await pool.query('SELECT * FROM fooditems ORDER BY foodid');
       res.json(result.rows);
     } catch (error) {
       console.error('Error executing query:', error.stack);
@@ -32,13 +32,13 @@ app.get('/api/fooditems', async (req, res) => {
 });
 
 app.post('/api/fooditems', async (req, res) => {
-  const { foodid, name, category, calories, isgf, isvegetarian, isspicy, ispremium } = req.body;
+  const { foodid, name, category, calories, isgf, isvegetarian, isspicy, ispremium, imagesrc } = req.body;
 
   try {
     const result = await pool.query(
-      `INSERT INTO fooditems (foodid, name, category, calories, isgf, isvegetarian, isspicy, ispremium)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
-      [foodid, name, category, calories, isgf || false, isvegetarian || false, isspicy || false, ispremium || false]
+      `INSERT INTO fooditems (foodid, name, category, calories, isgf, isvegetarian, isspicy, ispremium, imagesrc)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`,
+      [foodid, name, category, calories, isgf || false, isvegetarian || false, isspicy || false, ispremium || false, imagesrc]
     );
 
     res.status(201).json({ message: 'Food item added successfully', newItem: result.rows[0] });
