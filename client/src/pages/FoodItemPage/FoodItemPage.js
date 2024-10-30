@@ -28,10 +28,13 @@ function FoodItemPage() {
           // For A La Carte: Show both sides and entrees
           filteredItems = allFoodItems.filter(item => item.category === "Side" || item.category === "Entree");
           setSelectionStep("Side or Entree");
-        } else if (menuItemType === "Appetizer" || menuItemType === "Drink") {
+        } else if (menuItemType === "Appetizer") {
           // For Appetizer and Drink: Show only appetizers
           filteredItems = allFoodItems.filter(item => item.category === "Appetizer");
           setSelectionStep("Appetizer");
+        } else if (menuItemType === "Drink") {
+          filteredItems = allFoodItems.filter(item => item.category === "Drink");
+          setSelectionStep("Drink");
         }
 
         setFoodItems(filteredItems);
