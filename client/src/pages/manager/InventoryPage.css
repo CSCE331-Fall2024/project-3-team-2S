@@ -49,6 +49,11 @@ body, html {
     transition: background-color 0.3s ease;
     margin-left: auto; 
   }
+
+  .inventory-body {
+    padding-top: 30px; /* Adjust the value as needed for your desired spacing */
+    padding-bottom: 30px;
+  }
   
   .nav-btn-container {
     display: flex;
