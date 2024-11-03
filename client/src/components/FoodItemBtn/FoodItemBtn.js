@@ -1,12 +1,16 @@
-import './FoodItemBtn.css'
+import './FoodItemBtn.css';
 
-function FoodItemBtn({ name, imgSrc }) {
+function FoodItemBtn({ name, imgSrc, isSelected, isDisabled, onClick }) {
   return (
-    <button>
-      <img src={imgSrc} />
+    <button 
+      className={`food-item-btn ${isSelected ? "selected" : ""} ${isDisabled ? "disabled" : ""}`}
+      onClick={onClick}
+      disabled={isDisabled}
+    >
+      <img src={imgSrc} alt={name} />
       <h2>{name}</h2>
     </button>
-  )
+  );
 }
 
-export default FoodItemBtn
+export default FoodItemBtn;
