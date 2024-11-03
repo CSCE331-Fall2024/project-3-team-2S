@@ -21,6 +21,7 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false },
 });
 
+// Food Items API
 app.get('/api/fooditems', async (req, res) => {
     try {
       const result = await pool.query('SELECT * FROM fooditems ORDER BY foodid');
@@ -64,6 +65,56 @@ app.delete('/api/fooditems/:foodid', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+// Inventory API
+app.get('/api/inventory', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM inventory_tb ORDER BY ingrid');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error executing query:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// app.put('/api/inventory/:ingrid', async (req, res) => { // edit
+//   const { ingrid } = req.params;
+//   const { ingredient, quantity } = req.body;
+
+//   try {
+//     const result = await pool.query(
+//       `UPDATE inventory_tb SET ingredient = $1, quantity = $2 WHERE ingrid = $3 RETURNING *`,
+//       [ingredient, quantity, ingrid]
+//     );
+
+//     if (result.rowCount === 0) {
+//       return res.status(404).json({ message: 'Inventory item not found' });
+//     }
+
+//     res.status(200).json({ message: 'Inventory item updated successfully', updatedItem: result.rows[0] });
+//   } catch (error) {
+//     console.error('Error updating inventory item:', error.stack);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// });
+
+// app.delete('/api/inventory/:ingrid', async (req, res) => { // delete
+//   const { ingrid } = req.params;
+
+//   try {
+//     const result = await pool.query('DELETE FROM inventory_tb WHERE ingrid = $1 RETURNING *', [ingrid]);
+
+//     if (result.rowCount === 0) {
+//       return res.status(404).json({ message: 'Inventory item not found' });
+//     }
+
+//     res.status(200).json({ message: 'Inventory item deleted successfully', deletedItem: result.rows[0] });
+//   } catch (error) {
+//     console.error('Error deleting inventory item:', error.stack);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// });
+
 
 // Login endpoint
 app.post('/login', async (req, res) => {
