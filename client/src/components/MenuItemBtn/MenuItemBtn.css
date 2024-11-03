@@ -1,4 +1,4 @@
-button {
+.menu-item-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,26 +15,30 @@ button {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
-}
+  }
   
-button:hover {
+  .menu-item-btn:hover {
     background-color: #c8102e;
     color: #fff;
-}
+  }
   
-button img {
+  .menu-item-btn img {
     width: 80px;
     height: 80px;
-    max-width: 100%;
-    max-height: 100%;
     object-fit: cover;
     border-radius: 50%;
     margin-bottom: 8px;
-}
+  }
   
-button h2 {
+  .menu-item-btn h2 {
+    font-size: 1.3rem;
+    margin: 0;
+    text-align: center;
+  }
+
+  .menu-item-btn h3 {
     font-size: 1rem;
     margin: 0;
     text-align: center;
-}
+  }
   
