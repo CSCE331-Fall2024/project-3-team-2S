@@ -1,7 +1,7 @@
 import './FoodItemPage.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getFoodItems } from '../../api/FoodItems';
+import { getFoodItems } from '../../api/GetFoodItems';
 import { useOrderContext } from '../../context/OrderContext';
 import Logo from "../../assets/images/logo.png";
 import FoodItemBtn from '../../components/FoodItemBtn/FoodItemBtn';
@@ -9,7 +9,7 @@ import FoodItemBtn from '../../components/FoodItemBtn/FoodItemBtn';
 function FoodItemPage() {
   const navigate = useNavigate();
 
-  const { menuItemType } = useOrderContext();
+  const { menuItemType, addToOrder } = useOrderContext();
 
   const [foodItems, setFoodItems] = useState([]);
   const [selectionStep, setSelectionStep] = useState("Side");
@@ -81,6 +81,19 @@ function FoodItemPage() {
     }
   };
 
+  const handleAddToOrder = () => {
+    const orderItem = {
+      menuItemType,
+      side: sideSelected,
+      entrees: entreesSelected,
+      appetizer: appetizerSelected,
+      alacarte: alacarteSelected,
+      drink: drinkSelected,
+    };
+    addToOrder(orderItem);
+    navigate("/new-order");
+  };
+
   const foodItemElements = foodItems.map(item => (
     <FoodItemBtn 
       key={item.foodid}
@@ -131,9 +144,15 @@ function FoodItemPage() {
       </div>
       <div className="nav-btn-container">
         <button onClick={() => navigate("/new-order")}>Back</button>
+
         {(menuItemType === "Bowl" || menuItemType === "Plate" || menuItemType === "Bigger Plate") && selectionStep === "Side" && (
           <button onClick={() => setSelectionStep("Entree")}>Next</button>
         )}
+        
+        {((menuItemType === "Bowl" || menuItemType === "Plate" || menuItemType === "Bigger Plate") && selectionStep === "Entree") ||
+          (menuItemType !== "Bowl" && menuItemType !== "Plate" && menuItemType !== "Bigger Plate") ? (
+          <button onClick={handleAddToOrder}>Add to Order</button>
+        ) : null}
       </div>
     </div>
   );
