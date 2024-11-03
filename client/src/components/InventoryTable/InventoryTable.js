@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './InventoryTable.css';
 import { getInventory } from '../../api/Inventory';
+import { tableCustomStyles } from './InventoryTableStyle.jsx';
 import DataTable from 'react-data-table-component';
+
 
 const columns = [
     {
@@ -41,12 +43,14 @@ const columns = [
     }, []);
   
     return (
-      <div>
+      <div className='inventory-table'>
         <DataTable
           columns={columns}
           data={inventoryData}
           pagination
+          striped
           progressPending={loading}
+          customStyles={tableCustomStyles}
         />
       </div>
     );
