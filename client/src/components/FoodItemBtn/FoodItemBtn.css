@@ -30,12 +30,7 @@ button img {
     object-fit: cover;
     border-radius: 50%;
     margin-bottom: 8px;
-<<<<<<< Updated upstream
 }
-=======
-    overflow: hidden;
-  }
->>>>>>> Stashed changes
   
 button h2 {
     font-size: 1rem;
