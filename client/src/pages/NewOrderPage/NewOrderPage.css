@@ -6,6 +6,13 @@ body, html {
     color: #333;
     box-sizing: border-box;
   }
+  .customer-id-display {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 1.2em;
+    color: #333;
+  }
   
   .header-container {
     display: flex;
