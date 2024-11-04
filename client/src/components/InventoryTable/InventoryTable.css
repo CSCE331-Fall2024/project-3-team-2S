@@ -4,14 +4,13 @@
     border-radius: 8px; /* Rounded edges */
     overflow: hidden; /* Ensures the border radius is applied to the content */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow */
-    border: 1px solid black; /* Black border */
+    border: 2px solid black; /* Black border */
 }
 
 .react-data-table {
     border-radius: 8px; /* Ensure the table itself has rounded corners */
 }
 
-/* Optional: If you want to adjust the table's padding */
 .dataTable {
     padding: 16px; /* Adjust padding for the table */
 }

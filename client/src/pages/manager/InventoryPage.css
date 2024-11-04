@@ -1,4 +1,4 @@
-body, html {
+  body, html {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
@@ -50,31 +50,25 @@ body, html {
     margin-left: auto; 
   }
 
-  .inventory-body {
-    padding-top: 30px; /* Adjust the value as needed for your desired spacing */
-    padding-bottom: 30px;
-  }
-  
-  .nav-btn-container {
+  .inventory-container {
     display: flex;
-    justify-content: center;
-    padding: 1rem;
+    gap: 20px; /* Adjust gap between the two panels */
+    padding: 40px; /* Optional padding around the container */
   }
-  
-  .nav-btn-container button {
-    width: 120px;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+
+  .inventory-body {
+      flex: 1; /* Adjust the size ratio */
+      padding-top: 30px;
+      padding-bottom: 30px;
   }
-  
-  .nav-btn-container button:hover {
-    background-color: #555;
+
+  .details-panel {
+      flex: 1; /* Adjust the size ratio */
+      max-width: 500px; /* Optional max width */
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border: 2px solid black;
+      padding: 20px; /* Add padding within the panel */
+      background-color: #fff; /* Background color to make it distinct */
   }
-  
