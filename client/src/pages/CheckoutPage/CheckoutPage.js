@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useOrderContext } from '../../context/OrderContext';
 import { getFoodItemFromID } from '../../api/GetFoodItemFromID';
 import CheckoutCard from '../../components/CheckoutCard/CheckoutCard';
+import { SendOrder } from '../../api/SendOrder';
 
 function CheckoutPage() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ function CheckoutPage() {
     const fetchOrderDetails = async () => {
       const details = await Promise.all(
         orders.map(async (order) => {
+          const menuItemPrice = order.price;
           const sideName = order.side ? await getFoodItemFromID(order.side) : null;
           const entreeNames = order.entrees && order.entrees.length > 0
             ? await Promise.all(order.entrees.map(entreeId => getFoodItemFromID(entreeId)))
@@ -26,6 +28,7 @@ function CheckoutPage() {
           
           return {
             menuItemType: order.menuItemType,
+            price: menuItemPrice,
             side: sideName,
             entrees: entreeNames,
             appetizer: appetizerName,
@@ -70,7 +73,7 @@ function CheckoutPage() {
                 order.alacarte,
                 order.drink
               ].filter(Boolean).join(', ')}
-              price="69.00"
+              price={(order.price).toFixed(2)}
               handleCardRemove={() => handleCardRemove(index)}
             />
           ))
@@ -78,7 +81,7 @@ function CheckoutPage() {
       </div>
       <div className="nav-btn-container">
         <button onClick={() => navigate("/new-order")}>Back</button>
-        <button>Tendered</button>
+        <button onClick={() => SendOrder(orders)}>Tendered</button>
       </div>
     </div>
   );
