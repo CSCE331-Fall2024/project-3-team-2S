@@ -7,10 +7,17 @@ body, html {
     box-sizing: border-box;
   }
   
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .header-container {
+    width: 100%;
     display: flex;
     align-items: center;
-    padding: 1rem;
+    padding: 1rem 2rem;
     background-color: #c8102e;
     color: #fff;
   }
@@ -26,31 +33,52 @@ body, html {
     font-weight: bold;
   }
   
-  .menu-item-container {
+  /* .menu-item-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
     padding: 1rem;
+  } */
+
+  .menu-item-container {
+    width: 60%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Fixed to 3 columns */
+    gap: 0.5rem; /* Minimal gap between items */
+    padding: 1.5rem;
+    justify-items: center;
   }
   
   .menu-item-container button {
-    width: 180px;
-    padding: 12px;
-    margin: 5px;
+    width: 260px;
+    height: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background-color: #fff;
     border: 2px solid #c8102e;
     color: #333;
-    border-radius: 8px;
+    border-radius: 12px;
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .menu-item-container button img {
+    width: 300px; /* Fixed width */
+    height: 180px; /* Fixed height */
+    margin-bottom: 0.5rem;
   }
   
   .menu-item-container button:hover {
     background-color: #c8102e;
     color: #fff;
+    transform: translateY(-4px); /* Slight lift effect on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
   }
   
   .nav-btn-container {
