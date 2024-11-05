@@ -1,6 +1,6 @@
 import './CheckoutCard.css';
 
-function CheckoutCard({ menuItemType, orderDetails, price, handleCardRemove }) {
+function CheckoutCard({ menuItemType, orderDetails, price, handleCardRemove, handleEditOrder }) {
 
   return (
     <div className="card-container">
@@ -14,7 +14,7 @@ function CheckoutCard({ menuItemType, orderDetails, price, handleCardRemove }) {
         </div>
       </div>
       <div className="btn-container">
-        <button>Edit</button>
+        <button onClick={handleEditOrder}>Edit</button>
         <button onClick={handleCardRemove}>Remove</button>
       </div>
     </div>
