@@ -81,9 +81,32 @@ function FoodItemPage() {
     }
   };
 
+  function calculatePrice(menuItemType) {
+    switch (menuItemType) {
+      case "Bowl":
+        return 8.30;
+      case "Plate":
+        return 9.80;
+      case "Bigger Plate":
+        return 11.30;
+      case "Appetizer":
+        return 2.00;
+      case "A La Carte":
+        return 4.00;
+      case "Drink":
+        return 1.00;
+      default:
+        return 0.00;
+    }
+  }
+
   const handleAddToOrder = () => {
+    
+    let price = calculatePrice(menuItemType);
+
     const orderItem = {
       menuItemType,
+      price: price,
       side: sideSelected,
       entrees: entreesSelected,
       appetizer: appetizerSelected,

@@ -45,6 +45,18 @@ app.get('/api/fooditems/:id', async (req, res) => {
   }
 });
 
+app.get('/api/highest-ordernum', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT MAX(ordernum) AS highest_ordernum FROM menuitems');
+    const highestOrderNum = result.rows[0].highest_ordernum;
+    console.log(highestOrderNum)
+    res.json({ highestOrderNum });
+  } catch (error) {
+    console.error("Error fetching highest order number:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.post('/api/fooditems', async (req, res) => {
   const { foodid, name, category, calories, isgf, isvegetarian, isspicy, ispremium, imagesrc } = req.body;
 
@@ -59,6 +71,35 @@ app.post('/api/fooditems', async (req, res) => {
   } catch (error) {
     console.error('Error adding food item:', error.stack);
     res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.post('/api/send-order', async (req, res) => {
+  const orders = req.body;
+  console.log(orders)
+  try {
+    await pool.query('BEGIN');
+
+    const result = await pool.query('SELECT MAX(ordernum) AS highest_ordernum FROM menuitems');
+    const nextOrderNum = result.rows[0].highest_ordernum + 1;
+
+    for (const order of orders) {
+      const { price, name, foodid1, foodid2, foodid3, foodid4 } = order;
+
+      await pool.query(
+        `INSERT INTO menuitems (ordernum, price, name, foodid1, foodid2, foodid3, foodid4)
+         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+        [nextOrderNum, price, name, foodid1, foodid2, foodid3, foodid4]
+      );
+    }
+
+    await pool.query('COMMIT');
+    res.status(201).json({ message: 'Orders added successfully' });
+
+  } catch (error) {
+    await pool.query('ROLLBACK');
+    console.error('Error inserting orders:', error);
+    res.status(500).json({ error: 'Failed to add orders' });
   }
 });
 
