@@ -63,6 +63,23 @@ app.post('/api/fooditems', async (req, res) => {
   }
 });
 
+app.post('/api/query', async (req, res) => {
+  const { sql, params } = req.body;
+
+  // Basic validation to restrict to SELECT statements
+  if (!sql.trim().toLowerCase().startsWith('select')) {
+    return res.status(400).json({ message: 'Only SELECT queries are allowed' });
+  }
+
+  try {
+    const result = await pool.query(sql, params || []);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error executing dynamic query:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 app.delete('/api/fooditems/:foodid', async (req, res) => {
   const { foodid } = req.params;
 
