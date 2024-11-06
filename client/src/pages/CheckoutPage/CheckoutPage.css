@@ -1,6 +1,7 @@
 .checkout-content {
   display: flex;
   justify-content: space-around;
+  padding: 1rem;
 }
 
 .order-container {

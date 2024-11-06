@@ -1,9 +1,7 @@
 const API_BASE_URL = 'http://localhost:3001/api';
 
 export async function SendOrder(orders) {
-  console.log(orders);
   try {
-    // Map orders to the format required by the backend, omitting ordernum
     const ordersWithFoodIds = orders.map(order => {
       let foodid1 = null, foodid2 = null, foodid3 = null, foodid4 = null;
       
