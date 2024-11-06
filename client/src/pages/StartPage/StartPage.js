@@ -2,6 +2,9 @@ import './StartPage.css';
 import Logo from '../../assets/images/logo.png';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { getFoodItemFromID } from '../../api/GetFoodItemFromID'
+
+
 
 function StartPage() {
   const navigate = useNavigate();
@@ -30,8 +33,8 @@ function StartPage() {
       />
 
       <button onClick={handleSaveCustomerId}>New Order</button>
+
     </div>
   );
 }
-
 export default StartPage;

@@ -1,4 +1,4 @@
-.food-item-btn {
+.menu-item-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,12 +17,12 @@
     transition: all 0.3s ease;
   }
   
-  .food-item-btn:hover {
+  .menu-item-btn:hover {
     background-color: #c8102e;
     color: #fff;
   }
   
-  .food-item-btn img {
+  .menu-item-btn img {
     width: 80px;
     height: 80px;
     object-fit: cover;
@@ -30,20 +30,15 @@
     margin-bottom: 8px;
   }
   
-  .food-item-btn h2 {
+  .menu-item-btn h2 {
+    font-size: 1.3rem;
+    margin: 0;
+    text-align: center;
+  }
+
+  .menu-item-btn h3 {
     font-size: 1rem;
     margin: 0;
     text-align: center;
   }
-  
-  .food-item-btn.selected {
-    border-color: #4CAF50;
-    background-color: #e6ffe6;
-  }
-  
-  .food-item-btn.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  
   
