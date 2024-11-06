@@ -2,24 +2,40 @@ import './NewOrderPage.css'
 import Logo from "../../assets/images/logo.png"
 import { useNavigate } from 'react-router-dom'
 import { useOrderContext } from '../../context/OrderContext'
+import { useEffect, useState } from 'react';
 import MenuItemBtn from '../../components/MenuItemBtn/MenuItemBtn'
 
 function NewOrderPage() {
-
   const navigate = useNavigate();
   const { setMenuItemType } = useOrderContext();
   
+  const [customerId, setCustomerId] = useState("");
+
+  useEffect(() => {
+    const storedCustomerId = localStorage.getItem("customerId");
+    if (storedCustomerId) {
+      setCustomerId(storedCustomerId);
+    }
+  }, []);
+
   const handleMenuItemSelection = (menuItemType) => {
     setMenuItemType(menuItemType);
     navigate("/food-item");
-  }
+  };
 
   return (
+
     <div class="container">
       <div class="header-container">
         <img src={Logo} />
         <h1>New Order</h1>
+        {customerId && (
+        <div className="customer-id-display">
+          Customer ID: {customerId}
+        </div>
+        )}
       </div>
+
       <div class="menu-item-container">
         <MenuItemBtn
           name="Bowl"
@@ -58,12 +74,12 @@ function NewOrderPage() {
           onClick={() => handleMenuItemSelection("Drink")}
         />
       </div>
-      <div class="nav-btn-container">
+      <div className="nav-btn-container">
         <button onClick={() => navigate("/")}>Back</button>
         <button onClick={() => navigate("/checkout")}>Checkout</button>
       </div>
     </div>
-  )
+  );
 }
 
-export default NewOrderPage
+export default NewOrderPage;
