@@ -52,19 +52,19 @@
 
   .inventory-container {
     display: flex;
-    gap: 20px; /* Adjust gap between the two panels */
-    padding: 40px; /* Optional padding around the container */
+    gap: 30px;
+    padding: 50px; /* Optional padding around the container */
   }
 
   .inventory-body {
-      flex: 1; /* Adjust the size ratio */
+      flex: 0.5; /* Adjust the size ratio */
       padding-top: 30px;
       padding-bottom: 30px;
   }
 
   .details-panel {
       flex: 1; /* Adjust the size ratio */
-      max-width: 500px; /* Optional max width */
+      max-width: 400px; /* Optional max width */
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
