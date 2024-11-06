@@ -6,6 +6,7 @@ import FoodItemPage from './pages/FoodItemPage/FoodItemPage'
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage'
 import InventoryPage from './pages/manager/InventoryPage'
 import { OrderProvider } from './context/OrderContext'
+import './App.css'
 
 function App() {
   return (

@@ -86,12 +86,4 @@ function CheckoutPage() {
   );
 }
 
-function calculateSubtotal(orders) {
-  return orders.reduce((subtotal, order) => subtotal + order.price, 0);
-}
-
-function calculateTax(orders) {
-  return parseFloat((calculateSubtotal(orders) * 0.0625).toFixed(2));
-}
-
 export default CheckoutPage;
