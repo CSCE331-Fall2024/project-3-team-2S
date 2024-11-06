@@ -14,9 +14,12 @@ body, html {
   }
 
   .top-container {
+    box-sizing: border-box;
     width: 100%;
   }
   .header-container {
+    box-sizing: border-box;
+    width: 100%;
     display: flex;
     align-items: center;
     padding: 1rem 2rem;
