@@ -1,0 +1,137 @@
+SCRUM Meeting 1 for Panda Express POS/Ordering Application
+
+Prepared by: David Higgins
+Meeting Date: 10/25/2024
+
+Meeting Attendees:
+- Johan Lanting
+- Aaditya Srinivasan
+- David Higgins
+- Timothy Wong
+
+Meeting Agenda Items:
+- Discuss general updates to the code and share progress updates
+- Assign tasks
+- Status Update Since Last Meeting
+
+Accomplishments:
+- Agree upon the fact that we are all going to be developing this project in React for the front end and Express for the backend
+- Create sketches for the GUI
+- Create tasks for the first sprint
+
+Tasks Completed:
+Task Description                    Assigned to         Completed? (yes/no)
+Create sketches                     Entire team         Yes
+Brainstorm technologies to use      Entire team         Yes
+
+Before The Next Meeting
+Plans:
+- Finish and work on tasks
+- Brainstorm ideas for implementation approaches
+
+Task Assignments:
+Task Description                                                            Assigned to
+Develop basic view for customers with page routing                          Johan Lanting
+Connected DB to frontend through Express.js                                 David Higgins
+Created view for managers and chose libraries for table visualization       Timothy Wong
+
+Minutes from Previous Meeting:
+
+    For this meeting, we met in person and was the beginning of our work for the third project. Since this meeting was the first, the previous meeting was discussing requirements for the project and what we would have to do. We briefly discussed different JS frameworks that we could possibly use, and talked about the database and how we would need to alter it to fit the new project. 
+    We came up with a few ideas for our above and beyond functionality, including having one large screen that could have multiple kiosks running on the same touchscreen but large enough for multiple people to use at the same time. We decided that our above and beyond feature should be the ability to have rewards for customers since we have already added some of the functionality in our database side of things already.
+
+
+
+
+SCRUM Meeting 2 for Panda Express POS/Ordering Application
+
+Prepared by: Timothy Wong
+Meeting Date: 10/30/2024
+
+Meeting Attendees:
+- Johan Lanting
+- Aaditya Srinivasan
+- David Higgins
+- Timothy Wong 
+
+Meeting Agenda Items:
+- Discuss general updates to the code and share progress updates
+- Share challenges encountered after sprint 1
+- Assign tasks
+
+Status Update Since Last Meeting
+Accomplishments:
+- Created a basic layout for the customer, manager, and cashier side UI of the application
+- Configured Express.js for api handling of DB
+
+Tasks Completed:
+Task Description                                                            Assigned to             Completed? (yes/no)
+Develop basic view for customers with page routing                          Johan Lanting           Yes
+Connected DB to frontend through Express.js                                 David Higgins           Yes
+Created view for managers and chose libraries for table visualization       Timothy Wong            Yes
+
+Before The Next Meeting
+Plans:
+- Implement APIs for data management 
+- Create working order details page with DB connection
+- Implement reports in manager view
+
+Task Assignments:
+Task Description                                                            Assigned to
+Attach customer order options (like entree and sides) to database           Johan Lanting
+Submit orders to DB whenever confirmed, store order info                    David Higgins
+Create pages in manager side for reports and data visualization             Timothy Wong
+
+Minutes from Previous Meeting:
+
+    In the previous meeting, we talked about the project requirements a little more in depth. We then proceeded to share what frameworks would work best for this project. We ended up going with a React frontend that would easily plug into an Express.js backend. This is because some of our group already has experience working with React, which would accelerate our progress and help us get a quick start. We decided that we would use Express.js as the backend because we had learned that it works very well with interacting with our database. 
+	We then talked about how we were going to start the approach for this project. We listed out all of the tasks that had to be done and assigned each one a priority. This priority indicates how important each task is and what order they should be completed. We then created assignments for individuals to do. This way we were all able to get started on the project and begin to create the web interface.
+
+
+
+
+
+
+SCRUM Meeting 3 for Panda Express POS/Ordering Application
+
+Prepared by: David Higgins
+Meeting Date: 11/3/2024
+
+Meeting Attendees:
+- Johan Lanting
+- Aaditya Srinivasan
+- David Higgins
+- Timothy Wong 
+
+Meeting Agenda Items:
+- Discuss updates since last meeting
+- Prepare sprint 1 presentation
+- Assign future tasks
+
+Status Update Since Last Meeting
+Accomplishments:
+- We have made significant code progress including the cart page and functionality
+- We further implemented the database so that pushing from the cart would insert into DB
+
+Tasks Completed:
+Task Description                                                        Assigned to             Completed? (yes/no)
+Attach customer order options (like entree and sides) to database       Johan Lanting           Yes
+Submit orders to DB whenever confirmed, store order info                David Higgins           Yes
+Create pages in manager side for reports and data visualization         Timothy Wong            Almost
+
+Before The Next Meeting
+Plans:
+- Clean up the front end GUI
+- Add ease of use and improve intuitivity of ordering process 
+
+Task Assignments:
+Task Description                                            Assigned to
+Create Order Confirmation Screen for cashiers               David
+Create a table with all inventory of ingredients            Timothy
+Design past orders page                                     Johan
+
+Minutes from Previous Meeting:
+    
+    We began with a general discussion on the project’s progress, covering the developments in the UI for customer and manager views. Everyone shared insights on how these layouts were structured and any adjustments needed to streamline user navigation. We also discussed how we successfully setup Express.js to handle database interactions which will allow is to connect the frontend and backend components of the application.
+    Each team member shared obstacles encountered since the last sprint, such as minor issues with routing, some trouble with the initial database integration, and confusion on how to use Postman. However, identifying these challenges allowed us to collectively address them and find solutions to them before they became bigger issues.
+    We also revisited the project roadmap, assessing which upcoming tasks should take priority to ensure steady progress. By defining each task’s significance, we created a focused approach that aligns with the project’s short-term goals.
