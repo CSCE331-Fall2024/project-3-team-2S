@@ -7,6 +7,7 @@ import CheckoutPage from './pages/Customer/CheckoutPage/CheckoutPage'
 import InventoryPage from './pages/manager/InventoryPage'
 import CashierOrderPage from './pages/Cashier/CashierOrderPage/CashierOrderPage'
 import { OrderProvider } from './context/OrderContext'
+import { CashierOrderProvider } from './context/CashierOrderContext'
 import './App.css'
 
 function App() {
@@ -22,7 +23,9 @@ function App() {
     //     </Routes>
     //   </Router>
     // </OrderProvider>
-    <CashierOrderPage />
+    <CashierOrderProvider>
+      <CashierOrderPage />
+    </CashierOrderProvider>
   )
 }
 
