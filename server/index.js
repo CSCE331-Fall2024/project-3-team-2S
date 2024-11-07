@@ -108,6 +108,35 @@ app.get('/api/inventory', async (req, res) => {
   }
 });
 
+app.post('/api/send-order', async (req, res) => {
+  const orders = req.body;
+  console.log(orders)
+  try {
+    await pool.query('BEGIN');
+
+    const result = await pool.query('SELECT MAX(ordernum) AS highest_ordernum FROM menuitems');
+    const nextOrderNum = result.rows[0].highest_ordernum + 1;
+
+    for (const order of orders) {
+      const { price, name, foodid1, foodid2, foodid3, foodid4 } = order;
+
+      await pool.query(
+        `INSERT INTO menuitems (ordernum, price, name, foodid1, foodid2, foodid3, foodid4)
+         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+        [nextOrderNum, price, name, foodid1, foodid2, foodid3, foodid4]
+      );
+    }
+
+    await pool.query('COMMIT');
+    res.status(201).json({ message: 'Orders added successfully' });
+
+  } catch (error) {
+    await pool.query('ROLLBACK');
+    console.error('Error inserting orders:', error);
+    res.status(500).json({ error: 'Failed to add orders' });
+  }
+});
+
 // app.put('/api/inventory/:ingrid', async (req, res) => { // edit
 //   const { ingrid } = req.params;
 //   const { ingredient, quantity } = req.body;
