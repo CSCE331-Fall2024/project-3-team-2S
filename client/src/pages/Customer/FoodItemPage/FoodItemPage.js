@@ -1,10 +1,10 @@
 import './FoodItemPage.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getFoodItems } from '../../api/GetFoodItems';
-import { useOrderContext } from '../../context/OrderContext';
-import Logo from "../../assets/images/logo.png";
-import FoodItemBtn from '../../components/FoodItemBtn/FoodItemBtn';
+import { getFoodItems } from '../../../api/GetFoodItems';
+import { useOrderContext } from '../../../context/OrderContext';
+import Logo from "../../../assets/images/logo.png";
+import FoodItemBtn from '../../../components/FoodItemBtn/FoodItemBtn';
 
 function FoodItemPage() {
   const navigate = useNavigate();
