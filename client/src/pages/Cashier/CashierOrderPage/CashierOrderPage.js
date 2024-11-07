@@ -1,5 +1,6 @@
 import './CashierOrderPage.css'
 import Logo from "../../../assets/images/logo.png"
+import CashierReceipt from '../../../components/CashierReceipt/CashierReceipt'
 
 function CashierOrderPage() {
 
@@ -49,7 +50,7 @@ function CashierOrderPage() {
           </div>
         </div>
         <div className="cashier-receipt-container">
-          <h1>Placeholder for receipt component</h1>
+          <CashierReceipt />
         </div>
       </div>
       <div className="cashier-order-page-bottom">

@@ -5,7 +5,7 @@ import NewOrderPage from './pages/Customer/NewOrderPage/NewOrderPage'
 import FoodItemPage from './pages/Customer/FoodItemPage/FoodItemPage'
 import CheckoutPage from './pages/Customer/CheckoutPage/CheckoutPage'
 import InventoryPage from './pages/manager/InventoryPage'
-import CashierOrderPage from './pages/Cashier/NewOrderPage/CashierOrderPage'
+import CashierOrderPage from './pages/Cashier/CashierOrderPage/CashierOrderPage'
 import { OrderProvider } from './context/OrderContext'
 import './App.css'
 
