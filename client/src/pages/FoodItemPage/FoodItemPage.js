@@ -126,9 +126,6 @@ function FoodItemPage() {
           <img src={Logo} alt="Logo" />
           <h1>New {menuItemType}</h1>
         </div>
-        <div className="progress-bar-container">
-          <h2>PLACEHOLDER FOR PROGRESS BAR ARROW</h2>
-        </div>
         <div className="food-item-type-container">
           <h3>
             {menuItemType === "A La Carte" || menuItemType === "Appetizer" || menuItemType === "Drink"
