@@ -16,6 +16,11 @@ function StartPage() {
     navigate("/new-order");
     // console.log(inputCustomerId); // This should log the input value
   };
+
+  const handleEmployeeClick = () => {
+    console.log("Employee button clicked");
+    navigate("/inventory");
+  };
   
 
   return (
@@ -33,6 +38,11 @@ function StartPage() {
       />
 
       <button onClick={handleSaveCustomerId}>New Order</button>
+
+      {/* Employee Button */}
+      <button className="employee-button" onClick={handleEmployeeClick}>
+        I'm an employee
+      </button>
 
     </div>
   );

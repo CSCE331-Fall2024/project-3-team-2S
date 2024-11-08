@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; // Add this line to import useState
 import './InventoryPage.css';
+import { useNavigate } from 'react-router-dom'; // Import for routing
 import Logo from "../../assets/images/logo.png";
 import InventoryTable from '../../components/InventoryTable/InventoryTable';
 import InventoryDetails from '../../components/InventoryDetails/InventoryDetails';
@@ -8,6 +9,8 @@ import AddIngredientPanel from '../../components/AddIngredientPanel/AddIngredien
 function InventoryPage() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [inventoryData, setInventoryData] = useState([]);
+  
+  const navigate = useNavigate(); // Initialize navigate for routing
 
   // Handle selecting an item from the table
   const handleSelectItem = (item) => {
@@ -37,13 +40,29 @@ function InventoryPage() {
     setInventoryData(prevData => [...prevData, newItem]); // Add the new item to the inventory list
   };
 
+  // Handle navigation clicks
+  const handleNavClick = (text) => {
+    console.log(text); 
+  };
+
   return (
     <div>
       <div className="header-container">
         <img src={Logo} alt="Logo" />
         <h1>Inventory</h1>
-        <button className='sign-out-button'>Sign Out</button>
+        <div className='bar'></div>
+        
+        {/* Manager Navigation */}
+        <div className='manager-nav'>
+          <span onClick={() => handleNavClick("Inventory")}>Inventory</span>
+          <span onClick={() => handleNavClick("Employees")}>Employees</span>
+          <span onClick={() => handleNavClick("Reports")}>Reports</span>
+        </div>
+
+        {/* Sign Out Button */}
+        <button className='sign-out-button' onClick={() => navigate('/')}>Sign Out</button>
       </div>
+
       <div className="inventory-container">
         <div className="inventory-body">
           <InventoryTable 
@@ -61,7 +80,9 @@ function InventoryPage() {
 
         <div className="divider"></div>
 
-        <AddIngredientPanel onItemAdd={handleNewIngredientAdd} />
+        <AddIngredientPanel 
+          onItemAdd={handleNewIngredientAdd} 
+        />
       </div>
     </div>
   );
