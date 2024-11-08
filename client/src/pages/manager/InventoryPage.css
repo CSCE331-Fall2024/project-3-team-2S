@@ -35,6 +35,12 @@
     font-weight: bold; 
     margin-right: 1rem;
   }
+  .bar {
+    border-left: 2px solid white; /* Adjust thickness and color as needed */
+    height: 50px; /* Adjust height as needed */
+    margin-left: 10px;
+    margin-right: 50px;
+  }
 
   .header-container button {
     width: 120px;
@@ -49,6 +55,39 @@
     transition: background-color 0.3s ease;
     margin-left: auto; 
   }
+
+  /* Manager Navigation */
+.manager-nav {
+  display: flex;
+  justify-content: flex-end; /* Aligns items to the right */
+  gap: 50px; /* Adds generous spacing between items */
+}
+
+.manager-nav span {
+  color: white; /* White text */
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.manager-nav span:hover {
+  opacity: 0.7; /* Slight hover effect */
+}
+
+/* Sign Out Button */
+.sign-out-button {
+  margin-left: auto;
+  padding: 10px;
+  background-color: #fff;
+  color: #333;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sign-out-button:hover {
+  background-color: #f0f0f0; /* Slight hover effect */
+}
 
   .inventory-container {
     display: flex;
