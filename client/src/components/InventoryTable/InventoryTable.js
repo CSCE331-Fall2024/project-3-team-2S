@@ -4,56 +4,61 @@ import { getInventory } from '../../api/Inventory';
 import { tableCustomStyles } from './InventoryTableStyle.jsx';
 import DataTable from 'react-data-table-component';
 
-
 const columns = [
-    {
-        name: 'Ingredient ID',
-        selector: row => row.ingrid,
-        sortable: true
-    },
-    {
-        name: 'Ingredient',
-        selector: row => row.ingredient,
-        sortable: true
-    },
-    {
-        name: 'Quantity',
-        selector: row => row.quantity,
-        sortable: true
-    },
+  {
+    name: 'Ingredient ID',
+    selector: row => row.ingrid,
+    sortable: true
+  },
+  {
+    name: 'Ingredient',
+    selector: row => row.ingredient,
+    sortable: true
+  },
+  {
+    name: 'Quantity',
+    selector: row => row.quantity,
+    sortable: true
+  },
 ];
-  
-  function InventoryTable() {
-    const [inventoryData, setInventoryData] = useState([]);
-    const [loading, setLoading] = useState(true);
-  
-    useEffect(() => {
-      const fetchInventoryData = async () => {
-        try {
-          const data = await getInventory();
-          setInventoryData(data);
-        } catch (error) {
-          console.error('Error fetching inventory:', error);
-        } finally {
-          setLoading(false);
-        }
-      };
-  
-      fetchInventoryData();
-    }, []);
-  
-    return (
-      <div className='inventory-table'>
-        <DataTable
-          columns={columns}
-          data={inventoryData}
-          pagination
-          striped
-          progressPending={loading}
-          customStyles={tableCustomStyles}
-        />
-      </div>
-    );
-  }
-  
-  export default InventoryTable;
+
+function InventoryTable({ data, setData, onSelectItem }) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchInventoryData = async () => {
+      try {
+        const fetchedData = await getInventory();
+        setData(fetchedData);
+      } catch (error) {
+        console.error('Error fetching inventory:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchInventoryData();
+  }, [setData]);
+
+  const handleRowClick = (row) => {
+    onSelectItem(row);
+  };
+
+  return (
+    <div className='inventory-table'>
+      <DataTable
+        columns={columns}
+        data={data}
+        pagination
+        striped
+        progressPending={loading}
+        customStyles={tableCustomStyles}
+        onRowClicked={handleRowClick}
+        pointerOnHover
+        highlightOnHover
+      />
+    </div>
+  );
+}
+
+export default InventoryTable;

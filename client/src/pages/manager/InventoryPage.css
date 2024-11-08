@@ -61,14 +61,37 @@
       padding-top: 30px;
       padding-bottom: 30px;
   }
+  /* Divider */
+  .divider {
+    border-left: 5px solid black; /* Adjust thickness and color as needed */
+    height: 500px; /* Adjust height as needed */
+    margin-top: 70px;
+    margin-left: 70px;
+    margin-right: 70px;
+  }
 
-  .details-panel {
-      flex: 1; /* Adjust the size ratio */
-      max-width: 400px; /* Optional max width */
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      border: 2px solid black;
-      padding: 20px; /* Add padding within the panel */
-      background-color: #fff; /* Background color to make it distinct */
+  /* Add Ingredient Section */
+  .add-ingredient-section {
+    margin-left: 100px; /* Space between divider and this section */
+  }
+
+  .add-ingredient-section h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .add-button {
+    width: 50px;
+    height: 50px;
+    background-color: #ccc; /* Grey background */
+    color: #000; /* Black + symbol */
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 8px; /* Rounded corners */
+    border: 2px solid #000; /* Black border */
+    cursor: pointer;
+  }
+
+  .add-button:hover {
+    opacity: 0.8; /* Slight hover effect */
   }
