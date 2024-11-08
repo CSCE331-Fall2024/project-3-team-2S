@@ -108,6 +108,23 @@ app.get('/api/inventory', async (req, res) => {
   }
 });
 
+// POST endpoint for adding new inventory items
+app.post('/api/inventory', async (req, res) => {
+  const { ingrid, ingredient, quantity } = req.body;
+
+  try {
+    const result = await pool.query(
+      'INSERT INTO inventory_tb (ingrid, ingredient, quantity) VALUES ($1, $2, $3) RETURNING *',
+      [ingrid, ingredient, quantity]
+    );
+
+    res.status(201).json({ message: 'Inventory item added successfully', newItem: result.rows[0] });
+  } catch (error) {
+    console.error('Error adding inventory item:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 // PUT endpoint for updating inventory items
 app.put('/api/inventory/:ingrid', async (req, res) => {
   const { ingrid } = req.params;

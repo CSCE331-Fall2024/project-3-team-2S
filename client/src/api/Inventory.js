@@ -6,6 +6,31 @@ export const getInventory = async () => {
   return data;  // Ensure this matches the expected structure
 };
 
+export async function addInventory(newItem) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/inventory`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ingrid: newItem.ingrid,
+        ingredient: newItem.ingredient,
+        quantity: newItem.quantity,
+      }),
+    });
+
+    if (response.ok) {
+      console.log(`Successfully added new item with ID: ${newItem.ingrid}`);
+      return await response.json();
+    } else {
+      console.error(`Failed to add new item. Status: ${response.status}`);
+      throw new Error(`Add failed with status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error(`Error adding inventory item: ${error.message}`);
+    throw error;
+  }
+}
+
 export async function updateInventory(item) {
   try {
     const response = await fetch(`${API_BASE_URL}/inventory/${item.ingrid}`, {
