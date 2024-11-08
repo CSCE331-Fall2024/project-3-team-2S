@@ -137,43 +137,62 @@ app.post('/api/send-order', async (req, res) => {
   }
 });
 
-// app.put('/api/inventory/:ingrid', async (req, res) => { // edit
-//   const { ingrid } = req.params;
-//   const { ingredient, quantity } = req.body;
+// POST endpoint for adding new inventory items
+app.post('/api/inventory', async (req, res) => {
+  const { ingrid, ingredient, quantity } = req.body;
 
-//   try {
-//     const result = await pool.query(
-//       `UPDATE inventory_tb SET ingredient = $1, quantity = $2 WHERE ingrid = $3 RETURNING *`,
-//       [ingredient, quantity, ingrid]
-//     );
+  try {
+    const result = await pool.query(
+      'INSERT INTO inventory_tb (ingrid, ingredient, quantity) VALUES ($1, $2, $3) RETURNING *',
+      [ingrid, ingredient, quantity]
+    );
 
-//     if (result.rowCount === 0) {
-//       return res.status(404).json({ message: 'Inventory item not found' });
-//     }
+    res.status(201).json({ message: 'Inventory item added successfully', newItem: result.rows[0] });
+  } catch (error) {
+    console.error('Error adding inventory item:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
-//     res.status(200).json({ message: 'Inventory item updated successfully', updatedItem: result.rows[0] });
-//   } catch (error) {
-//     console.error('Error updating inventory item:', error.stack);
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// });
+// PUT endpoint for updating inventory items
+app.put('/api/inventory/:ingrid', async (req, res) => {
+  const { ingrid } = req.params;
+  const { ingredient, quantity } = req.body;
 
-// app.delete('/api/inventory/:ingrid', async (req, res) => { // delete
-//   const { ingrid } = req.params;
+  try {
+    const result = await pool.query(
+      'UPDATE inventory_tb SET ingredient = $1, quantity = $2 WHERE ingrid = $3 RETURNING *',
+      [ingredient, quantity, ingrid]
+    );
 
-//   try {
-//     const result = await pool.query('DELETE FROM inventory_tb WHERE ingrid = $1 RETURNING *', [ingrid]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Inventory item not found' });
+    }
 
-//     if (result.rowCount === 0) {
-//       return res.status(404).json({ message: 'Inventory item not found' });
-//     }
+    res.json({ message: 'Inventory item updated successfully', updatedItem: result.rows[0] });
+  } catch (error) {
+    console.error('Error updating inventory item:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
-//     res.status(200).json({ message: 'Inventory item deleted successfully', deletedItem: result.rows[0] });
-//   } catch (error) {
-//     console.error('Error deleting inventory item:', error.stack);
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// });
+// DELETE endpoint for deleting inventory items
+app.delete('/api/inventory/:ingrid', async (req, res) => {
+  const { ingrid } = req.params;
+
+  try {
+    const result = await pool.query('DELETE FROM inventory_tb WHERE ingrid = $1 RETURNING *', [ingrid]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Inventory item not found' });
+    }
+
+    res.json({ message: 'Inventory item deleted successfully', deletedItem: result.rows[0] });
+  } catch (error) {
+    console.error('Error deleting inventory item:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
 // Login endpoint

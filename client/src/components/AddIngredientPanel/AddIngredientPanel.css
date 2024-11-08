@@ -1,0 +1,66 @@
+.add-ingredient-panel {
+  flex: 1; /* Adjust the size ratio */
+  max-width: 400px; /* Optional max width */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 2px solid black;
+  padding: 20px; /* Add padding within the panel */
+  background-color: #fff; /* Background color to make it distinct */
+}
+
+.add-ingredient-panel h2 {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.add-ingredient-panel div {
+  margin-bottom: 15px;
+}
+
+.add-ingredient-panel label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #495057;
+}
+
+.add-ingredient-panel input,
+.add-ingredient-panel textarea {
+  width: calc(100% - 20px); /* Subtracting padding from width */
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.add-ingredient-panel textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* Save Button */
+.add-ingredient-panel .save-button {
+  width: 120px;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.add-ingredient-panel .save-button {
+  background-color: #98FB98; /* Pastel green */
+  color: #333;
+}
+
+.add-ingredient-panel .save-button:hover {
+  opacity: 0.8;
+}
+
+/* Border for Save Button */
+.add-ingredient-panel .save-button {
+    border: 2px solid #000; /* Black border for Save button */
+}
