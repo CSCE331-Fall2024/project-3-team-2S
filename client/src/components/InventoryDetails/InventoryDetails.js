@@ -10,6 +10,7 @@ function InventoryDetails({ selectedItem, onItemUpdate, onItemDelete }) {
     const [error, setError] = useState(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showSuccessAlert, setShowSuccessAlert] = useState(false); // State for showing success alert
+    const [successMessage, setSuccessMessage] = useState(''); // Store dynamic success message
 
     useEffect(() => {
       setEditedItem(selectedItem);
@@ -34,6 +35,7 @@ function InventoryDetails({ selectedItem, onItemUpdate, onItemDelete }) {
         await updateInventory(editedItem);
         onItemUpdate(editedItem);
         setError(null);
+        setSuccessMessage(`Entry "${editedItem.ingredient}" updated successfully!`);
         setShowSuccessAlert(true); // Show success alert when save is successful
       } catch (error) {
         console.error('Error updating item:', error);
@@ -46,6 +48,8 @@ function InventoryDetails({ selectedItem, onItemUpdate, onItemDelete }) {
         await deleteInventory(editedItem.ingrid);
         onItemDelete(editedItem.ingrid);
         setError(null);
+        setSuccessMessage(`Entry "${editedItem.ingredient}" deleted successfully!`);
+        setShowSuccessAlert(true); // Show deletion alert when item is deleted
         setShowDeleteModal(false); // Close modal after deletion
       } catch (error) {
         console.error('Error deleting item:', error);
@@ -57,10 +61,10 @@ function InventoryDetails({ selectedItem, onItemUpdate, onItemDelete }) {
       <div className="details-panel">
         <h2>Item Details</h2>
         
-        {/* Show success alert when entry is updated */}
+        {/* Show success alert when entry is updated or deleted */}
         {showSuccessAlert && (
           <Alert 
-            message="Entry updated successfully!" 
+            message={successMessage} 
             onClose={() => setShowSuccessAlert(false)} 
           />
         )}
