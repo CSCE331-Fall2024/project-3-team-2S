@@ -70,7 +70,7 @@ function AddIngredientPanel({ onItemAdd }) {
       </div>
 
       <div className="button-container">
-        <button className="save-button" onClick={handleAdd}>+</button>
+        <button className="save-button" onClick={handleAdd}>Add</button>
       </div>
     </div>
   );
