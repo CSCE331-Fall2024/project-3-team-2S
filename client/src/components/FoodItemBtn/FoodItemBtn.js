@@ -1,15 +1,26 @@
+import IncDecBtn from '../IncDecBtn/IncDecBtn';
 import './FoodItemBtn.css';
 
-function FoodItemBtn({ name, imgSrc, isSelected, isDisabled, onClick }) {
+function FoodItemBtn({ id, name, imgSrc, isSelected, isDisabled, selection, selectionStep, onIncrease, onDecrease }) {
   return (
-    <button 
-      className={`food-item-btn ${isSelected ? "selected" : ""} ${isDisabled ? "disabled" : ""}`}
-      onClick={onClick}
-      disabled={isDisabled}
-    >
-      <img src={imgSrc} alt={name} />
-      <h2>{name}</h2>
-    </button>
+    <div className="food-item-btn-container">
+      <button 
+        className={`food-item-btn ${isSelected ? "selected" : ""} ${isDisabled ? "disabled" : ""}`}
+        disabled={isDisabled}
+      >
+        <h2>{name}</h2>
+        <img src={imgSrc} alt={name} />
+      </button>
+      <div className="food-item-btn-add-dec-btn-container">
+        <IncDecBtn
+          id={id}
+          onIncrease={onIncrease}
+          onDecrease={onDecrease}
+          selection={selection}
+          selectionStep={selectionStep}
+        />
+      </div>
+    </div>
   );
 }
 

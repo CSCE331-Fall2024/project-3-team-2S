@@ -12,20 +12,20 @@ import './App.css'
 
 function App() {
   return (
-    // <OrderProvider>
-    //   <Router>
-    //     <Routes>
-    //       <Route path="/" element={<StartPage />} />
-    //       <Route path="/new-order" element={<NewOrderPage />} />
-    //       <Route path="/food-item" element={<FoodItemPage />} />
-    //       <Route path="/checkout" element={<CheckoutPage />} />
-    //       <Route path="/inventory" element={<InventoryPage />} />
-    //     </Routes>
-    //   </Router>
-    // </OrderProvider>
-    <CashierOrderProvider>
-      <CashierOrderPage />
-    </CashierOrderProvider>
+    <OrderProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<StartPage />} />
+          <Route path="/new-order" element={<NewOrderPage />} />
+          <Route path="/food-item" element={<FoodItemPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/inventory" element={<InventoryPage />} />
+        </Routes>
+      </Router>
+    </OrderProvider>
+    // <CashierOrderProvider>
+    //   <CashierOrderPage />
+    // </CashierOrderProvider>
   )
 }
 
