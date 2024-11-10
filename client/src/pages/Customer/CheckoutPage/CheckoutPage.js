@@ -12,7 +12,7 @@ function CheckoutPage() {
   const { orders, removeOrder, editOrder } = useOrderContext();
 
   const [orderDetails, setOrderDetails] = useState([]);
-
+  
   useEffect(() => {
     const fetchOrderDetails = async () => {
       const details = await Promise.all(

@@ -1,0 +1,36 @@
+.inc-dec-btn-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: min-content;
+    padding: 0.5rem 1rem;
+    border-radius: 36px;
+    border: 2px solid #c8102e;
+}
+
+.inc-dec-btn {
+    height: min-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: none;
+    color: #333;
+    border-radius: 24px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid black;
+    width: 30px;
+    height: 30px;
+  }
+
+  .inc-dec-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
