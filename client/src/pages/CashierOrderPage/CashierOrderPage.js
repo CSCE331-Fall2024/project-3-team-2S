@@ -1,7 +1,7 @@
 import './CashierOrderPage.css';
-import Logo from "../../../assets/images/logo.png";
-import CashierReceipt from '../../../components/CashierReceipt/CashierReceipt';
-import { useCashierOrderContext } from '../../../context/CashierOrderContext';
+import Logo from "../../assets/images/logo.png";
+import CashierReceipt from '../../components/CashierReceipt/CashierReceipt'
+import { useCashierOrderContext } from '../../context/CashierOrderContext';
 
 function CashierOrderPage() {
   const {

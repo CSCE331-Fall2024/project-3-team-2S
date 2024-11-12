@@ -1,12 +1,12 @@
 import './CheckoutPage.css';
-import Logo from "../../../assets/images/logo.png";
+import Logo from "../../assets/images/logo.png";
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useOrderContext } from '../../../context/OrderContext';
-import { getFoodItemFromID } from '../../../api/GetFoodItemFromID';
-import CheckoutCard from '../../../components/CheckoutCard/CheckoutCard';
-import Receipt from '../../../components/Receipt/Receipt';
-import CompletedModal from '../../../components/CompletedModal/CompletedModal';
+import { useOrderContext } from '../../context/OrderContext';
+import { getFoodItemFromID } from '../../api/GetFoodItemFromID';
+import CheckoutCard from '../../components/CheckoutCard/CheckoutCard';
+import Receipt from '../../components/Receipt/Receipt';
+import CompletedModal from '../../components/CompletedModal/CompletedModal';
 
 function CheckoutPage() {
   const navigate = useNavigate();

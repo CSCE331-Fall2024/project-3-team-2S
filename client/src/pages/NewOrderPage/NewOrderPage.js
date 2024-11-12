@@ -1,8 +1,8 @@
 import './NewOrderPage.css'
-import Logo from "../../../assets/images/logo.png"
+import Logo from "../../assets/images/logo.png"
 import { useNavigate } from 'react-router-dom'
-import { useOrderContext } from '../../../context/OrderContext'
-import MenuItemBtn from '../../../components/MenuItemBtn/MenuItemBtn'
+import { useOrderContext } from '../../context/OrderContext'
+import MenuItemBtn from '../../components/MenuItemBtn/MenuItemBtn'
 
 function NewOrderPage() {
 
