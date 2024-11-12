@@ -76,15 +76,18 @@ app.post('/api/fooditems', async (req, res) => {
 
 app.post('/api/send-order', async (req, res) => {
   const orders = req.body;
-  console.log(orders)
+  console.log(orders);
+
   try {
     await pool.query('BEGIN');
 
+    // Get the next order number
     const result = await pool.query('SELECT MAX(ordernum) AS highest_ordernum FROM menuitems');
     const nextOrderNum = result.rows[0].highest_ordernum + 1;
 
-    for (const order of orders) {
-      const { price, name, foodid1, foodid2, foodid3, foodid4 } = order;
+    // Insert each order item (excluding the last one)
+    for (let i = 0; i < orders.length - 1; i++) {
+      const { price, name, foodid1, foodid2, foodid3, foodid4 } = orders[i];
 
       await pool.query(
         `INSERT INTO menuitems (ordernum, price, name, foodid1, foodid2, foodid3, foodid4)
@@ -92,6 +95,16 @@ app.post('/api/send-order', async (req, res) => {
         [nextOrderNum, price, name, foodid1, foodid2, foodid3, foodid4]
       );
     }
+
+    // Extract customer and employee information from the last item in the array
+    const { customerid, employeeid } = orders[orders.length - 1];
+
+    // Insert into orders table with timecompleted as NULL
+    await pool.query(
+      `INSERT INTO orders (ordernum, customerid, employeeid, timecompleted)
+       VALUES ($1, $2, $3, NULL)`,
+      [nextOrderNum, customerid, employeeid]
+    );
 
     await pool.query('COMMIT');
     res.status(201).json({ message: 'Orders added successfully' });
@@ -102,6 +115,7 @@ app.post('/api/send-order', async (req, res) => {
     res.status(500).json({ error: 'Failed to add orders' });
   }
 });
+
 
 app.delete('/api/fooditems/:foodid', async (req, res) => {
   const { foodid } = req.params;

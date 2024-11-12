@@ -44,6 +44,12 @@ export async function SendOrder(orders) {
       };
     });
 
+    // Last element in ordersWithFoodIds will contain data about customerid and employeeid
+    ordersWithFoodIds.push({
+      customerid: 1,
+      employeeid: 1
+    });
+
     console.log(ordersWithFoodIds);
 
     const postResponse = await fetch(`${API_BASE_URL}/send-order`, {

@@ -20,8 +20,6 @@ function FoodItemPage() {
     drink: null,
   });
 
-  console.log(selection)
-
   const entreeLimit = menuItemType === "Bowl" ? 1 : menuItemType === "Plate" ? 2 : menuItemType === "Bigger Plate" ? 3 : 0;
 
   useEffect(() => {
@@ -33,7 +31,8 @@ function FoodItemPage() {
         if (menuItemType === "Bowl" || menuItemType === "Plate" || menuItemType === "Bigger Plate") {
           filteredItems = allFoodItems.filter(item => item.category === selectionStep);
         } else if (menuItemType === "A La Carte") {
-          filteredItems = allFoodItems.filter(item => item.category === "Side" || item.category === "Entree");
+          filteredItems = allFoodItems.filter(item => item.category === "Side");
+          filteredItems.push(...allFoodItems.filter(item => item.category === "Entree"));
           setSelectionStep("Side or Entree");
         } else if (menuItemType === "Appetizer") {
           filteredItems = allFoodItems.filter(item => item.category === "Appetizer");
