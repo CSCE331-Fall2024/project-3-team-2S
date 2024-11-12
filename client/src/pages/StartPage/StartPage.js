@@ -4,24 +4,25 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { getFoodItemFromID } from '../../api/GetFoodItemFromID'
 
-
-
 function StartPage() {
   const navigate = useNavigate();
   const [inputCustomerId, setInputCustomerId] = useState("");
 
   const handleSaveCustomerId = () => {
-    // console.log("Button clicked"); // Check if the function is triggered
     localStorage.setItem("customerId", inputCustomerId);
     navigate("/new-order");
-    // console.log(inputCustomerId); // This should log the input value
   };
 
   const handleEmployeeClick = () => {
     console.log("Employee button clicked");
     navigate("/inventory");
   };
-  
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSaveCustomerId();
+    }
+  };
 
   return (
     <div className="start-page">
@@ -31,9 +32,11 @@ function StartPage() {
         type="text"
         placeholder="Enter Customer ID"
         value={inputCustomerId}
-        onChange={(e) => {
-          setInputCustomerId(e.target.value);
-          // console.log("Input changed:", e.target.value); // Verify input updates
+        onChange={(e) => setInputCustomerId(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleSaveCustomerId();
+          }
         }}
       />
 
@@ -47,4 +50,5 @@ function StartPage() {
     </div>
   );
 }
+
 export default StartPage;
