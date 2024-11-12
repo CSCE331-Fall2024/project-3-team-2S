@@ -5,7 +5,9 @@ import NewOrderPage from './pages/NewOrderPage/NewOrderPage'
 import FoodItemPage from './pages/FoodItemPage/FoodItemPage'
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage'
 import InventoryPage from './pages/manager/InventoryPage'
+import CashierOrderPage from './pages/CashierOrderPage/CashierOrderPage'
 import { OrderProvider } from './context/OrderContext'
+import { CashierOrderProvider } from './context/CashierOrderContext'
 import './App.css'
 
 function App() {
@@ -21,7 +23,9 @@ function App() {
         </Routes>
       </Router>
     </OrderProvider>
-
+    // <CashierOrderProvider>
+    //   <CashierOrderPage />
+    // </CashierOrderProvider>
   )
 }
 

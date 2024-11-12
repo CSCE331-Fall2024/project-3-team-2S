@@ -24,10 +24,9 @@ function NewOrderPage() {
   };
 
   return (
-
-    <div class="container">
-      <div class="header-container">
-        <img src={Logo} />
+    <div className="container">
+      <div className="header-container">
+        <img src={Logo} alt="Logo" />
         <h1>New Order</h1>
         {customerId && (
         <div className="customer-id-display">
@@ -35,8 +34,7 @@ function NewOrderPage() {
         </div>
         )}
       </div>
-
-      <div class="menu-item-container">
+      <div className="menu-item-container">
         <MenuItemBtn
           name="Bowl"
           imgSrc="https://olo-images-live.imgix.net/72/7288570f72a54140a41afdcfbd0e8980.png?auto=format%2Ccompress&q=60&cs=tinysrgb&w=716&h=474&fit=crop&fm=png32&s=5c543defe38946e36a8694d0b149fda4"

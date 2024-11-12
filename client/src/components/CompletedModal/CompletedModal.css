@@ -1,0 +1,51 @@
+.completed-modal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #ffffff;
+  border: 2px solid #c8102e;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  margin: 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #333;
+  text-align: center;
+}
+
+.completed-modal-text-container {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #c8102e;
+}
+
+.completed-modal-btn-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.completed-modal-btn-container button {
+  padding: 10px 20px;
+  background-color: #c8102e;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.completed-modal-btn-container button:hover {
+  background-color: #a80c25;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
