@@ -1,7 +1,7 @@
 import './StartPage.css'
-import Logo from '../../../assets/images/logo.png'
+import Logo from '../../assets/images/logo.png'
 import { useNavigate } from 'react-router-dom'
-import { getFoodItemFromID } from '../../../api/GetFoodItemFromID'
+import { getFoodItemFromID } from '../../api/GetFoodItemFromID'
 
 function StartPage() {
 
