@@ -134,6 +134,23 @@ function FoodItemPage() {
     addToOrder(orderItem);
   };
 
+  function getCountBasedOnSelection(id) {
+    switch (selectionStep) {
+      case "Entree":
+        return selection.entrees.filter(foodid => foodid === id).length;
+      case "Side":
+        return selection.side === id ? 1 : 0;
+      case "Appetizer":
+        return selection.appetizer === id ? 1 : 0;
+      case "Side or Entree":
+        return selection.alacarte === id ? 1 : 0;
+      case "Drink":
+        return selection.drink === id ? 1 : 0;
+      default:
+        return 0;
+    }
+  }
+
   function calculatePrice(menuItemType) {
     switch (menuItemType) {
       case "Bowl":
@@ -156,7 +173,6 @@ function FoodItemPage() {
   const foodItemElements = foodItems.map(item => (
     <FoodItemBtn 
       key={item.foodid}
-      id={item.foodid}
       name={item.name}
       imgSrc={item.imagesrc}
       isSelected={
@@ -173,8 +189,8 @@ function FoodItemPage() {
         (selectionStep === "Drink" && selection.drink && item.foodid !== selection.drink) ||
         (selectionStep === "Entree" && selection.entrees.length >= entreeLimit && !selection.entrees.includes(item.foodid))
       }
-      selection={selection}
       selectionStep={selectionStep}
+      amount={getCountBasedOnSelection(item.foodid)}
       onIncrease={() => handleIncrease(item.foodid, item.category)}
       onDecrease={() => handleDecrease(item.foodid, item.category)}
     />

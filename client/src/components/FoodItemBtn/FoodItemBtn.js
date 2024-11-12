@@ -1,7 +1,7 @@
 import IncDecBtn from '../IncDecBtn/IncDecBtn';
 import './FoodItemBtn.css';
 
-function FoodItemBtn({ id, name, imgSrc, isSelected, isDisabled, selection, selectionStep, onIncrease, onDecrease }) {
+function FoodItemBtn({ name, imgSrc, isSelected, isDisabled, selectionStep, amount, onIncrease, onDecrease }) {
   return (
     <div className="food-item-btn-container">
       <button 
@@ -13,11 +13,10 @@ function FoodItemBtn({ id, name, imgSrc, isSelected, isDisabled, selection, sele
       </button>
       <div className="food-item-btn-add-dec-btn-container">
         <IncDecBtn
-          id={id}
           onIncrease={onIncrease}
           onDecrease={onDecrease}
-          selection={selection}
           selectionStep={selectionStep}
+          amount={amount}
         />
       </div>
     </div>
