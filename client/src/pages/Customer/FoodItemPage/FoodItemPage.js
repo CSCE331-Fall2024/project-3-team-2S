@@ -216,7 +216,15 @@ function FoodItemPage() {
         {foodItemElements}
       </div>
       <div className="nav-btn-container">
-        <button onClick={() => navigate("/new-order")}>Back</button>
+          <button onClick={() => {
+          if (selectionStep === "Entree") {
+            setSelectionStep("Side");
+          } else {
+            navigate("/new-order");
+          }
+        }}>
+          Back
+        </button>
 
         {(menuItemType === "Bowl" || menuItemType === "Plate" || menuItemType === "Bigger Plate") && selectionStep === "Side" && (
           <button onClick={() => setSelectionStep("Entree")}>Next</button>
