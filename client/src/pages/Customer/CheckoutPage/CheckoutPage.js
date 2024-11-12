@@ -6,13 +6,15 @@ import { useOrderContext } from '../../../context/OrderContext';
 import { getFoodItemFromID } from '../../../api/GetFoodItemFromID';
 import CheckoutCard from '../../../components/CheckoutCard/CheckoutCard';
 import Receipt from '../../../components/Receipt/Receipt';
+import CompletedModal from '../../../components/CompletedModal/CompletedModal';
 
 function CheckoutPage() {
   const navigate = useNavigate();
-  const { orders, removeOrder, editOrder } = useOrderContext();
+  const { orders, removeOrder, editOrder, clearOrder } = useOrderContext();
 
   const [orderDetails, setOrderDetails] = useState([]);
-  
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   useEffect(() => {
     const fetchOrderDetails = async () => {
       const details = await Promise.all(
@@ -42,45 +44,63 @@ function CheckoutPage() {
     }
   }, [orders]);
 
+  const handlePlaceOrder = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+    clearOrder();
+    navigate("/");
+  };
+
   return (
     <div>
-      <div className="header-container">
-        <img src={Logo} alt="Logo" />
-        <h1>Checkout</h1>
-      </div>
-      <div className="checkout-content">
-        <div className="order-container">
-          {orderDetails.length === 0 ? (
-            <h3>No items in your order.</h3>
-          ) : (
-            orderDetails.map((order, index) => (
-              <CheckoutCard
-                key={index}
-                menuItemType={order.menuItemType}
-                orderDetails={[
-                  order.side,
-                  ...(order.entrees || []),
-                  order.appetizer,
-                  order.alacarte,
-                  order.drink
-                ].filter(Boolean).join(', ')}
-                price={(order.price).toFixed(2)}
-                handleCardRemove={() => removeOrder(index)}
-                handleEditOrder={() => {
-                  editOrder(index);
-                  navigate("/food-item");
-                }}
-              />
-            ))
-          )}
+      <div className={`overlay ${isModalVisible ? 'overlay-active' : ''}`} />
+      <div className={`content ${isModalVisible ? 'blurred' : ''}`}>
+        <div className="header-container">
+          <img src={Logo} alt="Logo" />
+          <h1>Checkout</h1>
         </div>
-        <div className="receipt-container">
-          <Receipt orders={orders} />
+        <div className="checkout-content">
+          <div className="order-container">
+            {orderDetails.length === 0 ? (
+              <h3>No items in your order.</h3>
+            ) : (
+              orderDetails.map((order, index) => (
+                <CheckoutCard
+                  key={index}
+                  menuItemType={order.menuItemType}
+                  orderDetails={[
+                    order.side,
+                    ...(order.entrees || []),
+                    order.appetizer,
+                    order.alacarte,
+                    order.drink
+                  ].filter(Boolean).join(', ')}
+                  price={(order.price).toFixed(2)}
+                  handleCardRemove={() => removeOrder(index)}
+                  handleEditOrder={() => {
+                    editOrder(index);
+                    navigate("/food-item");
+                  }}
+                />
+              ))
+            )}
+          </div>
+          <div className="receipt-container">
+            <Receipt orders={orders} onPlaceOrder={handlePlaceOrder} />
+          </div>
+        </div>
+        <div className="nav-btn-container">
+          <button onClick={() => navigate("/new-order")}>Back</button>
         </div>
       </div>
-      <div className="nav-btn-container">
-        <button onClick={() => navigate("/new-order")}>Back</button>
-      </div>
+      {isModalVisible && (
+        <div className="modal-container">
+          <CompletedModal onClose={handleCloseModal} />
+        </div>
+      )}
     </div>
   );
 }

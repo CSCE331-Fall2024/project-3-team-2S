@@ -33,7 +33,10 @@ export const OrderProvider = ({ children }) => {
   };
 
   const clearOrder = () => {
+    setMenuItemType("Bowl");
     setOrders([]);
+    setEditOrderIndex(null);
+    setCurrentEditOrder(null);
   };
 
   return (
