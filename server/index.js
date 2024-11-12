@@ -45,18 +45,6 @@ app.get('/api/fooditems/:id', async (req, res) => {
   }
 });
 
-app.get('/api/highest-ordernum', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT MAX(ordernum) AS highest_ordernum FROM menuitems');
-    const highestOrderNum = result.rows[0].highest_ordernum;
-    console.log(highestOrderNum)
-    res.json({ highestOrderNum });
-  } catch (error) {
-    console.error("Error fetching highest order number:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
 app.post('/api/fooditems', async (req, res) => {
   const { foodid, name, category, calories, isgf, isvegetarian, isspicy, ispremium, imagesrc } = req.body;
 
