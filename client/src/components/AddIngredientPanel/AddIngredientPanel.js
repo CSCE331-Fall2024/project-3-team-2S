@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './AddIngredientPanel.css';
-import { addInventory } from '../../api/Inventory'; // Assuming you have this API function
+import { addInventory } from '../../api/Inventory'; 
 import Alert from '../Alert/Alert'; // Import Alert component
 
 function AddIngredientPanel({ onItemAdd }) {
