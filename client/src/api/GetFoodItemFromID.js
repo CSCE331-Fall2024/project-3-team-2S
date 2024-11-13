@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = 'https://project-3-team-2-s-client.vercel.app/api';
 
 export async function getFoodItemFromID(foodID) {
   try {
