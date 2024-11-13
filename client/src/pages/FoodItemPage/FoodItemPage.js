@@ -5,8 +5,14 @@ import { getFoodItems } from '../../api/GetFoodItems';
 import { useOrderContext } from '../../context/OrderContext';
 import Logo from "../../assets/images/logo.png";
 import FoodItemBtn from '../../components/FoodItemBtn/FoodItemBtn';
+import Chevron from '../../components/Chevron/Chevron';
 
 function FoodItemPage() {
+
+  const [currentStep, setCurrentStep] = useState(1); // State to hold current step
+  const totalSteps = 2;
+  // const imageUrls = ['url1', 'url2', 'url3', 'url4', 'url5'];
+
   const navigate = useNavigate();
   const { menuItemType, addToOrder, currentEditOrder } = useOrderContext();
 
@@ -65,7 +71,16 @@ function FoodItemPage() {
     }
   }, [currentEditOrder, menuItemType]);
 
+  const updateStep = (newStep) => {
+    console.log("Setting step to " + newStep);
+    if (newStep >= 1 && newStep <= totalSteps) {
+      setCurrentStep(newStep); // Update the current step
+    }
+  };
+
   const handleSelect = (foodid, category) => {
+    console.log("Handling select");
+    updateStep((currentStep + 1))
     if (menuItemType === "A La Carte" && (category === "Side" || category === "Entree")) {
       setAlacarteSelected(alacarteSelected === foodid ? null : foodid);
     } else if (selectionStep === "Side" && ["Bowl", "Plate", "Bigger Plate"].includes(menuItemType) && category === "Side") {
@@ -140,6 +155,10 @@ function FoodItemPage() {
     />
   ));
 
+  const imageUrls = [
+    "https://olo-images-live.imgix.net/72/7288570f72a54140a41afdcfbd0e8980.png?auto=format%2Ccompress&q=60&cs=tinysrgb&w=716&h=474&fit=crop&fm=png32&s=5c543defe38946e36a8694d0b149fda4"
+  ];
+
   console.log(sideSelected, entreesSelected, appetizerSelected, alacarteSelected, drinkSelected);
 
   return (
@@ -148,8 +167,20 @@ function FoodItemPage() {
         <div className="header-container">
           <img src={Logo} alt="Logo" />
           <h1>{currentEditOrder ? "Edit" : "New"} {menuItemType}</h1>
+          <div className="chevron-tier"> {/* Add the chevron-tier div */}
+            <Chevron
+              totalSteps={totalSteps}
+              currentStep={currentStep}
+              updateStep={updateStep} // Pass the updateStep function
+              imageUrls={imageUrls} 
+            />
+          </div>
         </div>
+
+        {/* <div className="order-chevron-div">
+        </div> */}
         <div className="food-item-type-container">
+
           <h3>
             {menuItemType === "A La Carte" || menuItemType === "Appetizer" || menuItemType === "Drink"
               ? `Select ${selectionStep}`
