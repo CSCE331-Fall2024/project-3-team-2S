@@ -1,9 +1,9 @@
 import './FoodItemBtn.css';
 
-function FoodItemBtn({ name, imgSrc, isSelected, isDisabled, onClick }) {
+function FoodItemBtn({ name, imgSrc, isDisabled, onClick }) {
   return (
     <button 
-      className={`food-item-btn ${isSelected ? "selected" : ""} ${isDisabled ? "disabled" : ""}`}
+      className={`food-item-btn ${isDisabled ? "disabled" : ""}`}
       onClick={onClick}
       disabled={isDisabled}
     >

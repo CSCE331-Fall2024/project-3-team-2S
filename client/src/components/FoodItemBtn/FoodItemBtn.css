@@ -36,10 +36,10 @@
     text-align: center;
   }
   
-  .food-item-btn.selected {
+  /* .food-item-btn.selected {
     border-color: #4CAF50;
     background-color: #e6ffe6;
-  }
+  } */
   
   .food-item-btn.disabled {
     opacity: 0.5;

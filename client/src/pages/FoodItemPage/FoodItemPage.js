@@ -9,9 +9,8 @@ import Chevron from '../../components/Chevron/Chevron';
 
 function FoodItemPage() {
 
-  const [currentStep, setCurrentStep] = useState(1); // State to hold current step
-  const totalSteps = 2;
-  // const imageUrls = ['url1', 'url2', 'url3', 'url4', 'url5'];
+  const [totalSteps, setTotalSteps] = useState(0);
+  const [imageUrls, setImageUrls] = useState([ ]);
 
   const navigate = useNavigate();
   const { menuItemType, addToOrder, currentEditOrder } = useOrderContext();
@@ -26,22 +25,59 @@ function FoodItemPage() {
 
   const entreeLimit = menuItemType === "Bowl" ? 1 : menuItemType === "Plate" ? 2 : menuItemType === "Bigger Plate" ? 3 : 0;
 
+    
+  const updateTotalSteps = (newTotal) => {
+    setTotalSteps(newTotal);
+    console.log("updating total steps");
+  };
+
+  const appendImageUrl = (newUrl) => {
+    console.log("APPENDING URL " + newUrl);
+    setImageUrls((prevUrls) => [...prevUrls, newUrl]);
+  };
+
+  const removeLastItem = () => {
+    setImageUrls((prevUrls) => prevUrls.slice(0, -1));
+    if (entreesSelected.length > 0) {
+      setEntreesSelected((entreesSelected) => entreesSelected.slice(0, -1));
+    } else {
+      setSideSelected(null);
+      setEntreesSelected([]);
+      setAppetizerSelected(null);
+      setAlacarteSelected(null);
+      setDrinkSelected(null);
+
+    }
+    console.log("new standings, side = " + sideSelected + "    and the entrees are = " + entreesSelected.join(', '));
+  };
+
+  const clearImageUrls = () => {
+    setImageUrls([]);
+  };
+
+
   useEffect(() => {
     const fetchFoodItems = async () => {
       try {
         const allFoodItems = await getFoodItems();
         let filteredItems;
+        if(menuItemType === "Bowl") updateTotalSteps(2);
+        if(menuItemType === "Plate") updateTotalSteps(3);
+        if(menuItemType === "Bigger Plate") updateTotalSteps(4);
 
         if (menuItemType === "Bowl" || menuItemType === "Plate" || menuItemType === "Bigger Plate") {
           filteredItems = allFoodItems.filter(item => item.category === selectionStep);
         } else if (menuItemType === "A La Carte") {
+          updateTotalSteps(0);
           filteredItems = allFoodItems.filter(item => item.category === "Side");
           filteredItems.push(...allFoodItems.filter(item => item.category === "Entree"));
           setSelectionStep("Side or Entree");
         } else if (menuItemType === "Appetizer") {
+          updateTotalSteps(0);
           filteredItems = allFoodItems.filter(item => item.category === "Appetizer");
           setSelectionStep("Appetizer");
         } else if (menuItemType === "Drink") {
+          updateTotalSteps(0);
           filteredItems = allFoodItems.filter(item => item.category === "Drink");
           setSelectionStep("Drink");
         }
@@ -71,30 +107,52 @@ function FoodItemPage() {
     }
   }, [currentEditOrder, menuItemType]);
 
-  const updateStep = (newStep) => {
-    console.log("Setting step to " + newStep);
-    if (newStep >= 1 && newStep <= totalSteps) {
-      setCurrentStep(newStep); // Update the current step
-    }
-  };
+  // const updateStep = (newStep) => {
+  //   console.log("Setting step to " + newStep);
+  //   if (newStep >= 1 && newStep <= totalSteps) {
+  //     setCurrentStep(newStep); // Update the current step
+  //   }
+  // };
 
-  const handleSelect = (foodid, category) => {
-    console.log("Handling select");
-    updateStep((currentStep + 1))
-    if (menuItemType === "A La Carte" && (category === "Side" || category === "Entree")) {
-      setAlacarteSelected(alacarteSelected === foodid ? null : foodid);
-    } else if (selectionStep === "Side" && ["Bowl", "Plate", "Bigger Plate"].includes(menuItemType) && category === "Side") {
-      setSideSelected(sideSelected === foodid ? null : foodid);
-    } else if (menuItemType === "Appetizer" && category === "Appetizer") {
-      setAppetizerSelected(appetizerSelected === foodid ? null : foodid);
-    } else if (menuItemType === "Drink" && category === "Drink") {
-      setDrinkSelected(drinkSelected === foodid ? null : foodid);
-    } else if (selectionStep === "Entree" && category === "Entree") {
-      if (!entreesSelected.includes(foodid) && entreesSelected.length < entreeLimit) {
-        setEntreesSelected([...entreesSelected, foodid]);
-      } else if (entreesSelected.includes(foodid)) {
-        setEntreesSelected(entreesSelected.filter(id => id !== foodid));
+  const handleBack = (chevronLevel, menuItem) => {
+    if (chevronLevel === 1 && (menuItem === "Bowl" || menuItem === "Plate" || menuItem === "Bigger Plate")) {
+      setSelectionStep("Side");
+    }
+    if (chevronLevel === 0) {
+      navigate("/new-order");
+    } else {
+      removeLastItem();
+    }
+  }
+
+  const handleSelect = (foodid, category, src) => {
+    if(imageUrls.length < totalSteps || (menuItemType === "Appetizer" && appetizerSelected === null) || (menuItemType === "A La Carte" && alacarteSelected === null) || (menuItemType === "Drink" && drinkSelected === null)) {
+      appendImageUrl(src);
+      if (selectionStep === "Side") {
+        setSelectionStep("Entree");
       }
+      if (menuItemType === "A La Carte" && (category === "Side" || category === "Entree")) {
+        // setAlacarteSelected(alacarteSelected === foodid ? null : foodid);
+        setAlacarteSelected(foodid);
+      } else if (selectionStep === "Side" && ["Bowl", "Plate", "Bigger Plate"].includes(menuItemType) && category === "Side") {
+        // setSideSelected(sideSelected === foodid ? null : foodid);
+        setSideSelected(foodid);
+      } else if (menuItemType === "Appetizer" && category === "Appetizer") {
+        // setAppetizerSelected(appetizerSelected === foodid ? null : foodid);
+        setAppetizerSelected(foodid);
+      } else if (menuItemType === "Drink" && category === "Drink") {
+        // setDrinkSelected(drinkSelected === foodid ? null : foodid);
+        setDrinkSelected(foodid);
+      } else if (selectionStep === "Entree" && category === "Entree") {
+        if (entreesSelected.length < entreeLimit) {
+          setEntreesSelected([...entreesSelected, foodid]);
+        // } else if (entreesSelected.includes(foodid)) {
+        //   setEntreesSelected(entreesSelected.filter(id => id !== foodid));
+        }
+      }
+      console.log("new standings, side = " + sideSelected + "    and the entrees are = " + entreesSelected.join(', '));
+    } else {
+      console.log("Order is full");
     }
   };
 
@@ -137,27 +195,26 @@ function FoodItemPage() {
       key={item.foodid}
       name={item.name}
       imgSrc={item.imagesrc}
-      isSelected={
-        item.foodid === sideSelected || 
+      // isSelected={
+      //   item.foodid === sideSelected || 
+      //   item.foodid === appetizerSelected || 
+      //   item.foodid === alacarteSelected || 
+      //   item.foodid === drinkSelected ||
+      //   entreesSelected.includes(item.foodid)
+      // }
+      isDisabled={
+        !(item.foodid === sideSelected || 
         item.foodid === appetizerSelected || 
         item.foodid === alacarteSelected || 
         item.foodid === drinkSelected ||
-        entreesSelected.includes(item.foodid)
+        entreesSelected.includes(item.foodid)) && 
+        (imageUrls.length === totalSteps)
+        // (selectionStep === "Entree" && entreesSelected.length >= entreeLimit && !entreesSelected.includes(item.foodid))
       }
-      isDisabled={
-        (selectionStep === "Side" && sideSelected && item.foodid !== sideSelected) ||
-        (selectionStep === "Appetizer" && appetizerSelected && item.foodid !== appetizerSelected) ||
-        (selectionStep === "Side or Entree" && alacarteSelected && item.foodid !== alacarteSelected) ||
-        (selectionStep === "Drink" && drinkSelected && item.foodid !== drinkSelected) ||
-        (selectionStep === "Entree" && entreesSelected.length >= entreeLimit && !entreesSelected.includes(item.foodid))
-      }
-      onClick={() => handleSelect(item.foodid, item.category)}
+      onClick={() => handleSelect(item.foodid, item.category, item.imagesrc)}
     />
   ));
 
-  const imageUrls = [
-    "https://olo-images-live.imgix.net/72/7288570f72a54140a41afdcfbd0e8980.png?auto=format%2Ccompress&q=60&cs=tinysrgb&w=716&h=474&fit=crop&fm=png32&s=5c543defe38946e36a8694d0b149fda4"
-  ];
 
   console.log(sideSelected, entreesSelected, appetizerSelected, alacarteSelected, drinkSelected);
 
@@ -170,8 +227,8 @@ function FoodItemPage() {
           <div className="chevron-tier"> {/* Add the chevron-tier div */}
             <Chevron
               totalSteps={totalSteps}
-              currentStep={currentStep}
-              updateStep={updateStep} // Pass the updateStep function
+              // currentStep={currentStep}
+              // updateStep={updateStep} // Pass the updateStep function
               imageUrls={imageUrls} 
             />
           </div>
@@ -194,14 +251,14 @@ function FoodItemPage() {
         {foodItemElements}
       </div>
       <div className="nav-btn-container">
-        <button onClick={() => navigate("/new-order")}>Back</button>
+        {/* <button onClick={() => navigate("/new-order")}>Back</button> */}
+        <button onClick={() => handleBack(imageUrls.length, menuItemType)}>Back</button>
 
-        {(menuItemType === "Bowl" || menuItemType === "Plate" || menuItemType === "Bigger Plate") && selectionStep === "Side" && (
+        {/* {(menuItemType === "Bowl" || menuItemType === "Plate" || menuItemType === "Bigger Plate") && selectionStep === "Side" && (
           <button onClick={() => setSelectionStep("Entree")}>Next</button>
-        )}
+        )} */}
         
-        {((menuItemType === "Bowl" || menuItemType === "Plate" || menuItemType === "Bigger Plate") && selectionStep === "Entree") ||
-          (menuItemType !== "Bowl" && menuItemType !== "Plate" && menuItemType !== "Bigger Plate") ? (
+        {((totalSteps === imageUrls.length && totalSteps > 0 || drinkSelected !== null || alacarteSelected !== null || appetizerSelected !== null) ) ? (
           <button onClick={handleAddToOrder}>{currentEditOrder ? "Update Order" : "Add to Order"}</button>
         ) : null}
       </div>
