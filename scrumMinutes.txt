@@ -135,3 +135,45 @@ Minutes from Previous Meeting:
     We began with a general discussion on the project’s progress, covering the developments in the UI for customer and manager views. Everyone shared insights on how these layouts were structured and any adjustments needed to streamline user navigation. We also discussed how we successfully setup Express.js to handle database interactions which will allow is to connect the frontend and backend components of the application.
     Each team member shared obstacles encountered since the last sprint, such as minor issues with routing, some trouble with the initial database integration, and confusion on how to use Postman. However, identifying these challenges allowed us to collectively address them and find solutions to them before they became bigger issues.
     We also revisited the project roadmap, assessing which upcoming tasks should take priority to ensure steady progress. By defining each task’s significance, we created a focused approach that aligns with the project’s short-term goals.
+
+
+
+SCRUM Meeting 3 for Panda Express POS/Ordering Application
+
+Prepared by: David Higgins
+Meeting Date: 11/13/2024
+
+Meeting Attendees:
+- Johan Lanting
+- Aaditya Srinivasan
+- David Higgins
+- Timothy Wong 
+
+Meeting Agenda Items:
+- Discuss updates since last meeting
+- Discuss deployment plans
+
+Status Update Since Last Meeting
+Accomplishments:
+- We have had two attempts on the updates to the UI organization to make ordering more intuitive
+- We have improved the logic on how the program communicates with the DB
+
+Tasks Completed:
+Task Description                                                        Assigned to             Completed? (yes/no)
+Revamp the front end to make sure that ordering is intuitive            Johan and David         Yes
+Create pages in manager side for reports and data visualization         Timothy Wong            Yes
+
+Before The Next Meeting
+Plans:
+- Deploy on Vercel
+- Merge David and Johan's updates to the GUI
+
+Task Assignments:
+Task Description                                            Assigned to
+Merge the GUI challenges                                    David
+Work on adding the additional APIs that are required        Timothy
+Deploy the website to be available publicly                 Johan
+
+Minutes from Previous Meeting:
+    
+    We discussed what our plans are moving forward and what changes we need to be making to our prgram as we go along. We brainstormed how to implement the additional APIs and drafted ideas on how to add them into the manager GUI. We discussed our development plans for the week and distributed sprint tasks for each person to work on before the next meeting
