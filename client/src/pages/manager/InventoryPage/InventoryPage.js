@@ -1,14 +1,15 @@
 import React, { useState } from 'react'; // Add this line to import useState
 import './InventoryPage.css';
 import { useNavigate } from 'react-router-dom'; // Import for routing
-import Logo from "../../assets/images/logo.png";
-import InventoryTable from '../../components/InventoryTable/InventoryTable';
-import InventoryDetails from '../../components/InventoryDetails/InventoryDetails';
-import AddIngredientPanel from '../../components/AddIngredientPanel/AddIngredientPanel'; // Import the new component
+import Logo from "../../../assets/images/logo.png";
+import InventoryTable from '../../../components/InventoryTable/InventoryTable';
+import InventoryDetails from '../../../components/InventoryDetails/InventoryDetails';
+import AddIngredientPanel from '../../../components/AddIngredientPanel/AddIngredientPanel'; // Import the new component
 
 function InventoryPage() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [inventoryData, setInventoryData] = useState([]);
+  const [activePage, setActivePage] = useState("Inventory"); // Track the active page
   
   const navigate = useNavigate(); // Initialize navigate for routing
 
@@ -42,21 +43,42 @@ function InventoryPage() {
 
   // Handle navigation clicks
   const handleNavClick = (text) => {
-    console.log(text); 
+    if (text === "Inventory") {
+      navigate("/inventory"); // Navigate to Inventory page
+    } else if (text === "Employees") {
+      navigate("/employees"); // Navigate to Employee page
+    } else if (text === "Reports") {
+      navigate("/reports"); // Navigate to Reports page
+    }
   };
 
   return (
     <div>
       <div className="header-container">
         <img src={Logo} alt="Logo" />
-        <h1>Inventory</h1>
+        <h1>Manager</h1>
         <div className='bar'></div>
         
         {/* Manager Navigation */}
         <div className='manager-nav'>
-          <span onClick={() => handleNavClick("Inventory")}>Inventory</span>
-          <span onClick={() => handleNavClick("Employees")}>Employees</span>
-          <span onClick={() => handleNavClick("Reports")}>Reports</span>
+          <span 
+            onClick={() => handleNavClick("Inventory")}
+            className={activePage === "Inventory" ? "active-nav" : ""}
+          >
+            Inventory
+          </span>
+          <span 
+            onClick={() => handleNavClick("Employees")}
+            className={activePage === "Employees" ? "active-nav" : ""}
+          >
+            Employees
+          </span>
+          <span 
+            onClick={() => handleNavClick("Reports")}
+            className={activePage === "Reports" ? "active-nav" : ""}
+          >
+            Reports
+          </span>
         </div>
 
         {/* Sign Out Button */}
@@ -64,12 +86,15 @@ function InventoryPage() {
       </div>
 
       <div className="inventory-container">
-        <div className="inventory-body">
-          <InventoryTable 
-            data={inventoryData} 
-            setData={setInventoryData} 
-            onSelectItem={handleSelectItem} 
-          />
+        <div className="inventory-header">
+        <h1>Inventory</h1>
+          <div className="inventory-body">
+            <InventoryTable 
+              data={inventoryData} 
+              setData={setInventoryData} 
+              onSelectItem={handleSelectItem} 
+            />
+          </div>
         </div>
 
         <InventoryDetails 
