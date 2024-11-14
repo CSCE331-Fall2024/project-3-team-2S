@@ -17,11 +17,13 @@ function FoodItemPage() {
 
   const [foodItems, setFoodItems] = useState([]);
   const [selectionStep, setSelectionStep] = useState("Side");
-  const [sideSelected, setSideSelected] = useState(null);
-  const [entreesSelected, setEntreesSelected] = useState([]);
-  const [appetizerSelected, setAppetizerSelected] = useState(null);
-  const [alacarteSelected, setAlacarteSelected] = useState(null);
-  const [drinkSelected, setDrinkSelected] = useState(null);
+  const [selection, setSelection] = useState({
+    side: null,
+    entrees: [],
+    appetizer: null,
+    alacarte: null,
+    drink: null,
+  });
 
   const entreeLimit = menuItemType === "Bowl" ? 1 : menuItemType === "Plate" ? 2 : menuItemType === "Bigger Plate" ? 3 : 0;
 
@@ -93,26 +95,24 @@ function FoodItemPage() {
 
   useEffect(() => {
     if (currentEditOrder) {
-      setSideSelected(currentEditOrder.side || null);
-      setEntreesSelected(currentEditOrder.entrees || []);
-      setAppetizerSelected(currentEditOrder.appetizer || null);
-      setAlacarteSelected(currentEditOrder.alacarte || null);
-      setDrinkSelected(currentEditOrder.drink || null);
+      setSelection({
+        side: currentEditOrder.side || null,
+        entrees: currentEditOrder.entrees || [],
+        appetizer: currentEditOrder.appetizer || null,
+        alacarte: currentEditOrder.alacarte || null,
+        drink: currentEditOrder.drink || null,
+      });
     } else {
-      setSideSelected(null);
-      setEntreesSelected([]);
-      setAppetizerSelected(null);
-      setAlacarteSelected(null);
-      setDrinkSelected(null);
+      setSelection({
+        side: null,
+        entrees: [],
+        appetizer: null,
+        alacarte: null,
+        drink: null,
+      });
     }
   }, [currentEditOrder, menuItemType]);
 
-  // const updateStep = (newStep) => {
-  //   console.log("Setting step to " + newStep);
-  //   if (newStep >= 1 && newStep <= totalSteps) {
-  //     setCurrentStep(newStep); // Update the current step
-  //   }
-  // };
 
   const handleBack = (chevronLevel, menuItem) => {
     if (chevronLevel === 1 && (menuItem === "Bowl" || menuItem === "Plate" || menuItem === "Bigger Plate")) {
@@ -154,22 +154,85 @@ function FoodItemPage() {
     } else {
       console.log("Order is full");
     }
+    
+  const handleIncrease = (foodid, category) => {
+    setSelection(prevSelection => {
+      const updatedSelection = { ...prevSelection };
+  
+      if (menuItemType === "A La Carte" && (category === "Side" || category === "Entree")) {
+        if (!updatedSelection.alacarte) {
+          updatedSelection.alacarte = foodid;
+        }
+      } else if (selectionStep === "Side" && ["Bowl", "Plate", "Bigger Plate"].includes(menuItemType) && category === "Side") {
+        updatedSelection.side = foodid;
+      } else if (menuItemType === "Appetizer" && category === "Appetizer") {
+        updatedSelection.appetizer = foodid;
+      } else if (menuItemType === "Drink" && category === "Drink") {
+        updatedSelection.drink = foodid;
+      } else if (selectionStep === "Entree" && category === "Entree") {
+        if (updatedSelection.entrees.length < entreeLimit) {
+          updatedSelection.entrees = [...updatedSelection.entrees, foodid];
+        }
+      }
+  
+      return updatedSelection;
+    });
+  };  
+  
+
+  const handleDecrease = (foodid, category) => {
+    setSelection(prevSelection => {
+      const updatedSelection = { ...prevSelection };
+  
+      if (menuItemType === "A La Carte" && (category === "Side" || category === "Entree")) {
+        if (updatedSelection.alacarte === foodid) {
+          updatedSelection.alacarte = null;
+        }
+      } else if (selectionStep === "Entree" && category === "Entree") {
+        updatedSelection.entrees = updatedSelection.entrees.filter((id, index) => {
+          const countOfCurrentItem = prevSelection.entrees.slice(0, index + 1).filter(val => val === foodid).length;
+          return countOfCurrentItem > 1 || id !== foodid;
+        });
+      } else if (selectionStep === "Side" && category === "Side" && prevSelection.side === foodid) {
+        updatedSelection.side = null;
+      } else if (selectionStep === "Appetizer" && category === "Appetizer" && prevSelection.appetizer === foodid) {
+        updatedSelection.appetizer = null;
+      } else if (selectionStep === "Drink" && category === "Drink" && prevSelection.drink === foodid) {
+        updatedSelection.drink = null;
+      }
+  
+      return updatedSelection;
+    });
   };
+  
 
   const handleAddToOrder = () => {
     const price = calculatePrice(menuItemType);
     const orderItem = {
       menuItemType,
       price,
-      side: sideSelected,
-      entrees: entreesSelected,
-      appetizer: appetizerSelected,
-      alacarte: alacarteSelected,
-      drink: drinkSelected,
+      ...selection,
     };
     currentEditOrder ? navigate("/checkout") : navigate("/new-order");
     addToOrder(orderItem);
   };
+
+  function getCountBasedOnSelection(id) {
+    switch (selectionStep) {
+      case "Entree":
+        return selection.entrees.filter(foodid => foodid === id).length;
+      case "Side":
+        return selection.side === id ? 1 : 0;
+      case "Appetizer":
+        return selection.appetizer === id ? 1 : 0;
+      case "Side or Entree":
+        return selection.alacarte === id ? 1 : 0;
+      case "Drink":
+        return selection.drink === id ? 1 : 0;
+      default:
+        return 0;
+    }
+  }
 
   function calculatePrice(menuItemType) {
     switch (menuItemType) {
@@ -195,28 +258,27 @@ function FoodItemPage() {
       key={item.foodid}
       name={item.name}
       imgSrc={item.imagesrc}
-      // isSelected={
-      //   item.foodid === sideSelected || 
-      //   item.foodid === appetizerSelected || 
-      //   item.foodid === alacarteSelected || 
-      //   item.foodid === drinkSelected ||
-      //   entreesSelected.includes(item.foodid)
-      // }
-      isDisabled={
-        !(item.foodid === sideSelected || 
-        item.foodid === appetizerSelected || 
-        item.foodid === alacarteSelected || 
-        item.foodid === drinkSelected ||
-        entreesSelected.includes(item.foodid)) && 
-        (imageUrls.length === totalSteps)
-        // (selectionStep === "Entree" && entreesSelected.length >= entreeLimit && !entreesSelected.includes(item.foodid))
+
+      isSelected={
+        item.foodid === selection.side || 
+        item.foodid === selection.appetizer || 
+        item.foodid === selection.alacarte || 
+        item.foodid === selection.drink ||
+        selection.entrees.includes(item.foodid)
       }
-      onClick={() => handleSelect(item.foodid, item.category, item.imagesrc)}
+      isDisabled={
+        (selectionStep === "Side" && selection.side && item.foodid !== selection.side) ||
+        (selectionStep === "Appetizer" && selection.appetizer && item.foodid !== selection.appetizer) ||
+        (selectionStep === "Side or Entree" && selection.alacarte && item.foodid !== selection.alacarte) ||
+        (selectionStep === "Drink" && selection.drink && item.foodid !== selection.drink) ||
+        (selectionStep === "Entree" && selection.entrees.length >= entreeLimit && !selection.entrees.includes(item.foodid))
+      }
+      selectionStep={selectionStep}
+      amount={getCountBasedOnSelection(item.foodid)}
+      onIncrease={() => handleIncrease(item.foodid, item.category)}
+      onDecrease={() => handleDecrease(item.foodid, item.category)}
     />
   ));
-
-
-  console.log(sideSelected, entreesSelected, appetizerSelected, alacarteSelected, drinkSelected);
 
   return (
     <div className="container">
@@ -251,8 +313,15 @@ function FoodItemPage() {
         {foodItemElements}
       </div>
       <div className="nav-btn-container">
-        {/* <button onClick={() => navigate("/new-order")}>Back</button> */}
-        <button onClick={() => handleBack(imageUrls.length, menuItemType)}>Back</button>
+          <button onClick={() => {
+          if (selectionStep === "Entree") {
+            setSelectionStep("Side");
+          } else {
+            navigate("/new-order");
+          }
+        }}>
+          Back
+        </button>
 
         {/* {(menuItemType === "Bowl" || menuItemType === "Plate" || menuItemType === "Bigger Plate") && selectionStep === "Side" && (
           <button onClick={() => setSelectionStep("Entree")}>Next</button>

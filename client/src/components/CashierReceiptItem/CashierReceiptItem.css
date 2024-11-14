@@ -1,0 +1,5 @@
+.cashier-receipt-item-btn.selected {
+    background-color: #f0f0f0; /* Adjust to preferred color */
+    border: 2px solid #007bff; /* Border to show selection */
+  }
+  

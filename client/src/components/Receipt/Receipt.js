@@ -1,7 +1,7 @@
 import './Receipt.css';
 import { SendOrder } from '../../api/SendOrder';
 
-function Receipt({ orders }) {
+function Receipt({ orders, onPlaceOrder }) {
 
   function calculateSubtotal(orders) {
     return orders.reduce((subtotal, order) => subtotal + order.price, 0);
@@ -26,7 +26,7 @@ function Receipt({ orders }) {
           <span>Total:</span>
           <span>${(calculateSubtotal(orders) + calculateTax(orders)).toFixed(2)}</span>
         </div>
-        <button onClick={() => SendOrder(orders)}>Place Order</button>
+        <button onClick={() => { SendOrder(orders); onPlaceOrder(); }}>Place Order</button>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = 'https://project-3-team-2-s-dep-server.vercel.app/api';
 
 export async function SendOrder(orders) {
   try {
@@ -42,6 +42,12 @@ export async function SendOrder(orders) {
         foodid3,
         foodid4
       };
+    });
+
+    // Last element in ordersWithFoodIds will contain data about customerid and employeeid
+    ordersWithFoodIds.push({
+      customerid: 1,
+      employeeid: 1
     });
 
     console.log(ordersWithFoodIds);

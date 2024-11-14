@@ -108,17 +108,20 @@ app.get('/api/inventory', async (req, res) => {
   }
 });
 
+
 app.post('/api/send-order', async (req, res) => {
   const orders = req.body;
-  console.log(orders)
+  console.log(orders);
   try {
     await pool.query('BEGIN');
 
+    // Get the next order number
     const result = await pool.query('SELECT MAX(ordernum) AS highest_ordernum FROM menuitems');
     const nextOrderNum = result.rows[0].highest_ordernum + 1;
 
-    for (const order of orders) {
-      const { price, name, foodid1, foodid2, foodid3, foodid4 } = order;
+    // Insert each order item (excluding the last one)
+    for (let i = 0; i < orders.length - 1; i++) {
+      const { price, name, foodid1, foodid2, foodid3, foodid4 } = orders[i];
 
       await pool.query(
         `INSERT INTO menuitems (ordernum, price, name, foodid1, foodid2, foodid3, foodid4)
@@ -126,6 +129,127 @@ app.post('/api/send-order', async (req, res) => {
         [nextOrderNum, price, name, foodid1, foodid2, foodid3, foodid4]
       );
     }
+
+    // Extract customer and employee information from the last item in the array
+    const { customerid, employeeid } = orders[orders.length - 1];
+
+    // Insert into orders table with timecompleted as NULL
+    await pool.query(
+      `INSERT INTO orders (ordernum, customerid, employeeid, timecompleted)
+       VALUES ($1, $2, $3, NULL)`,
+      [nextOrderNum, customerid, employeeid]
+    );
+
+    await pool.query('COMMIT');
+    res.status(201).json({ message: 'Orders added successfully' });
+
+  } catch (error) {
+    console.error('Error executing dynamic query:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+// Inventory endpoints
+// POST endpoint for adding new inventory items
+app.post('/api/inventory', async (req, res) => {
+  const { ingrid, ingredient, quantity } = req.body;
+
+  try {
+    const result = await pool.query(
+      'INSERT INTO inventory_tb (ingrid, ingredient, quantity) VALUES ($1, $2, $3) RETURNING *',
+      [ingrid, ingredient, quantity]
+    );
+
+    res.status(201).json({ message: 'Inventory item added successfully', newItem: result.rows[0] });
+  } catch (error) {
+    console.error('Error adding inventory item:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// PUT endpoint for updating inventory items
+app.put('/api/inventory/:ingrid', async (req, res) => {
+  const { ingrid } = req.params;
+  const { ingredient, quantity } = req.body;
+
+  try {
+    const result = await pool.query(
+      'UPDATE inventory_tb SET ingredient = $1, quantity = $2 WHERE ingrid = $3 RETURNING *',
+      [ingredient, quantity, ingrid]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Inventory item not found' });
+    }
+
+    res.json({ message: 'Inventory item updated successfully', updatedItem: result.rows[0] });
+  } catch (error) {
+    console.error('Error updating inventory item:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// DELETE endpoint for deleting inventory items
+app.delete('/api/inventory/:ingrid', async (req, res) => {
+  const { ingrid } = req.params;
+
+  try {
+    const result = await pool.query('DELETE FROM inventory_tb WHERE ingrid = $1 RETURNING *', [ingrid]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Inventory item not found' });
+    }
+
+    res.json({ message: 'Inventory item deleted successfully', deletedItem: result.rows[0] });
+  } catch (error) {
+    console.error('Error deleting inventory item:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// GET endpoint for inventory
+app.get('/api/inventory', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM inventory_tb ORDER BY ingrid');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error executing query:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.post('/api/send-order', async (req, res) => {
+  const orders = req.body;
+  console.log(orders);
+
+  try {
+    await pool.query('BEGIN');
+
+    // Get the next order number
+    const result = await pool.query('SELECT MAX(ordernum) AS highest_ordernum FROM menuitems');
+    const nextOrderNum = result.rows[0].highest_ordernum + 1;
+
+    // Insert each order item (excluding the last one)
+    for (let i = 0; i < orders.length - 1; i++) {
+      const { price, name, foodid1, foodid2, foodid3, foodid4 } = orders[i];
+
+      await pool.query(
+        `INSERT INTO menuitems (ordernum, price, name, foodid1, foodid2, foodid3, foodid4)
+         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+        [nextOrderNum, price, name, foodid1, foodid2, foodid3, foodid4]
+      );
+    }
+
+    // Extract customer and employee information from the last item in the array
+    const { customerid, employeeid } = orders[orders.length - 1];
+
+    // Insert into orders table with timecompleted as NULL
+    await pool.query(
+      `INSERT INTO orders (ordernum, customerid, employeeid, timecompleted)
+       VALUES ($1, $2, $3, NULL)`,
+      [nextOrderNum, customerid, employeeid]
+    );
 
     await pool.query('COMMIT');
     res.status(201).json({ message: 'Orders added successfully' });
@@ -194,6 +318,74 @@ app.delete('/api/inventory/:ingrid', async (req, res) => {
   }
 });
 
+// Employee endpoints
+// POST endpoint for adding new employees
+app.post('/api/employees', async (req, res) => {
+  const { employeeid, name, salary, position } = req.body;
+
+  try {
+    const result = await pool.query(
+      'INSERT INTO employees (employeeid, name, salary, position) VALUES ($1, $2, $3, $4) RETURNING *',
+      [employeeid, name, salary, position]
+    );
+
+    res.status(201).json({ message: 'Employee added successfully', newEmployee: result.rows[0] });
+  } catch (error) {
+    console.error('Error adding employee:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// PUT endpoint for updating employees
+app.put('/api/employees/:employeeid', async (req, res) => {
+  const { employeeid } = req.params;
+  const { name, salary, position } = req.body;
+
+  try {
+    const result = await pool.query(
+      'UPDATE employees SET name = $1, salary = $2, position = $3 WHERE employeeid = $4 RETURNING *',
+      [name, salary, position, employeeid]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Employee not found' });
+    }
+
+    res.json({ message: 'Employee updated successfully', updatedEmployee: result.rows[0] });
+  } catch (error) {
+    console.error('Error updating employee:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// DELETE endpoint for deleting employees
+app.delete('/api/employees/:employeeid', async (req, res) => {
+  const { employeeid } = req.params;
+
+  try {
+    const result = await pool.query('DELETE FROM employees WHERE employeeid = $1 RETURNING *', [employeeid]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Employee not found' });
+    }
+
+    res.json({ message: 'Employee deleted successfully', deletedEmployee: result.rows[0] });
+  } catch (error) {
+    console.error('Error deleting employee:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// GET endpoint for retrieving all employees
+app.get('/api/employees', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM employees ORDER BY employeeid');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error executing query:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 // Login endpoint
 app.post('/login', async (req, res) => {
