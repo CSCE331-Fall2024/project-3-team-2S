@@ -1,10 +1,11 @@
-import React, { useState } from 'react'; // Add this line to import useState
+import React, { useState } from 'react';
 import './InventoryPage.css';
 import { useNavigate } from 'react-router-dom'; // Import for routing
 import Logo from "../../../assets/images/logo.png";
 import InventoryTable from '../../../components/InventoryTable/InventoryTable';
 import InventoryDetails from '../../../components/InventoryDetails/InventoryDetails';
-import AddIngredientPanel from '../../../components/AddIngredientPanel/AddIngredientPanel'; // Import the new component
+import AddIngredientPanel from '../../../components/AddIngredientPanel/AddIngredientPanel'; // Import AddIngredientPanel
+import ManagerProfileDropdown from '../../../components/ManagerProfileDropdown/ManagerProfileDropdown'; // Import ManagerProfile component
 
 function InventoryPage() {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -38,7 +39,7 @@ function InventoryPage() {
 
   // Handle adding a new ingredient
   const handleNewIngredientAdd = (newItem) => {
-    setInventoryData(prevData => [...prevData, newItem]); // Add the new item to the inventory list
+    setInventoryData(prevData => [...prevData, newItem]); // Add new item to inventory list
   };
 
   // Handle navigation clicks
@@ -81,13 +82,17 @@ function InventoryPage() {
           </span>
         </div>
 
-        {/* Sign Out Button */}
-        <button className='sign-out-button' onClick={() => navigate('/')}>Sign Out</button>
+        <div className="header-right">
+            <div className='manager-profile-dropdown'>
+              <ManagerProfileDropdown /> 
+            </div>
+            <button className='sign-out-button' onClick={() => navigate('/')}>Sign Out</button>
+        </div>
       </div>
 
       <div className="inventory-container">
         <div className="inventory-header">
-        <h1>Inventory</h1>
+          <h1>Inventory</h1>
           <div className="inventory-body">
             <InventoryTable 
               data={inventoryData} 
