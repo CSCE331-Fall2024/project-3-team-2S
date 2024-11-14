@@ -110,7 +110,7 @@
       flex: 0.5; /* Adjust the size ratio */
       padding-top: 30px;
       padding-bottom: 30px;
-      width: 850px;
+      width: 40vw;
   }
   /* Divider */
   .divider {
