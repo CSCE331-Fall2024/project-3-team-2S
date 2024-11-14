@@ -5,8 +5,13 @@ import { getFoodItems } from '../../api/GetFoodItems';
 import { useOrderContext } from '../../context/OrderContext';
 import Logo from "../../assets/images/logo.png";
 import FoodItemBtn from '../../components/FoodItemBtn/FoodItemBtn';
+import Chevron from '../../components/Chevron/Chevron';
 
 function FoodItemPage() {
+  // Used for chevron
+  const [totalSteps, setTotalSteps] = useState(0);
+  const [imageUrls, setImageUrls] = useState([ ]);
+
   const navigate = useNavigate();
   const { menuItemType, addToOrder, currentEditOrder } = useOrderContext();
 
@@ -28,18 +33,25 @@ function FoodItemPage() {
         const allFoodItems = await getFoodItems();
         let filteredItems;
 
+        if(menuItemType === "Bowl") setTotalSteps(2);
+        if(menuItemType === "Plate") setTotalSteps(3);
+        if(menuItemType === "Bigger Plate") setTotalSteps(4);
+
         if (menuItemType === "Bowl" || menuItemType === "Plate" || menuItemType === "Bigger Plate") {
           filteredItems = allFoodItems.filter(item => item.category === selectionStep);
         } else if (menuItemType === "A La Carte") {
           filteredItems = allFoodItems.filter(item => item.category === "Side");
           filteredItems.push(...allFoodItems.filter(item => item.category === "Entree"));
           setSelectionStep("Side or Entree");
+          setTotalSteps(1);
         } else if (menuItemType === "Appetizer") {
           filteredItems = allFoodItems.filter(item => item.category === "Appetizer");
           setSelectionStep("Appetizer");
+          setTotalSteps(1);
         } else if (menuItemType === "Drink") {
           filteredItems = allFoodItems.filter(item => item.category === "Drink");
           setSelectionStep("Drink");
+          setTotalSteps(1);
         }
 
         setFoodItems(filteredItems);
@@ -71,7 +83,8 @@ function FoodItemPage() {
     }
   }, [currentEditOrder, menuItemType]);
 
-  const handleIncrease = (foodid, category) => {
+  const handleIncrease = (foodid, category, newUrl) => {
+    setImageUrls((prevUrls) => [...prevUrls, newUrl]);
     setSelection(prevSelection => {
       const updatedSelection = { ...prevSelection };
   
@@ -96,7 +109,13 @@ function FoodItemPage() {
   };  
   
 
-  const handleDecrease = (foodid, category) => {
+  const handleDecrease = (foodid, category, removeUrl) => {
+    setImageUrls((prevUrls) => {
+      const index = prevUrls.findIndex((url) => url === removeUrl);
+      if (index === -1) return prevUrls; // If not found, return the original array
+      return [...prevUrls.slice(0, index), ...prevUrls.slice(index + 1)];
+    });
+
     setSelection(prevSelection => {
       const updatedSelection = { ...prevSelection };
   
@@ -190,8 +209,8 @@ function FoodItemPage() {
       }
       selectionStep={selectionStep}
       amount={getCountBasedOnSelection(item.foodid)}
-      onIncrease={() => handleIncrease(item.foodid, item.category)}
-      onDecrease={() => handleDecrease(item.foodid, item.category)}
+      onIncrease={() => handleIncrease(item.foodid, item.category, item.imagesrc)}
+      onDecrease={() => handleDecrease(item.foodid, item.category, item.imagesrc)}
     />
   ));
 
@@ -201,6 +220,12 @@ function FoodItemPage() {
         <div className="header-container">
           <img src={Logo} alt="Logo" />
           <h1>{currentEditOrder ? "Edit" : "New"} {menuItemType}</h1>
+          <div className="chevron-tier"> {/* Add the chevron-tier div */}
+            <Chevron
+              totalSteps={totalSteps}
+              imageUrls={imageUrls} 
+            />
+          </div>
         </div>
         <div className="food-item-type-container">
           <h3>
