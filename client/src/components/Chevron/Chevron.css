@@ -1,0 +1,29 @@
+.chevron-tier {
+    display: flex;
+    gap: 0px; /* Space between chevrons */
+  }
+  
+  .chevron {
+    width: 150px;
+    height: 80px;
+    background-color: #ccc; /* Default color for incomplete chevrons */
+    clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .chevron.completed {
+    background-color: #007bff; /* Color for completed chevrons */
+  }
+  
+  .chevron.incomplete {
+    background-color: #ccc;
+  }
+  
+  .chevron-image {
+    width: 20%;
+    height: 20%;
+    object-fit: cover;
+  }
