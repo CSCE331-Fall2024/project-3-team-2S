@@ -135,3 +135,109 @@ Minutes from Previous Meeting:
     We began with a general discussion on the project’s progress, covering the developments in the UI for customer and manager views. Everyone shared insights on how these layouts were structured and any adjustments needed to streamline user navigation. We also discussed how we successfully setup Express.js to handle database interactions which will allow is to connect the frontend and backend components of the application.
     Each team member shared obstacles encountered since the last sprint, such as minor issues with routing, some trouble with the initial database integration, and confusion on how to use Postman. However, identifying these challenges allowed us to collectively address them and find solutions to them before they became bigger issues.
     We also revisited the project roadmap, assessing which upcoming tasks should take priority to ensure steady progress. By defining each task’s significance, we created a focused approach that aligns with the project’s short-term goals.
+
+
+
+
+
+SCRUM Meeting 4 for Panda Express POS/Ordering Application
+
+Prepared by:* Aaditya Srinivasan  
+Meeting Date:* 11/7/2024  
+
+**Meeting Attendees:**
+- Johan Lanting
+- Aaditya Srinivasan
+- David Higgins
+- Timothy Wong  
+
+Meeting Agenda Items:
+- Review progress on assigned tasks and recent development
+- Identify any blockers for the next sprint
+- Finalize the features for the cashier interface
+
+**Status Update Since Last Meeting**
+
+**Accomplishments:**
+- Developed order confirmation screen for cashiers and tested basic functionality
+- Created the ingredient inventory table, integrated with database
+- Designed and implemented the "Past Orders" page for customer view
+
+**Tasks Completed:**
+
+| Task Description                               | Assigned to  | Completed? (yes/no) |
+|------------------------------------------------|--------------|----------------------|
+| Create Order Confirmation Screen for cashiers  | David        | Yes                  |
+| Create a table with all inventory of ingredients | Timothy    | Yes                  |
+| Design past orders page                        | Johan        | Yes                  |
+
+**Before The Next Meeting**
+
+**Plans:**
+- Add basic analytics to manager view (e.g., total orders, top-selling items)
+- Refine the cashier interface and add error handling for smoother operation
+- Begin testing and debugging the integration of all major components
+
+**Task Assignments:**
+
+| Task Description                                     | Assigned to       |
+|------------------------------------------------------|--------------------|
+| Implement analytics for manager view                 | Timothy     |
+| Refine cashier interface, add error handling         | David       |
+| Debug customer and manager flows                     | Johan       |
+
+**Minutes from Previous Meeting:**
+
+We reviewed each component in the system and ensured that everyone understood the integration points. We discussed minor issues encountered in the setup of the cashier confirmation screen and brainstormed solutions to improve the system’s reliability. The team also agreed on the importance of analytics for managers to aid in monitoring store performance.
+
+---
+
+**SCRUM Meeting 5 for Panda Express POS/Ordering Application**
+
+*Prepared by:* Johan Lanting  
+*Meeting Date:* 11/10/2024  
+
+**Meeting Attendees:**
+- Johan Lanting
+- Aaditya Srinivasan
+- David Higgins
+- Timothy Wong  
+
+**Meeting Agenda Items:**
+- Review testing feedback and discuss areas for improvement
+- Plan and assign final tasks for sprint 2
+- Discuss potential improvements based on testing feedback
+
+**Status Update Since Last Meeting**
+
+**Accomplishments:**
+- Implemented analytics for manager view, including total orders and top-selling items
+- Enhanced error handling on the cashier interface
+- Completed initial debugging for customer and manager flows, identifying further areas for improvement
+
+**Tasks Completed:**
+
+| Task Description                                 | Assigned to       | Completed? (yes/no) |
+|--------------------------------------------------|--------------------|----------------------|
+| Implement analytics for manager view             | Aaditya Srinivasan | Yes                  |
+| Refine cashier interface, add error handling     | David Higgins      | Yes                  |
+| Debug customer and manager flows                 | Johan Lanting      | Yes                  |
+
+**Before The Next Meeting**
+
+**Plans:**
+- Finalize end-to-end testing with all application features
+- Conduct a review session to identify potential UI/UX improvements
+- Prepare final tasks list for Sprint 3 to address remaining issues and enhancements
+
+**Task Assignments:**
+
+| Task Description                                         | Assigned to       |
+|----------------------------------------------------------|--------------------|
+| Conduct full system testing and log issues               | Entire Team       |
+| Plan UI/UX improvements based on feedback                | Timothy Wong      |
+| Document current functionalities and create a user guide | Aaditya Srinivasan |
+
+**Minutes from Previous Meeting:**
+
+During this meeting, we discussed initial feedback from testing and identified critical areas for improvement, especially in the cashier flow. The team agreed that while functionality was mostly stable, refining the UI and error messages could significantly improve the user experience. We also confirmed the analytics features for the manager view, which will allow store managers to monitor sales performance effectively. The next phase will focus on finalizing and testing all aspects to ensure a smooth user experience before the next sprint.
