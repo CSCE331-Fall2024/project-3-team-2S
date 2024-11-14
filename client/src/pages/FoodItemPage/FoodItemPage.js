@@ -5,8 +5,13 @@ import { getFoodItems } from '../../api/GetFoodItems';
 import { useOrderContext } from '../../context/OrderContext';
 import Logo from "../../assets/images/logo.png";
 import FoodItemBtn from '../../components/FoodItemBtn/FoodItemBtn';
+import Chevron from '../../components/Chevron/Chevron';
 
 function FoodItemPage() {
+  // Used for chevron
+  const [totalSteps, setTotalSteps] = useState(1);
+  const [imageUrls, setImageUrls] = useState([ ]);
+
   const navigate = useNavigate();
   const { menuItemType, addToOrder, currentEditOrder } = useOrderContext();
 
@@ -201,6 +206,12 @@ function FoodItemPage() {
         <div className="header-container">
           <img src={Logo} alt="Logo" />
           <h1>{currentEditOrder ? "Edit" : "New"} {menuItemType}</h1>
+          <div className="chevron-tier"> {/* Add the chevron-tier div */}
+            <Chevron
+              totalSteps={totalSteps}
+              imageUrls={imageUrls} 
+            />
+          </div>
         </div>
         <div className="food-item-type-container">
           <h3>
