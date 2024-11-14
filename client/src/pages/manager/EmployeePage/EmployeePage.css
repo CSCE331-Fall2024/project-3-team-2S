@@ -79,9 +79,21 @@
   text-decoration: underline;
 }
 
+.manager-profile-dropdown {
+  padding-right: 10px;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.header-right {
+  display: flex; /* Flex container for profile icon and sign out button */
+  align-items: center; /* Vertically center items */
+  margin-left: auto;
+}
+
 /* Sign Out Button */
 .sign-out-button {
-  margin-left: auto;
   padding: 10px;
   background-color: #fff;
   color: #333;

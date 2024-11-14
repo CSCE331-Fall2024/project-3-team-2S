@@ -5,6 +5,7 @@ import Logo from "../../../assets/images/logo.png";
 import EmployeeTable from '../../../components/EmployeeTable/EmployeeTable'; // Import EmployeeTable component
 import EmployeeDetails from '../../../components/EmployeeDetails/EmployeeDetails'; // Import EmployeeDetails component
 import AddEmployeePanel from '../../../components/AddEmployeePanel/AddEmployeePanel'; // Import AddEmployeePanel component
+import ManagerProfileDropdown from '../../../components/ManagerProfileDropdown/ManagerProfileDropdown'; // Import ManagerProfile component
 
 function EmployeePage() {
   const [selectedItem, setSelectedItem] = useState(null);
@@ -83,8 +84,12 @@ function EmployeePage() {
           </span>
         </div>
 
-        {/* Sign Out Button */}
-        <button className='sign-out-button' onClick={() => navigate('/')}>Sign Out</button>
+        <div className="header-right">
+            <div className='manager-profile-dropdown'>
+              <ManagerProfileDropdown /> 
+            </div>
+            <button className='sign-out-button' onClick={() => navigate('/')}>Sign Out</button>
+        </div>
       </div>
 
       <div className="employee-container">
