@@ -16,14 +16,14 @@
   .top-container {
     width: 100%;
   }
-.header-container {
-    display: flex;
-    align-items: center;
-    padding: 1rem 0;
-    background-color: #c8102e;
-    color: #fff;
-}
-  .header-container img {
+  .header-container {
+      display: flex;
+      align-items: center;
+      padding: 1rem 0;
+      background-color: #c8102e;
+      color: #fff;
+  }
+  .logo {
     width: 50px;
     height: auto;
     margin-right: 1rem;

@@ -56,7 +56,7 @@ function InventoryPage() {
   return (
     <div>
       <div className="header-container">
-        <img src={Logo} alt="Logo" />
+        <img src={Logo} alt="Logo" className="logo"/>
         <h1>Manager</h1>
         <div className='bar'></div>
         
