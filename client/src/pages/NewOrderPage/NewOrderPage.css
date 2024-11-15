@@ -49,7 +49,7 @@ body, html {
   } */
 
   .menu-item-container {
-    width: 60%;
+    /* width: 60%; */
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Fixed to 3 columns */
     gap: 0.5rem; /* Minimal gap between items */
