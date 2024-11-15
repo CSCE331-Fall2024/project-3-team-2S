@@ -45,8 +45,13 @@ export async function SendOrder(orders) {
     });
 
     // Last element in ordersWithFoodIds will contain data about customerid and employeeid
+    let tempCustomerId = localStorage.getItem("customerId");
+    if(tempCustomerId === "") {
+      tempCustomerId = "1";
+    }
+    console.log("cusomter id is " + tempCustomerId);
     ordersWithFoodIds.push({
-      customerid: 1,
+      customerid: tempCustomerId,
       employeeid: 1
     });
 
