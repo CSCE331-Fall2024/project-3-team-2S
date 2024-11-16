@@ -4,7 +4,7 @@ import './ManagerProfileDropdown.css'; // Create this CSS file for styling
 function ManagerProfileDropdown() {
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
     const [weatherData, setWeatherData] = useState(null);
-    const [weatherComment, setWeatherComment] = useState("Loading weather data...");
+    const [weatherComment, setWeatherComment] = useState("Loading data...");
   
     const handleProfileClick = () => {
       setIsDropdownVisible(!isDropdownVisible);
