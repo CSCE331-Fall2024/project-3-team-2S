@@ -78,8 +78,8 @@ function ManagerProfileDropdown() {
           <img src={ProfileIcon} alt="Manager Profile" />
         </div>
   
-        {isDropdownVisible && (
-          <div className="profile-dropdown">
+        {/* {isDropdownVisible && ( */}
+          <div className={`profile-dropdown ${isDropdownVisible ? 'show' : ''}`}>
             <p>Welcome Manager!</p>
             <hr />
             <div className="weather-container">
@@ -108,7 +108,7 @@ function ManagerProfileDropdown() {
             <hr />
             <span className="settings-link" onClick={() => console.log('Navigate to Settings')}>Settings</span>
           </div>
-        )}
+        {/* )} */}
       </div>
     );
   }
