@@ -32,20 +32,39 @@
     border-radius: 8px;
     z-index: 1000;
     overflow-wrap: break-word;
+    
+    /* Add these properties for the animation */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-80%) translateY(-30px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
 }
 
+.profile-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-80%) translateY(0);
+}
+
+/* Update the triangle animations */
 .profile-dropdown::before,
 .profile-dropdown::after {
     content: '';
     position: absolute;
-    left: 78.55%;
-    transform: translateX(-50%);
+    left: 76%;
     width: 0;
     height: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.profile-dropdown.show::before,
+.profile-dropdown.show::after {
+    opacity: 1;
 }
 
 .profile-dropdown::before {
-    top: -11px; /* Slightly higher to ensure overlap */
+    top: -11px;
     border-left: 11px solid transparent;
     border-right: 11px solid transparent;
     border-bottom: 11px solid #ccc;
@@ -60,20 +79,16 @@
     z-index: 2;
 }
 
-/* Adjust the media query to maintain the triangle position on mobile */
+/* Update mobile styles */
 @media (max-width: 500px) {
     .profile-dropdown {
         left: auto;
         right: 10px;
-        transform: none;
-        width: 90vw;
+        transform: translateY(-20px);
     }
 
-    .profile-dropdown::before,
-    .profile-dropdown::after {
-        left: auto;
-        right: 20px; /* Adjust this value to align with the profile icon */
-        transform: none;
+    .profile-dropdown.show {
+        transform: translateY(0);
     }
 }
 
