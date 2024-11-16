@@ -1,6 +1,7 @@
 .manager-profile-dropdown {
     position: relative;
     display: inline-block;
+    font-size: 20px;
 }
 
 .profile-icon {
@@ -21,9 +22,9 @@
     position: absolute;
     top: 60px;
     left: 50%; /* Center relative to the parent element */
-    transform: translateX(-50%); /* Center horizontally */
+    transform: translateX(-80%); /* Center horizontally */
     width: 20vw; 
-    max-width: 300px; 
+    max-width: 400px; 
     background-color: white;
     border: 1px solid #ccc;
     padding: 15px;
@@ -76,4 +77,10 @@
     margin: 0 !important; /* Remove any inherited margins */
     padding: 0;           /* Remove any potential padding */
     display: block;
-  }
+}
+
+.weather-comment {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
