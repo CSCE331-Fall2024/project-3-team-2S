@@ -44,11 +44,19 @@ function InventoryPage() {
 
   // Handle navigation clicks
   const handleNavClick = (text) => {
-    if (text === "Inventory") {
+    if (text === "Order History") {
+      navigate("/orderhistory"); // Navigate to Order History page
+    } 
+    else if (text === "Inventory") {
       navigate("/inventory"); // Navigate to Inventory page
-    } else if (text === "Employees") {
+    } 
+    else if (text === "Items") {
+      navigate("/items"); // Navigate to Items page
+    } 
+    else if (text === "Employees") {
       navigate("/employees"); // Navigate to Employee page
-    } else if (text === "Reports") {
+    }
+    else if (text === "Reports") {
       navigate("/reports"); // Navigate to Reports page
     }
   };
@@ -62,11 +70,23 @@ function InventoryPage() {
         
         {/* Manager Navigation */}
         <div className='manager-nav'>
+        <span 
+            onClick={() => handleNavClick("Order History")}
+            className={activePage === "Order History" ? "active-nav" : ""}
+          >
+            Order History
+          </span>
           <span 
             onClick={() => handleNavClick("Inventory")}
             className={activePage === "Inventory" ? "active-nav" : ""}
           >
             Inventory
+          </span>
+          <span 
+            onClick={() => handleNavClick("Items")}
+            className={activePage === "Items" ? "active-nav" : ""}
+          >
+            Items
           </span>
           <span 
             onClick={() => handleNavClick("Employees")}
