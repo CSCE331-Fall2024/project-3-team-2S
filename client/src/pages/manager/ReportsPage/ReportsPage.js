@@ -5,9 +5,7 @@ import Logo from "../../../assets/images/logo.png";
 import ManagerProfileDropdown from '../../../components/ManagerProfileDropdown/ManagerProfileDropdown'; // Import ManagerProfile component
 
 function ReportsPage() {
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [inventoryData, setInventoryData] = useState([]);
-  const [activePage, setActivePage] = useState("Reports"); // Track the active page
+  const [activePage] = useState("Reports"); // Track the active page
   
   const navigate = useNavigate(); // Initialize navigate for routing
 

@@ -10,7 +10,7 @@ import ManagerProfileDropdown from '../../../components/ManagerProfileDropdown/M
 function InventoryPage() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [inventoryData, setInventoryData] = useState([]);
-  const [activePage, setActivePage] = useState("Inventory"); // Track the active page
+  const [activePage] = useState("Inventory"); // Track the active page
   
   const navigate = useNavigate(); // Initialize navigate for routing
 
