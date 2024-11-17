@@ -387,6 +387,26 @@ app.get('/api/employees', async (req, res) => {
   }
 });
 
+// Order History API
+app.get('/api/orderhistory', async (req, res) => {
+  try {
+      const result = await pool.query(`
+          SELECT 
+              ordernum::integer as ordernum,
+              customerid::integer as customerid,
+              employeeid::integer as employeeid,
+              timecompleted::timestamp as timecompleted
+          FROM public.orders 
+          ORDER BY ordernum DESC
+          LIMIT 200
+      `);
+      res.json(result.rows);
+  } catch (error) {
+      console.error('Error executing query:', error.stack);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 // Login endpoint
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;

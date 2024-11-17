@@ -10,7 +10,7 @@ import ManagerProfileDropdown from '../../../components/ManagerProfileDropdown/M
 function EmployeePage() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [employeeData, setEmployeeData] = useState([]);
-  const [activePage, setActivePage] = useState("Employees"); // Track the active page
+  const [activePage] = useState("Employees"); // Track the active page
   
   const navigate = useNavigate(); // Initialize navigate for routing
 

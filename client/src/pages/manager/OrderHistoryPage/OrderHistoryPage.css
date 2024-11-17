@@ -107,54 +107,216 @@
   background-color: #f0f0f0; /* Slight hover effect */
 }
 
-  .inventory-container {
-    display: flex;
-    gap: 30px;
-    padding: 50px; /* Optional padding around the container */
+.order-history-container {
+  padding: 20px;
+  max-width: 1200px;
+  background-color: white;
+  margin: 0 auto;
+  margin-top: 30px;
+  border-radius: 8px; /* Rounded edges */
+  overflow: hidden; /* Ensures the border radius is applied to the content */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow */
+  border: 2px solid black; /* Black border */
+}
+
+.search-container {
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 40%;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #c41e3a;
+  box-shadow: 0 0 5px rgba(196, 30, 58, 0.2);
+}
+
+.orders-table-container {
+  max-height: 650px;
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.orders-table thead {
+  position: sticky;
+  top: 0;
+  background-color: #c41e3a;
+  color: white;
+}
+
+.orders-table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.orders-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.orders-table tbody tr:hover {
+  background-color: #f8f8f8;
+}
+
+/* Scrollbar styling */
+.orders-table-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.orders-table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.orders-table-container::-webkit-scrollbar-thumb {
+  background: #c41e3a;
+  border-radius: 4px;
+}
+
+.orders-table-container::-webkit-scrollbar-thumb:hover {
+  background: #a01830;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .order-history-container {
+    padding: 10px;
   }
 
-  .inventory-header {
-    display: flex;
-    flex-direction: column; /* Stack h1 and table vertically */
+  .orders-table th,
+  .orders-table td {
+    padding: 10px;
+    font-size: 14px;
   }
+}
 
-  .inventory-body {
-      flex: 0.5; /* Adjust the size ratio */
-      padding-top: 30px;
-      padding-bottom: 30px;
-      width: 40vw;
-  }
-  /* Divider */
-  .divider {
-    border-left: 5px solid black; /* Adjust thickness and color as needed */
-    height: 500px; /* Adjust height as needed */
-    margin-top: 70px;
-    margin-left: 70px;
-    margin-right: 70px;
-  }
+.pagination-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
 
-  /* Add Ingredient Section */
-  .add-ingredient-section {
-    margin-left: 100px; /* Space between divider and this section */
-  }
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 5px;
+}
 
-  .add-ingredient-section h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
+.pagination li {
+  display: inline-block;
+}
 
-  .add-button {
-    width: 50px;
-    height: 50px;
-    background-color: #ccc; /* Grey background */
-    color: #000; /* Black + symbol */
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 8px; /* Rounded corners */
-    border: 2px solid #000; /* Black border */
-    cursor: pointer;
-  }
+.pagination li a {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
 
-  .add-button:hover {
-    opacity: 0.8; /* Slight hover effect */
+.pagination li.pagination__link--active a {
+  background-color: #c41e3a;
+  color: white;
+  border-color: #c41e3a;
+}
+
+.pagination li a:hover:not(.pagination__link--disabled) {
+  background-color: #f0f0f0;
+}
+
+.pagination li.pagination__link--disabled a {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.rows-per-page {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.rows-select {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.rows-select:hover {
+  border-color: #c41e3a;
+}
+
+.rows-select:focus {
+  border-color: #c41e3a;
+  box-shadow: 0 0 0 2px rgba(196, 30, 58, 0.1);
+}
+
+@media (max-width: 768px) {
+  .pagination li a {
+    padding: 6px 10px;
+    font-size: 14px;
   }
+}
+
+.sortable-header {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding-right: 20px; /* Make room for the arrow */
+}
+
+.sortable-header:hover {
+  background-color: rgba(196, 30, 58, 0.1);
+}
+
+.sortable-header span {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Optional: Add a subtle indicator that columns are clickable */
+.sortable-header::after {
+  content: '⇅';
+  opacity: 0.3;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.sortable-header:hover::after {
+  opacity: 0.7;
+}
+
+/* Hide the default arrows when column is being sorted */
+.sortable-header span + .sortable-header::after {
+  display: none;
+}
