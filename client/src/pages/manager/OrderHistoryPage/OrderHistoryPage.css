@@ -36,8 +36,8 @@
     margin-right: 1rem;
   }
   .bar {
-    border-left: 2px solid white; /* Adjust thickness and color as needed */
-    height: 50px; /* Adjust height as needed */
+    border-left: 2px solid white; 
+    height: 50px; 
     margin-left: 10px;
     margin-right: 50px;
   }
@@ -288,7 +288,7 @@
   cursor: pointer;
   user-select: none;
   position: relative;
-  padding-right: 20px; /* Make room for the arrow */
+  padding-right: 20px; 
 }
 
 .sortable-header:hover {
@@ -302,7 +302,6 @@
   transform: translateY(-50%);
 }
 
-/* Optional: Add a subtle indicator that columns are clickable */
 .sortable-header::after {
   content: '⇅';
   opacity: 0.3;
