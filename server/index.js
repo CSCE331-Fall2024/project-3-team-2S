@@ -208,17 +208,6 @@ app.delete('/api/inventory/:ingrid', async (req, res) => {
   }
 });
 
-// GET endpoint for inventory
-app.get('/api/inventory', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT * FROM inventory_tb ORDER BY ingrid');
-    res.json(result.rows);
-  } catch (error) {
-    console.error('Error executing query:', error.stack);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
-
 app.post('/api/send-order', async (req, res) => {
   const orders = req.body;
   console.log(orders);
@@ -258,6 +247,17 @@ app.post('/api/send-order', async (req, res) => {
     await pool.query('ROLLBACK');
     console.error('Error inserting orders:', error);
     res.status(500).json({ error: 'Failed to add orders' });
+  }
+});
+
+// GET endpoint for inventory
+app.get('/api/inventory', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM inventory_tb ORDER BY ingrid');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error executing query:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 
@@ -314,6 +314,75 @@ app.delete('/api/inventory/:ingrid', async (req, res) => {
     res.json({ message: 'Inventory item deleted successfully', deletedItem: result.rows[0] });
   } catch (error) {
     console.error('Error deleting inventory item:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Food Item endpoints
+// GET endpoint for retrieving all food items
+app.get('/api/fooditems', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM fooditems ORDER BY foodid');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error executing query:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// POST endpoint for adding new food items
+app.post('/api/fooditems', async (req, res) => {
+  const { foodid, name, category, calories, isgf, isvegetarian, isspicy, ispremium, imagesrc } = req.body;
+
+  try {
+    const result = await pool.query(
+      'INSERT INTO fooditems (foodid, name, category, calories, isgf, isvegetarian, isspicy, ispremium, imagesrc) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
+      [foodid, name, category, calories, isgf || false, isvegetarian || false, isspicy || false, ispremium || false, imagesrc]
+    );
+
+    res.status(201).json({ message: 'Food item added successfully', newItem: result.rows[0] });
+  } catch (error) {
+    console.error('Error adding food item:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// PUT endpoint for updating food items
+app.put('/api/fooditems/:foodid', async (req, res) => {
+  const { foodid } = req.params;
+  const { name, category, calories, isgf, isvegetarian, isspicy, ispremium, imagesrc } = req.body;
+
+  try {
+    const result = await pool.query(
+      'UPDATE fooditems SET name = $1, category = $2, calories = $3, isgf = $4, isvegetarian = $5, isspicy = $6, ispremium = $7, imagesrc = $8 WHERE foodid = $9 RETURNING *',
+      [name, category, calories, isgf || false, isvegetarian || false, isspicy || false, ispremium || false, imagesrc , foodid]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Food item not found' });
+    }
+
+    res.json({ message: 'Food item updated successfully', updatedItem: result.rows[0] });
+  } catch (error) {
+    console.error('Error updating food item:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// DELETE endpoint for deleting food items
+app.delete('/api/fooditems/:foodid', async (req, res) => {
+  const { foodid } = req.params;
+
+  try {
+    const result = await pool.query('DELETE FROM fooditems WHERE foodid = $1 RETURNING *', [foodid]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Food item not found' });
+    }
+
+    res.json({ message: 'Food item deleted successfully', deletedItem: result.rows[0] });
+  } catch (error) {
+    console.error('Error deleting food item:', error.stack);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
