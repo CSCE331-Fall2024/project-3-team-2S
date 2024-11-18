@@ -59,7 +59,7 @@ function InventoryDetails({ selectedItem, onItemUpdate, onItemDelete }) {
 
     return (
       <div className="details-panel">
-        <h2>Item Details</h2>
+        <h2>Inventory Item Details</h2>
         
         {/* Show success alert when entry is updated or deleted */}
         {showSuccessAlert && (

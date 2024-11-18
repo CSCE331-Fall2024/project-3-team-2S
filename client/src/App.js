@@ -7,7 +7,7 @@ import CheckoutPage from './pages/CheckoutPage/CheckoutPage'
 
 import OrderHistoryPage from './pages/manager/OrderHistoryPage/OrderHistoryPage'
 import InventoryPage from './pages/manager/InventoryPage/InventoryPage'
-import ItemsPage from './pages/manager/ItemsPage/ItemsPage'
+import FoodItemsPage from './pages/manager/FoodItemsPage/FoodItemsPage'
 import EmployeePage from './pages/manager/EmployeePage/EmployeePage'
 import ReportsPage from './pages/manager/ReportsPage/ReportsPage'
 
@@ -30,7 +30,7 @@ function App() {
           {/* MANAGER */}
           <Route path="/orderhistory" element={<OrderHistoryPage />} />
           <Route path="/inventory" element={<InventoryPage />} />
-          <Route path="/items" element={<ItemsPage />} />
+          <Route path="/fooditems" element={<FoodItemsPage />} />
           <Route path="/employees" element={<EmployeePage />} />
           <Route path="/reports" element={<ReportsPage />} />
         </Routes>
