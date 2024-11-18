@@ -50,8 +50,8 @@ function EmployeePage() {
     else if (text === "Inventory") {
       navigate("/inventory"); // Navigate to Inventory page
     } 
-    else if (text === "Items") {
-      navigate("/items"); // Navigate to Items page
+    else if (text === "Food Items") {
+      navigate("/fooditems"); // Navigate to Items page
     } 
     else if (text === "Employees") {
       navigate("/employees"); // Navigate to Employee page
@@ -83,10 +83,10 @@ function EmployeePage() {
             Inventory
           </span>
           <span 
-            onClick={() => handleNavClick("Items")}
-            className={activePage === "Items" ? "active-nav" : ""}
+            onClick={() => handleNavClick("Food Items")}
+            className={activePage === "Food Items" ? "active-nav" : ""}
           >
-            Items
+            Food Items
           </span>
           <span 
             onClick={() => handleNavClick("Employees")}

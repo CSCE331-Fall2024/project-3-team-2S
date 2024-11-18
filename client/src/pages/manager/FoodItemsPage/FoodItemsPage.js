@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import './ItemsPage.css';
+import './FoodItemsPage.css';
 import { useNavigate } from 'react-router-dom'; // Import for routing
 import Logo from "../../../assets/images/logo.png";
 import ManagerProfileDropdown from '../../../components/ManagerProfileDropdown/ManagerProfileDropdown'; // Import ManagerProfile component
 
 function ItemsPage() {
-  const [activePage] = useState("Items"); // Track the active page
+  const [activePage] = useState("Food Items"); // Track the active page
   
   const navigate = useNavigate(); // Initialize navigate for routing
 
@@ -17,8 +17,8 @@ function ItemsPage() {
     else if (text === "Inventory") {
       navigate("/inventory"); // Navigate to Inventory page
     } 
-    else if (text === "Items") {
-      navigate("/items"); // Navigate to Items page
+    else if (text === "Food Items") {
+      navigate("/fooditems"); // Navigate to Items page
     } 
     else if (text === "Employees") {
       navigate("/employees"); // Navigate to Employee page
@@ -50,10 +50,10 @@ function ItemsPage() {
             Inventory
           </span>
           <span 
-            onClick={() => handleNavClick("Items")}
-            className={activePage === "Items" ? "active-nav" : ""}
+            onClick={() => handleNavClick("Food Items")}
+            className={activePage === "Food Items" ? "active-nav" : ""}
           >
-            Items
+            Food Items
           </span>
           <span 
             onClick={() => handleNavClick("Employees")}
