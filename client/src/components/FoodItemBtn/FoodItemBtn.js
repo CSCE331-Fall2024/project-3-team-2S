@@ -1,12 +1,13 @@
 import IncDecBtn from '../IncDecBtn/IncDecBtn';
 import './FoodItemBtn.css';
 
-function FoodItemBtn({ name, imgSrc, isSelected, isDisabled, selectionStep, amount, onIncrease, onDecrease }) {
+function FoodItemBtn({ foodID, name, imgSrc, isSelected, isDisabled, selectionStep, amount, onIncrease, onDecrease, handleInfoClick }) {
   return (
     <div className="food-item-btn-container">
       <button 
         className={`food-item-btn ${isSelected ? "selected" : ""} ${isDisabled ? "disabled" : ""}`}
         disabled={isDisabled}
+        onClick={handleInfoClick}
       >
         <h2>{name}</h2>
         <img src={imgSrc} alt={name} />

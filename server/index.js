@@ -35,7 +35,8 @@ app.get('/api/fooditems', async (req, res) => {
 app.get('/api/fooditems/:id', async (req, res) => {
   const foodID = req.params.id;
   try {
-    const result = await pool.query('SELECT name FROM fooditems WHERE foodid = $1', [foodID]);
+    const result = await pool.query('SELECT * FROM fooditems WHERE foodid = $1', [foodID]);
+
     if (result.rows.length === 0) {
       return res.status(404).json({ message: 'Food item not found' });
     }
