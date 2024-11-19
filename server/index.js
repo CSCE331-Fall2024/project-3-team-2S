@@ -364,8 +364,8 @@ app.put('/api/fooditems/:foodid', async (req, res) => {
 
     res.json({ message: 'Food item updated successfully', updatedItem: result.rows[0] });
   } catch (error) {
-    console.error('Error updating food item:', error.stack);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('Error updating food item:', error.stack); // Log full error stack
+    res.status(500).json({ message: 'Internal server error', error: error.message }); // Return detailed error message
   }
 });
 
