@@ -19,11 +19,11 @@ function CheckoutPage() {
     const fetchOrderDetails = async () => {
       const details = await Promise.all(
         orders.map(async (order) => {
-          const sideName = order.side ? await getFoodItemFromID(order.side) : null;
-          const entreeNames = order.entrees ? await Promise.all(order.entrees.map(id => getFoodItemFromID(id))) : [];
-          const appetizerName = order.appetizer ? await getFoodItemFromID(order.appetizer) : null;
-          const alacarteName = order.alacarte ? await getFoodItemFromID(order.alacarte) : null;
-          const drinkName = order.drink ? await getFoodItemFromID(order.drink) : null;
+          const sideName = order.side ? (await getFoodItemFromID(order.side)).name : null;
+          const entreeNames = order.entrees ? (await Promise.all(order.entrees.map(id => getFoodItemFromID(id)))).name : [];
+          const appetizerName = order.appetizer ? (await getFoodItemFromID(order.appetizer)).name : null;
+          const alacarteName = order.alacarte ? (await getFoodItemFromID(order.alacarte)).name : null;
+          const drinkName = order.drink ? (await getFoodItemFromID(order.drink)).name : null;
 
           return {
             menuItemType: order.menuItemType,
