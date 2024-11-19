@@ -6,6 +6,8 @@ import { useOrderContext } from '../../context/OrderContext';
 import Logo from "../../assets/images/logo.png";
 import FoodItemBtn from '../../components/FoodItemBtn/FoodItemBtn';
 import Chevron from '../../components/Chevron/Chevron';
+import { getFoodItemFromID } from '../../api/GetFoodItemFromID';
+import FoodItemDetailsModal from '../../components/FoodItemDetailsModal/FoodItemDetailsModal';
 
 function FoodItemPage() {
   // Used for chevron
@@ -13,7 +15,7 @@ function FoodItemPage() {
   const [imageUrls, setImageUrls] = useState([ ]);
 
   const navigate = useNavigate();
-  const { menuItemType, addToOrder, currentEditOrder } = useOrderContext();
+  const { menuItemType, addToOrder, currentEditOrder, setFoodItemDetailsInContext, isFoodItemDetailsModalVisible, openFoodItemDetailsModal } = useOrderContext();
 
   const [foodItems, setFoodItems] = useState([]);
   const [selectionStep, setSelectionStep] = useState("Side");
@@ -152,6 +154,16 @@ function FoodItemPage() {
     addToOrder(orderItem);
   };
 
+  const handleInfoClick = async (foodid) => {
+    try {
+      const foodDetails = await getFoodItemFromID(foodid); // Fetch food details
+      setFoodItemDetailsInContext(foodDetails); // Set the fetched details in context
+      openFoodItemDetailsModal();
+    } catch (error) {
+      console.error("Failed to fetch food item details:", error);
+    }
+  };
+
   function getCountBasedOnSelection(id) {
     switch (selectionStep) {
       case "Entree":
@@ -191,6 +203,7 @@ function FoodItemPage() {
   const foodItemElements = foodItems.map(item => (
     <FoodItemBtn 
       key={item.foodid}
+      foodID={item.foodid}
       name={item.name}
       imgSrc={item.imagesrc}
       isSelected={
@@ -211,11 +224,15 @@ function FoodItemPage() {
       amount={getCountBasedOnSelection(item.foodid)}
       onIncrease={() => handleIncrease(item.foodid, item.category, item.imagesrc)}
       onDecrease={() => handleDecrease(item.foodid, item.category, item.imagesrc)}
+      handleInfoClick={() => handleInfoClick(item.foodid)}
     />
   ));
 
   return (
     <div className="container">
+      {isFoodItemDetailsModalVisible && (
+        <div className="overlay"></div> // Add the overlay conditionally
+      )}
       <div className="top-container">
         <div className="header-container">
           <img src={Logo} alt="Logo" />
@@ -237,7 +254,7 @@ function FoodItemPage() {
           </h3>
         </div>
       </div>
-      <div className="food-item-container">
+      <div className={`food-item-container ${isFoodItemDetailsModalVisible ? "blurred" : ""}`}>
         {foodItemElements}
       </div>
       <div className="nav-btn-container">
@@ -260,6 +277,7 @@ function FoodItemPage() {
           <button onClick={handleAddToOrder}>{currentEditOrder ? "Update Order" : "Add to Order"}</button>
         ) : null}
       </div>
+      {isFoodItemDetailsModalVisible && <FoodItemDetailsModal />}
     </div>
   );
 }

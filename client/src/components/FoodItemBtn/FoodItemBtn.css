@@ -55,3 +55,30 @@
     display: flex;
     justify-content: center;
   }
+
+  .info-button {
+    padding: 0.5rem 1rem;
+    background-color: #c8102e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .info-button:hover {
+    background-color: #a00;
+    transform: scale(1.05);
+  }
+  
+  .info-button:active {
+    transform: scale(1);
+  }
+  
+  .food-item-btn-container {
+    position: relative; /* Allow positioning within this container */
+  }
+  

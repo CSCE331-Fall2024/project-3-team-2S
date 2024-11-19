@@ -7,7 +7,7 @@ export async function getFoodItemFromID(foodID) {
       throw new Error('Failed to fetch food item');
     }
     const data = await response.json();
-    return data.name
+    return data
   } catch (error) {
     console.error('Error fetching food items:', error);
     throw error;
