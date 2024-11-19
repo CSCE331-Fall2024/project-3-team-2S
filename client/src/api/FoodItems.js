@@ -1,4 +1,5 @@
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = 'http://localhost:3001/api';
+// RETURN TO DEPLOYMENT SERVER LATER
 
 export const getFoodItems = async () => {
   try {
@@ -44,8 +45,6 @@ export async function addFoodItem(newItem) {
 
 export async function updateFoodItem(item) {
   try {
-    console.log('Updating food item:', item); // Log to check if correct data is being passed
-
     const response = await fetch(`${API_BASE_URL}/fooditems/${item.foodid}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -61,15 +60,16 @@ export async function updateFoodItem(item) {
       }),
     });
 
+    // Log the response status and body
+    // console.log("RESPONSE STATUS:", response.status);
+    const responseBody = await response.text(); // Use text() to capture any error message
+    // console.log("RESPONSE BODY:", responseBody);
+
     if (response.ok) {
       console.log(`Successfully updated food item with ID: ${item.foodid}`);
-      return await response.json();
-    } else if (response.status === 404) {
-      console.error(`Food item with ID: ${item.foodid} not found. Unable to update.`);
-      throw new Error(`Food item not found with ID: ${item.foodid}`);
+      return JSON.parse(responseBody); // Parse the JSON if successful
     } else {
-      console.error(`Failed to update food item with ID: ${item.foodid}. Status: ${response.status}`);
-      throw new Error(`Update failed with status: ${response.status}`);
+      throw new Error(`Failed to update food item. Status: ${response.status}. Message: ${responseBody}`);
     }
   } catch (error) {
     console.error(`Error updating food item: ${error.message}`);
