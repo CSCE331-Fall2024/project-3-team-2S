@@ -3,7 +3,7 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 export const getInventory = async () => {
   const response = await fetch(`${API_BASE_URL}/inventory`);
   const data = await response.json();
-  return data;  // Ensure this matches the expected structure
+  return data; 
 };
 
 export async function addInventory(newItem) {
