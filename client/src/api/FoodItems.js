@@ -1,11 +1,11 @@
 const API_BASE_URL = 'http://localhost:3001/api';
-// RETURN TO DEPLOYMENT SERVER LATER
+// const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export const getFoodItems = async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/fooditems`);
     const data = await response.json();
-    return data;  // Ensure this matches the expected structure
+    return data;  
   } catch (error) {
     console.error(`Error fetching food items: ${error.message}`);
     throw error;
