@@ -319,3 +319,103 @@
 .sortable-header span + .sortable-header::after {
   display: none;
 }
+
+.order-history-wrapper {
+  display: flex;
+  gap: 20px;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.order-history-page {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.order-history-container {
+  flex: 2;
+  min-width: 0; /* This allows the container to shrink below its content size */
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 2px solid black;
+}
+
+.details-container {
+  flex: 1;
+  margin-top: 30px;
+  min-width: 300px;
+  max-width: 400px;
+  height: fit-content; /* This ensures the container doesn't stretch unnecessarily */
+}
+
+.placeholder-panel{
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 2px solid black;
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.placeholder-panel p {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}
+
+
+.details-panel .close-button {
+  align-self: flex-end;
+  background-color: #c41e3a;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.details-panel .close-button:hover {
+  background-color: #a01830;
+}
+
+
+.menu-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.menu-items-table th,
+.menu-items-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.menu-items-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+@media (max-width: 1200px) {
+  .order-history-wrapper {
+    flex-direction: column;
+  }
+
+  .details-container {
+    max-width: none;
+    width: 100%;
+  }
+}
+

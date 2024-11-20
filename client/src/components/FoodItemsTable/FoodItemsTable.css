@@ -1,5 +1,5 @@
 .fooditems-table {
-    max-width: 1000px; /* Adjust the max width as needed */
+    max-width: 3000px; /* Adjust the max width as needed */
     margin: 0 auto; /* Center the table */
     border-radius: 8px; /* Rounded edges */
     overflow: hidden; /* Ensures the border radius is applied to the content */

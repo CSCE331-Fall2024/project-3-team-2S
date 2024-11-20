@@ -119,11 +119,11 @@
   }
 
   .fooditems-body {
-      flex: 0.5; /* Adjust the size ratio */
-      padding-top: 30px;
-      padding-bottom: 30px;
-      width: 40vw;
-  }
+    flex: 0.7; /* Increase this value to make it wider */
+    padding-top: 30px;
+    padding-bottom: 30px;
+    width: 50vw; /* Increase this value to make it wider */
+}
   /* Divider */
   .divider {
     border-left: 5px solid black; /* Adjust thickness and color as needed */

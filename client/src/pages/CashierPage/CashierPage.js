@@ -1,49 +1,107 @@
-import './CashierPage.css'
-import Logo from "../../assets/images/logo.png"
-import React from 'react';
+import React, { useState } from 'react';
+import './CashierPage.css';
+import { useNavigate } from 'react-router-dom'; // Import for routing
+import Logo from "../../assets/images/logo.png";
+import OrderTable from '../../components/OrderTable/OrderTable';
 
-function ExamplePage() {
+function CashierPage() {
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [orderData, setOrderData] = useState([]);
+  const [activePage, setActivePage] = useState("Cashier"); // Track the active page
+  
+  const navigate = useNavigate(); // Initialize navigate for routing
+
+  // Handle selecting an item from the table
+  const handleSelectItem = (item) => {
+    setSelectedItem(item);
+  };
+
+  // Handle updating an existing item
+  const handleItemUpdate = (updatedItem) => {
+    setOrderData(prevData => 
+      prevData.map(item => 
+        item.ingrid === updatedItem.ingrid ? updatedItem : item
+      )
+    );
+    setSelectedItem(updatedItem);
+  };
+
+  // Handle deleting an item
+  const handleItemDelete = (deletedItemId) => {
+    setOrderData(prevData => 
+      prevData.filter(item => item.ingrid !== deletedItemId)
+    );
+    setSelectedItem(null);
+  };
+
+  // Handle navigation clicks
+  const handleNavClick = (text) => {
+    if (text === "Inventory") {
+      navigate("/inventory"); // Navigate to Inventory page
+    } else if (text === "Employees") {
+      navigate("/employees"); // Navigate to Employee page
+    } else if (text === "Reports") {
+      navigate("/reports"); // Navigate to Reports page
+    }
+  };
+
   return (
     <div>
-      <div className="header">
-        <img src={Logo} />
-        <h1>Cashier Home Page</h1>
+      <div className="header-container">
+        <img src={Logo} alt="Logo" />
+        <h1>Cashier</h1>
+        <div className='bar'></div>
+        
+        {/* Manager Navigation */}
+        <div className='cashier-nav'>
+          <span 
+            onClick={() => handleNavClick("Inventory")}
+            className={activePage === "Inventory" ? "active-nav" : ""}
+          >
+            Inventory
+          </span>
+          <span 
+            onClick={() => handleNavClick("Employees")}
+            className={activePage === "Employees" ? "active-nav" : ""}
+          >
+            Employees
+          </span>
+          <span 
+            onClick={() => handleNavClick("Reports")}
+            className={activePage === "Reports" ? "active-nav" : ""}
+          >
+            Reports
+          </span>
+        </div>
+
+        <div className="header-right">
+          <button className='sign-out-button' onClick={() => navigate('/')}>Sign Out</button>
+        </div>
       </div>
-      <DataTable />
+
+      <div className="inventory-container">
+        <div className="inventory-header">
+          <h1>Inventory</h1>
+          <div className="inventory-body">
+            <OrderTable 
+              data={orderData} 
+              setData={setOrderData} 
+              onSelectItem={handleSelectItem} 
+            />
+          </div>
+        </div>
+
+        {/* <InventoryDetails 
+          selectedItem={selectedItem} 
+          onItemUpdate={handleItemUpdate}
+          onItemDelete={handleItemDelete}
+        /> */}
+
+        <div className="divider"></div>
+
+      </div>
     </div>
-  )
-}
-
-function DataTable() {
-  // Sample data to display in the table
-  const data = [
-    { id: 1, name: 'John Doe', age: 25, email: 'john@example.com' },
-    { id: 2, name: 'Jane Smith', age: 30, email: 'jane@example.com' },
-    { id: 3, name: 'Mike Johnson', age: 35, email: 'mike@example.com' }
-  ];
-
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Age</th>
-          <th>Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((item) => (
-          <tr key={item.id}>
-            <td>{item.id}</td>
-            <td>{item.name}</td>
-            <td>{item.age}</td>
-            <td>{item.email}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
   );
 }
 
-export default ExamplePage;
+export default CashierPage;

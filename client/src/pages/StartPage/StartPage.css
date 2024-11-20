@@ -99,7 +99,10 @@ body {
 
   /* Auth Buttons */
 .auth-buttons {
+  display: flex;
   margin-bottom: 20px;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; 
 }
 
 .auth-button {
@@ -115,5 +118,5 @@ body {
 }
 
 .auth-button:hover {
-  background-color: #750000; /* Darker Maroon */
+  background-color: #750000; /* Lighter Maroon */
 }

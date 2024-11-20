@@ -109,6 +109,16 @@ app.get('/api/inventory', async (req, res) => {
   }
 });
 
+app.get('/api/getorders', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM uncompleted_orders');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error executing query:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 app.post('/api/send-order', async (req, res) => {
   const orders = req.body;
@@ -495,7 +505,7 @@ app.get('/api/orderhistory', async (req, res) => {
       const result = await pool.query(`
           SELECT 
               ordernum::integer as ordernum,
-              customerid::integer as customerid,
+              customerid::text as customerid,
               employeeid::integer as employeeid,
               timecompleted::timestamp as timecompleted
           FROM public.orders 
@@ -506,6 +516,31 @@ app.get('/api/orderhistory', async (req, res) => {
   } catch (error) {
       console.error('Error executing query:', error.stack);
       res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Menu Items API
+app.get('/api/menuitems/:ordernum', async (req, res) => {
+  try {
+    const ordernum = req.params.ordernum;
+    const result = await pool.query(`
+      SELECT 
+        foodid1::integer as foodid1,
+        foodid2::integer as foodid2,
+        foodid3::integer as foodid3,
+        foodid4::integer as foodid4,
+        price::numeric as price,
+        name::text as name,
+        ordernum::integer as ordernum
+      FROM public.menuitems
+      WHERE ordernum = $1
+      ORDER BY ordernum DESC
+    `, [ordernum]);
+    
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error executing query:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 
