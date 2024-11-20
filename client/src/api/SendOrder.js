@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://project-3-team-2-s-dep-server.vercel.app/api';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export async function SendOrder(orders) {
   try {
@@ -46,10 +46,10 @@ export async function SendOrder(orders) {
 
     // Last element in ordersWithFoodIds will contain data about customerid and employeeid
     let tempCustomerId = localStorage.getItem("customerId");
-    if(tempCustomerId === "") {
+    if(tempCustomerId === null) {
       tempCustomerId = "1";
     }
-    console.log("cusomter id is " + tempCustomerId);
+    console.log("customer id is " + tempCustomerId);
     ordersWithFoodIds.push({
       customerid: tempCustomerId,
       employeeid: 1

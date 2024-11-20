@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './InventoryDetails.css';
-import { updateInventory, deleteInventory } from '../../api/Inventory';
+import './FoodItemsDetails.css';
+import { updateFoodItem, deleteFoodItem } from '../../api/FoodItems'; // Change to FoodItems API
 import DeleteConfirmationModal from '../DeleteConfirmationModal/DeleteConfirmationModal';
 import Alert from '../Alert/Alert'; // Import the Alert component
 
-function InventoryDetails({ selectedItem, onItemUpdate, onItemDelete }) {
+function FoodItemsDetails({ selectedItem, onItemUpdate, onItemDelete }) {
   
     const [editedItem, setEditedItem] = useState(null);
     const [error, setError] = useState(null);
@@ -20,7 +20,7 @@ function InventoryDetails({ selectedItem, onItemUpdate, onItemDelete }) {
     if (!selectedItem) {
       return (
         <div className="details-panel">
-          <p>Select an item to view details</p>
+          <p>Select a food item to view details</p>
         </div>
       );
     }
@@ -30,12 +30,17 @@ function InventoryDetails({ selectedItem, onItemUpdate, onItemDelete }) {
       setEditedItem(prev => ({ ...prev, [name]: value }));
     };
 
+    const handleCheckboxChange = (e) => {
+      const { name, checked } = e.target;
+      setEditedItem(prev => ({ ...prev, [name]: checked }));
+    };
+
     const handleSave = async () => {
       try {
-        await updateInventory(editedItem);
+        await updateFoodItem(editedItem);
         onItemUpdate(editedItem);
         setError(null);
-        setSuccessMessage(`Entry "${editedItem.ingredient}" updated successfully!`);
+        setSuccessMessage(`Entry "${editedItem.name}" updated successfully!`);
         setShowSuccessAlert(true); // Show success alert when save is successful
       } catch (error) {
         console.error('Error updating item:', error);
@@ -45,10 +50,10 @@ function InventoryDetails({ selectedItem, onItemUpdate, onItemDelete }) {
 
     const handleDelete = async () => {
       try {
-        await deleteInventory(editedItem.ingrid);
-        onItemDelete(editedItem.ingrid);
+        await deleteFoodItem(editedItem.foodid);
+        onItemDelete(editedItem.foodid);
         setError(null);
-        setSuccessMessage(`Entry "${editedItem.ingredient}" deleted successfully!`);
+        setSuccessMessage(`Entry "${editedItem.name}" deleted successfully!`);
         setShowSuccessAlert(true); // Show deletion alert when item is deleted
         setShowDeleteModal(false); // Close modal after deletion
       } catch (error) {
@@ -59,7 +64,7 @@ function InventoryDetails({ selectedItem, onItemUpdate, onItemDelete }) {
 
     return (
       <div className="details-panel">
-        <h2>Inventory Item Details</h2>
+        <h2>Food Item Details</h2>
         
         {/* Show success alert when entry is updated or deleted */}
         {showSuccessAlert && (
@@ -72,33 +77,62 @@ function InventoryDetails({ selectedItem, onItemUpdate, onItemDelete }) {
         {error && <p className="error-message">{error}</p>}
         
         <div>
-          <label>Ingredient ID:</label>
+          <label>Food ID:</label>
           <input 
             type="text" 
-            name="ingrid" 
-            value={editedItem?.ingrid || ''} 
+            name="foodid" 
+            value={editedItem?.foodid || ''} 
             readOnly 
           />
         </div>
 
         <div>
-          <label>Ingredient:</label>
+          <label>Name:</label>
           <textarea 
-            name="ingredient" 
-            value={editedItem?.ingredient || ''} 
+            name="name" 
+            value={editedItem?.name || ''} 
             onChange={handleInputChange}
           />
         </div>
 
         <div>
-          <label>Quantity:</label>
+          <label>Category:</label>
           <textarea 
-            name="quantity" 
-            value={editedItem?.quantity || ''} 
+            name="category" 
+            value={editedItem?.category || ''} 
             onChange={handleInputChange}
           />
         </div>
 
+        <div>
+          <label>Calories:</label>
+          <input 
+            type="number" 
+            name="calories" 
+            value={editedItem?.calories || ''} 
+            onChange={handleInputChange}
+          />
+        </div>
+
+        {/* Boolean Checkboxes */}
+        <div className="checkbox-group">
+          <label><input type="checkbox" name="isgf" checked={!!editedItem?.isgf} onChange={handleCheckboxChange} /> Gluten-Free</label>
+          <label><input type="checkbox" name="isvegetarian" checked={!!editedItem?.isvegetarian} onChange={handleCheckboxChange} /> Vegetarian</label>
+          <label><input type="checkbox" name="isspicy" checked={!!editedItem?.isspicy} onChange={handleCheckboxChange} /> Spicy</label>
+          <label><input type="checkbox" name="ispremium" checked={!!editedItem?.ispremium} onChange={handleCheckboxChange} /> Premium</label>
+        </div>
+
+        {/* Image Source */}
+        <div>
+          <label>Image Source:</label>
+          <textarea 
+            name="imagesrc" 
+            value={editedItem?.imagesrc || ''} 
+            onChange={handleInputChange}
+          />
+        </div>
+
+        {/* Save and Delete Buttons */}
         <div>
           <button className='save-button' onClick={handleSave}>Save</button>
           {/* Trigger modal when Delete is clicked */}
@@ -108,7 +142,7 @@ function InventoryDetails({ selectedItem, onItemUpdate, onItemDelete }) {
         {/* Include Delete Confirmation Modal */}
         <DeleteConfirmationModal
           show={showDeleteModal}
-          itemName={editedItem?.ingredient}
+          itemName={editedItem?.name}
           onClose={() => setShowDeleteModal(false)} // Close modal without deleting
           onConfirm={handleDelete} // Proceed with deletion
         />
@@ -116,4 +150,4 @@ function InventoryDetails({ selectedItem, onItemUpdate, onItemDelete }) {
     );
 }
 
-export default InventoryDetails;
+export default FoodItemsDetails;

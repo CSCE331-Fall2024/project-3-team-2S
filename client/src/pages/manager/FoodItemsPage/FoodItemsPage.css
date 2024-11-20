@@ -107,18 +107,18 @@
   background-color: #f0f0f0; /* Slight hover effect */
 }
 
-  .inventory-container {
+  .fooditems-container {
     display: flex;
     gap: 30px;
     padding: 50px; /* Optional padding around the container */
   }
 
-  .inventory-header {
+  .fooditems-header {
     display: flex;
     flex-direction: column; /* Stack h1 and table vertically */
   }
 
-  .inventory-body {
+  .fooditems-body {
       flex: 0.5; /* Adjust the size ratio */
       padding-top: 30px;
       padding-bottom: 30px;
@@ -133,12 +133,12 @@
     margin-right: 70px;
   }
 
-  /* Add Ingredient Section */
-  .add-ingredient-section {
+  /* Add fooditems Section */
+  .add-fooditems-section {
     margin-left: 100px; /* Space between divider and this section */
   }
 
-  .add-ingredient-section h1 {
+  .add-fooditems-section h1 {
     font-size: 24px;
     margin-bottom: 20px;
   }

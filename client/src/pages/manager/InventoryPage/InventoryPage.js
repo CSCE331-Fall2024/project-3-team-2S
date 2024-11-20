@@ -10,7 +10,7 @@ import ManagerProfileDropdown from '../../../components/ManagerProfileDropdown/M
 function InventoryPage() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [inventoryData, setInventoryData] = useState([]);
-  const [activePage, setActivePage] = useState("Inventory"); // Track the active page
+  const [activePage] = useState("Inventory"); // Track the active page
   
   const navigate = useNavigate(); // Initialize navigate for routing
 
@@ -44,11 +44,19 @@ function InventoryPage() {
 
   // Handle navigation clicks
   const handleNavClick = (text) => {
-    if (text === "Inventory") {
+    if (text === "Order History") {
+      navigate("/orderhistory"); // Navigate to Order History page
+    } 
+    else if (text === "Inventory") {
       navigate("/inventory"); // Navigate to Inventory page
-    } else if (text === "Employees") {
+    } 
+    else if (text === "Food Items") {
+      navigate("/fooditems"); // Navigate to Items page
+    } 
+    else if (text === "Employees") {
       navigate("/employees"); // Navigate to Employee page
-    } else if (text === "Reports") {
+    }
+    else if (text === "Reports") {
       navigate("/reports"); // Navigate to Reports page
     }
   };
@@ -56,17 +64,29 @@ function InventoryPage() {
   return (
     <div>
       <div className="header-container">
-        <img src={Logo} alt="Logo" />
+        <img src={Logo} alt="Logo" className="logo"/>
         <h1>Manager</h1>
         <div className='bar'></div>
         
         {/* Manager Navigation */}
         <div className='manager-nav'>
+        <span 
+            onClick={() => handleNavClick("Order History")}
+            className={activePage === "Order History" ? "active-nav" : ""}
+          >
+            Order History
+          </span>
           <span 
             onClick={() => handleNavClick("Inventory")}
             className={activePage === "Inventory" ? "active-nav" : ""}
           >
             Inventory
+          </span>
+          <span 
+            onClick={() => handleNavClick("Food Items")}
+            className={activePage === "Food Items" ? "active-nav" : ""}
+          >
+            Food Items
           </span>
           <span 
             onClick={() => handleNavClick("Employees")}
