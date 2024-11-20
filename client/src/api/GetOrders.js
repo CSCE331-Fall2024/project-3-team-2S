@@ -1,6 +1,6 @@
 const API_BASE_URL = 'https://project-3-team-2-s-dep-server.vercel.app/api';
 
-export const getInventory = async () => {
+export const getOrders = async () => {
   const response = await fetch(`${API_BASE_URL}/getorders`);
   const data = await response.json();
   return data;  // Ensure this matches the expected structure

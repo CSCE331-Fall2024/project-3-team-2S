@@ -108,6 +108,16 @@ app.get('/api/inventory', async (req, res) => {
   }
 });
 
+app.get('/api/getorders', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM uncompleted_orders');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error executing query:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 app.post('/api/send-order', async (req, res) => {
   const orders = req.body;

@@ -65,6 +65,17 @@ function FoodItemPage() {
 
   useEffect(() => {
     if (currentEditOrder) {
+      // TODO work in progress
+      // TODO I need to insert each imagesrc into the imageUrls list in order to insert them into the chevron
+      // console.log("editing order");
+      // for(const item of currentEditOrder.entrees) {
+      //   for(const foodItem of foodItems) {
+      //     console.log("next item is " + item + "   and the src is " + foodItem.foodid);
+      //     if(item === foodItem.foodid) {
+      //       setImageUrls((prevUrls) => [...prevUrls, foodItem.foodid]);
+      //     }
+      //   }
+      // }
       setSelection({
         side: currentEditOrder.side || null,
         entrees: currentEditOrder.entrees || [],
@@ -84,23 +95,27 @@ function FoodItemPage() {
   }, [currentEditOrder, menuItemType]);
 
   const handleIncrease = (foodid, category, newUrl) => {
-    setImageUrls((prevUrls) => [...prevUrls, newUrl]);
     setSelection(prevSelection => {
       const updatedSelection = { ...prevSelection };
   
       if (menuItemType === "A La Carte" && (category === "Side" || category === "Entree")) {
         if (!updatedSelection.alacarte) {
           updatedSelection.alacarte = foodid;
+          setImageUrls((prevUrls) => [...prevUrls, newUrl]);
         }
       } else if (selectionStep === "Side" && ["Bowl", "Plate", "Bigger Plate"].includes(menuItemType) && category === "Side") {
         updatedSelection.side = foodid;
+        setImageUrls((prevUrls) => [...prevUrls, newUrl]);
       } else if (menuItemType === "Appetizer" && category === "Appetizer") {
         updatedSelection.appetizer = foodid;
+        setImageUrls((prevUrls) => [...prevUrls, newUrl]);
       } else if (menuItemType === "Drink" && category === "Drink") {
         updatedSelection.drink = foodid;
+        setImageUrls((prevUrls) => [...prevUrls, newUrl]);
       } else if (selectionStep === "Entree" && category === "Entree") {
         if (updatedSelection.entrees.length < entreeLimit) {
           updatedSelection.entrees = [...updatedSelection.entrees, foodid];
+          setImageUrls((prevUrls) => [...prevUrls, newUrl]);
         }
       }
   
@@ -251,12 +266,13 @@ function FoodItemPage() {
           Back
         </button>
 
-        {(menuItemType === "Bowl" || menuItemType === "Plate" || menuItemType === "Bigger Plate") && selectionStep === "Side" && (
+        {(menuItemType === "Bowl" || menuItemType === "Plate" || menuItemType === "Bigger Plate") && selectionStep === "Side" && selection.side !== null && (
           <button onClick={() => setSelectionStep("Entree")}>Next</button>
         )}
         
-        {((menuItemType === "Bowl" || menuItemType === "Plate" || menuItemType === "Bigger Plate") && selectionStep === "Entree") ||
-          (menuItemType !== "Bowl" && menuItemType !== "Plate" && menuItemType !== "Bigger Plate") ? (
+        {(totalSteps === imageUrls.length) ? (
+        // {((menuItemType === "Bowl" || menuItemType === "Plate" || menuItemType === "Bigger Plate") && selectionStep === "Entree") ||
+        //   (menuItemType !== "Bowl" && menuItemType !== "Plate" && menuItemType !== "Bigger Plate") ? (
           <button onClick={handleAddToOrder}>{currentEditOrder ? "Update Order" : "Add to Order"}</button>
         ) : null}
       </div>
