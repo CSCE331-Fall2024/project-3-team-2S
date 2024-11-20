@@ -7,6 +7,7 @@ import { getFoodItemFromID } from '../../api/GetFoodItemFromID';
 import CheckoutCard from '../../components/CheckoutCard/CheckoutCard';
 import Receipt from '../../components/Receipt/Receipt';
 import CompletedModal from '../../components/CompletedModal/CompletedModal';
+import { getNextOrderNum } from '../../api/NextOrderNum'; // Import the function
 
 function CheckoutPage() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ function CheckoutPage() {
 
   const [orderDetails, setOrderDetails] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [orderNumber, setOrderNumber] = useState(null);
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -44,7 +46,13 @@ function CheckoutPage() {
     }
   }, [orders]);
 
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
+    try {
+      const num = await getNextOrderNum(); // Fetch the next order number
+      setOrderNumber(num);
+    } catch (error) {
+      console.error('Failed to fetch next order number:', error);
+    }
     setIsModalVisible(true);
   };
 
@@ -98,7 +106,7 @@ function CheckoutPage() {
       </div>
       {isModalVisible && (
         <div className="modal-container">
-          <CompletedModal onClose={handleCloseModal} />
+          <CompletedModal onClose={handleCloseModal} orderNumber={orderNumber} />
         </div>
       )}
     </div>
