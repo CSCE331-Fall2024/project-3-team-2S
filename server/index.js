@@ -487,6 +487,31 @@ app.get('/api/orderhistory', async (req, res) => {
   }
 });
 
+// Menu Items API
+app.get('/api/menuitems/:ordernum', async (req, res) => {
+  try {
+    const ordernum = req.params.ordernum;
+    const result = await pool.query(`
+      SELECT 
+        foodid1::integer as foodid1,
+        foodid2::integer as foodid2,
+        foodid3::integer as foodid3,
+        foodid4::integer as foodid4,
+        price::numeric as price,
+        name::text as name,
+        ordernum::integer as ordernum
+      FROM public.menuitems
+      WHERE ordernum = $1
+      ORDER BY ordernum DESC
+    `, [ordernum]);
+    
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error executing query:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 // Login endpoint
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
