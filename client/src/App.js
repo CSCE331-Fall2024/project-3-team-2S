@@ -15,6 +15,7 @@ import CashierOrderPage from './pages/CashierOrderPage/CashierOrderPage'
 import { OrderProvider } from './context/OrderContext'
 import { CashierOrderProvider } from './context/CashierOrderContext'
 import './App.css'
+import CashierPage from './pages/CashierPage/CashierPage'
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/orderhistory" element={<OrderHistoryPage />} />
           <Route path="/inventory" element={<InventoryPage />} />
           <Route path="/fooditems" element={<FoodItemsPage />} />
+          <Route path="/cashier" element={<CashierPage />} />
           <Route path="/employees" element={<EmployeePage />} />
           <Route path="/reports" element={<ReportsPage />} />
         </Routes>
