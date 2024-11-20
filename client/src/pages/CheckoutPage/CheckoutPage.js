@@ -7,7 +7,9 @@ import { getFoodItemFromID } from '../../api/GetFoodItemFromID';
 import CheckoutCard from '../../components/CheckoutCard/CheckoutCard';
 import Receipt from '../../components/Receipt/Receipt';
 import CompletedModal from '../../components/CompletedModal/CompletedModal';
+import { SendOrder
 
+ } from '../../api/SendOrder';
 function CheckoutPage() {
   const navigate = useNavigate();
   const { orders, removeOrder, editOrder, clearOrder } = useOrderContext();
@@ -45,7 +47,12 @@ function CheckoutPage() {
   }, [orders]);
 
   const handlePlaceOrder = () => {
-    setIsModalVisible(true);
+    if (orders.length > 0) {
+      SendOrder(orders)
+      setIsModalVisible(true);
+    } else {
+      alert("There are no items in your order.");
+    }
   };
 
   const handleCloseModal = () => {
@@ -89,7 +96,7 @@ function CheckoutPage() {
             )}
           </div>
           <div className="receipt-container">
-            <Receipt orders={orders} onPlaceOrder={handlePlaceOrder} />
+            <Receipt orders={orders} handlePlaceOrder={handlePlaceOrder} />
           </div>
         </div>
         <div className="nav-btn-container">
