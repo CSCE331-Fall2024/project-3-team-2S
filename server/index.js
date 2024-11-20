@@ -150,6 +150,38 @@ app.post('/api/send-order', async (req, res) => {
   }
 });
 
+app.post('/api/create-customer', async (req, res) => {
+  const { customerid, name, cardid } = req.body;
+
+  try {
+    // Check if the customerid already exists
+    const existingCustomer = await pool.query(
+      'SELECT * FROM customer WHERE customerid = $1',
+      [customerid]
+    );
+
+    if (existingCustomer.rows.length > 0) {
+      // Customer ID already exists
+      return
+    }
+
+    // Insert the new customer
+    const result = await pool.query(
+      'INSERT INTO customer (customerid, name, cardid) VALUES ($1, $2, $3) RETURNING *',
+      [customerid, name, cardid]
+    );
+
+    res.status(201).json({ 
+      message: 'Customer added successfully', 
+      newCustomer: result.rows[0] 
+    });
+  } catch (error) {
+    console.error('Error adding customer:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 
 // Inventory endpoints
 // POST endpoint for adding new inventory items
