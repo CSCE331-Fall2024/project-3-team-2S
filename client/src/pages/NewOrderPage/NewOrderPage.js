@@ -28,11 +28,13 @@ function NewOrderPage() {
       <div className="header-container">
         <img src={Logo} alt="Logo" />
         <h1>New Order</h1>
-        {customerId && (
-        <div className="customer-id-display">
-          Customer ID: {customerId}
+        <div className="header-right">
+          {customerId && (
+            <div className="customer-id-display">
+              Customer ID: {customerId}
+            </div>
+          )}
         </div>
-        )}
       </div>
       <div className="menu-item-container">
         <MenuItemBtn
