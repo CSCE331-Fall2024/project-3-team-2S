@@ -122,7 +122,7 @@ app.get('/api/getorders', async (req, res) => {
 
 app.post('/api/send-order', async (req, res) => {
   const orders = req.body;
-  console.log(orders);
+
   try {
     await pool.query('BEGIN');
 
