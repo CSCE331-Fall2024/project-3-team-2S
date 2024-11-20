@@ -3,6 +3,7 @@ import Logo from '../../assets/images/logo.png';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/clerk-react";
+import { CreateCustomer } from '../../api/CreateCustomer';
 
 function StartPage() {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ function StartPage() {
     if (user) {
       // Automatically set the customer ID based on the user's email or Clerk ID
       // const customerId = user.id; // Or use a hashed version of user.emailAddress
+      console.log(user.id, user.fullName, "1")
+      CreateCustomer(user.id, user.fullName, "1")
       setInputCustomerId(user.id);
       localStorage.setItem("customerId", user.id);
     }
