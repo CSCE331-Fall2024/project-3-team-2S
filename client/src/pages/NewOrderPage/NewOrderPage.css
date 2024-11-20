@@ -1,114 +1,119 @@
 body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #ffe5e5;
-    color: #333;
-    box-sizing: border-box;
-  }
-  .customer-id-display {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-size: 1.2em;
-    color: #333;
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #ffe5e5;
+  color: #333;
+  box-sizing: border-box;
+}
 
-  .header-container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #c8102e;
-    color: #fff;
-  }
-  
-  .header-container img {
-    width: 50px;
-    height: auto;
-    margin-right: 1rem;
-  }
-  
-  .header-container h1 {
-    font-size: 1.8rem;
-    font-weight: bold;
-  }
-  
-  /* .menu-item-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    padding: 1rem;
-  } */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .menu-item-container {
-    /* width: 60%; */
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Fixed to 3 columns */
-    gap: 0.5rem; /* Minimal gap between items */
-    padding: 1.5rem;
-    justify-items: center;
-  }
-  
-  .menu-item-container button {
-    width: 260px;
-    height: 260px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    border: 2px solid #c8102e;
-    color: #333;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .menu-item-container button img {
-    width: 300px; /* Fixed width */
-    height: 180px; /* Fixed height */
-    margin-bottom: 0.5rem;
-  }
-  
-  .menu-item-container button:hover {
-    background-color: #c8102e;
-    color: #fff;
-    transform: translateY(-4px); /* Slight lift effect on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Darker shadow on hover */
-  }
-  
-  .nav-btn-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1rem 2rem;
-  }
-  
-  .nav-btn-container button {
-    width: 120px;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .nav-btn-container button:hover {
-    background-color: #555;
-  }
-  
+.header-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  background-color: #c8102e;
+  color: #fff;
+}
+
+.logo {
+  width: 50px;
+  height: auto;
+  margin-right: 1rem;
+  margin-left: 30px;
+}
+
+.header-container h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.bar {
+  border-left: 2px solid white;
+  height: 50px;
+  margin-left: 10px;
+  margin-right: 50px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  font-weight: bold;
+}
+
+.customer-id-display {
+  font-size: 1.2rem;
+  color: #fff;
+  margin-right: 30px;
+}
+
+.menu-item-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  padding: 1.5rem;
+  justify-items: center;
+}
+
+.menu-item-container button {
+  width: 260px;
+  height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border: 2px solid #c8102e;
+  color: #333;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.menu-item-container button img {
+  width: 300px;
+  height: 180px;
+  margin-bottom: 0.5rem;
+}
+
+.menu-item-container button:hover {
+  background-color: #c8102e;
+  color: #fff;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.nav-btn-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 2rem;
+}
+
+.nav-btn-container button {
+  width: 120px;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-btn-container button:hover {
+  background-color: #555;
+}

@@ -8,45 +8,52 @@ const columns = [
   {
     name: 'Food ID',
     selector: row => row.foodid,
-    sortable: true
+    sortable: true,
+    width: '10%'
   },
   {
     name: 'Name',
     selector: row => row.name,
-    sortable: true
+    sortable: true,
+    width: '23%'
   },
   {
     name: 'Category',
     selector: row => row.category,
-    sortable: true
+    sortable: true,
+    width: '10%'
   },
   {
     name: 'Calories',
     selector: row => row.calories,
-    sortable: true
+    sortable: true,
+    width: '10%'
   },
   {
     name: 'Gluten-Free',
     selector: row => (row.isgf ? 'Yes' : 'No'),
-    sortable: true
+    sortable: true,
+    width: '14%'
   },
   {
     name: 'Vegetarian',
     selector: row => (row.isvegetarian ? 'Yes' : 'No'),
-    sortable: true
+    sortable: true,
+    width: '13%'
   },
   {
     name: 'Spicy',
     selector: row => (row.isspicy ? 'Yes' : 'No'),
-    sortable: true
+    sortable: true,
+    width: '10%'
   },
   {
     name: 'Premium',
     selector: row => (row.ispremium ? 'Yes' : 'No'),
-    sortable: true
+    sortable: true,
+    width: '10%'
   },
 ];
-
 function FoodItemsTable({ data, setData, onSelectItem }) {
   const [loading, setLoading] = useState(true);
 

@@ -31,7 +31,7 @@ function StartPage() {
   };
 
   const handleEmployeeClick = () => {
-    navigate("/inventory");
+    navigate("/orderhistory");
   };
 
   const handleKeyPress = (e) => {
@@ -66,6 +66,9 @@ function StartPage() {
 
       <SignedIn>
         <div className="auth-buttons">
+          <button className="employee-button" onClick={handleEmployeeClick}>
+            I'm an Employee
+          </button>
           <UserButton />
           {/* <button
             className="auth-button"
@@ -76,15 +79,10 @@ function StartPage() {
           >
             Sign Out
           </button> */}
-        </div>
-
-        <button className="action-button" onClick={handleSaveCustomerId}>
+          <button className="action-button" onClick={handleSaveCustomerId}>
           New Order
-        </button>
-
-        <button className="employee-button" onClick={handleEmployeeClick}>
-          I'm an Employee
-        </button>
+          </button>
+        </div>
       </SignedIn>
     </div>
   );

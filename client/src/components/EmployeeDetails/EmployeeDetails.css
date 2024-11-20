@@ -48,6 +48,12 @@
     min-height: 60px;
   }
 
+  .details-panel p {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+  }
+
   .details-panel div:last-child {
     display: flex;
     justify-content: space-between;

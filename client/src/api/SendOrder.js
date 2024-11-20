@@ -49,7 +49,7 @@ export async function SendOrder(orders) {
     if(tempCustomerId === null) {
       tempCustomerId = "1";
     }
-    console.log("cusomter id is " + tempCustomerId);
+    console.log("customer id is " + tempCustomerId);
     ordersWithFoodIds.push({
       customerid: tempCustomerId,
       employeeid: 1
