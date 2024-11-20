@@ -473,7 +473,7 @@ app.get('/api/orderhistory', async (req, res) => {
       const result = await pool.query(`
           SELECT 
               ordernum::integer as ordernum,
-              customerid::integer as customerid,
+              customerid::text as customerid,
               employeeid::integer as employeeid,
               timecompleted::timestamp as timecompleted
           FROM public.orders 
