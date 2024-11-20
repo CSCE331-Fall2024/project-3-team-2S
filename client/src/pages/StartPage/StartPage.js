@@ -28,7 +28,7 @@ function StartPage() {
   };
 
   const handleEmployeeClick = () => {
-    navigate("/inventory");
+    navigate("/orderhistory");
   };
 
   const handleKeyPress = (e) => {

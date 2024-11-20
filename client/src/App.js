@@ -9,12 +9,8 @@ import OrderHistoryPage from './pages/manager/OrderHistoryPage/OrderHistoryPage'
 import InventoryPage from './pages/manager/InventoryPage/InventoryPage'
 import FoodItemsPage from './pages/manager/FoodItemsPage/FoodItemsPage'
 import EmployeePage from './pages/manager/EmployeePage/EmployeePage'
-<<<<<<< HEAD
-import CashierPage from './pages/CashierPage/CashierPage'
-=======
 import ReportsPage from './pages/manager/ReportsPage/ReportsPage'
 
->>>>>>> 1c72a45da4252f1a6e9b94f9ae59a60a1d3aa7bc
 import CashierOrderPage from './pages/CashierOrderPage/CashierOrderPage'
 import { OrderProvider } from './context/OrderContext'
 import { CashierOrderProvider } from './context/CashierOrderContext'
@@ -36,11 +32,7 @@ function App() {
           <Route path="/inventory" element={<InventoryPage />} />
           <Route path="/fooditems" element={<FoodItemsPage />} />
           <Route path="/employees" element={<EmployeePage />} />
-<<<<<<< HEAD
-          <Route path="/cashier" element={<CashierPage />} />
-=======
           <Route path="/reports" element={<ReportsPage />} />
->>>>>>> 1c72a45da4252f1a6e9b94f9ae59a60a1d3aa7bc
         </Routes>
       </Router>
     </OrderProvider>
