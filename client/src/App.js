@@ -6,6 +6,7 @@ import FoodItemPage from './pages/FoodItemPage/FoodItemPage'
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage'
 import InventoryPage from './pages/manager/InventoryPage/InventoryPage'
 import EmployeePage from './pages/manager/EmployeePage/EmployeePage'
+import CashierPage from './pages/CashierPage/CashierPage'
 import CashierOrderPage from './pages/CashierOrderPage/CashierOrderPage'
 import { OrderProvider } from './context/OrderContext'
 import { CashierOrderProvider } from './context/CashierOrderContext'
@@ -22,6 +23,7 @@ function App() {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/inventory" element={<InventoryPage />} />
           <Route path="/employees" element={<EmployeePage />} />
+          <Route path="/cashier" element={<CashierPage />} />
         </Routes>
       </Router>
     </OrderProvider>

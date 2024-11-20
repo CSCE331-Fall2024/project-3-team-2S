@@ -46,9 +46,9 @@ body, html {
   }
   
   .food-item-container {
-    width: 60%;
+    /* width: 60%; */
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Fixed to 3 columns */
+    grid-template-columns: repeat(6, 1fr); /* Fixed to 3 columns */
     gap: 0.5rem; /* Minimal gap between items */
     padding: 1.5rem;
     justify-items: center;
