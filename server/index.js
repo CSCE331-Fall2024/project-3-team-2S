@@ -293,6 +293,17 @@ app.post('/api/send-order', async (req, res) => {
   }
 });
 
+app.get('/api/next-order-num', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT MAX(ordernum) AS highest_ordernum FROM menuitems');
+    const nextOrderNum = result.rows[0].highest_ordernum + 1;
+    res.json({ nextOrderNum });
+  } catch (error) {
+    console.error('Error fetching next order number:', error);
+    res.status(500).json({ error: 'Failed to fetch next order number' });
+  }
+});
+
 // GET endpoint for inventory
 app.get('/api/inventory', async (req, res) => {
   try {
