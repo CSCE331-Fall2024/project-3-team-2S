@@ -7,6 +7,8 @@ export const OrderProvider = ({ children }) => {
   const [orders, setOrders] = useState([]);
   const [editOrderIndex, setEditOrderIndex] = useState(null); // Track index of order being edited
   const [currentEditOrder, setCurrentEditOrder] = useState(null); // Store order details in edit mode
+  const [foodItemDetails, setFoodItemDetails] = useState(null);
+  const [isFoodItemDetailsModalVisible, setFoodItemDetailsModalVisible] = useState(false);
 
   const addToOrder = (orderItem) => {
     if (editOrderIndex !== null) {
@@ -39,6 +41,18 @@ export const OrderProvider = ({ children }) => {
     setCurrentEditOrder(null);
   };
 
+  const setFoodItemDetailsInContext = (foodDetails) => {
+    setFoodItemDetails(foodDetails);
+  };
+
+  const closeFoodItemDetailsModal = () => {
+    setFoodItemDetailsModalVisible(false);
+  };
+
+  const openFoodItemDetailsModal = () => {
+    setFoodItemDetailsModalVisible(true);
+  }
+
   return (
     <OrderContext.Provider value={{
       menuItemType,
@@ -48,7 +62,12 @@ export const OrderProvider = ({ children }) => {
       removeOrder,
       clearOrder,
       editOrder,
-      currentEditOrder
+      currentEditOrder,
+      foodItemDetails,
+      setFoodItemDetailsInContext,
+      closeFoodItemDetailsModal,
+      openFoodItemDetailsModal,
+      isFoodItemDetailsModalVisible
     }}>
       {children}
     </OrderContext.Provider>

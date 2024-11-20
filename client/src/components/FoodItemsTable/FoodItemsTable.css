@@ -1,0 +1,16 @@
+.fooditems-table {
+    max-width: 1000px; /* Adjust the max width as needed */
+    margin: 0 auto; /* Center the table */
+    border-radius: 8px; /* Rounded edges */
+    overflow: hidden; /* Ensures the border radius is applied to the content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box shadow */
+    border: 2px solid black; /* Black border */
+}
+
+.react-data-table {
+    border-radius: 8px; /* Ensure the table itself has rounded corners */
+}
+
+.dataTable {
+    padding: 16px; /* Adjust padding for the table */
+}

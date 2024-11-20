@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import './EmployeePage.css'; // Make sure to create this CSS file or rename it from InventoryPage.css
+import './FoodItemsPage.css'; // Create a CSS file for FoodItemsPage
 import { useNavigate } from 'react-router-dom'; // Import for routing
 import Logo from "../../../assets/images/logo.png";
-import EmployeeTable from '../../../components/EmployeeTable/EmployeeTable'; // Import EmployeeTable component
-import EmployeeDetails from '../../../components/EmployeeDetails/EmployeeDetails'; // Import EmployeeDetails component
-import AddEmployeePanel from '../../../components/AddEmployeePanel/AddEmployeePanel'; // Import AddEmployeePanel component
+import FoodItemsTable from '../../../components/FoodItemsTable/FoodItemsTable'; // Import FoodItemsTable component
+import FoodItemsDetails from '../../../components/FoodItemsDetails/FoodItemsDetails'; // Import FoodItemsDetails component
+import AddFoodItemsPanel from '../../../components/AddFoodItemsPanel/AddFoodItemsPanel'; // Import AddFoodItemsPanel component
 import ManagerProfileDropdown from '../../../components/ManagerProfileDropdown/ManagerProfileDropdown'; // Import ManagerProfile component
 
-function EmployeePage() {
+function FoodItemsPage() {
   const [selectedItem, setSelectedItem] = useState(null);
-  const [employeeData, setEmployeeData] = useState([]);
-  const [activePage] = useState("Employees"); // Track the active page
+  const [foodItemsData, setFoodItemsData] = useState([]);
+  const [activePage] = useState("Food Items"); // Track the active page
   
   const navigate = useNavigate(); // Initialize navigate for routing
 
@@ -21,9 +21,9 @@ function EmployeePage() {
 
   // Handle updating an existing item
   const handleItemUpdate = (updatedItem) => {
-    setEmployeeData(prevData => 
+    setFoodItemsData(prevData => 
       prevData.map(item => 
-        item.employeeid === updatedItem.employeeid ? updatedItem : item
+        item.foodid === updatedItem.foodid ? updatedItem : item
       )
     );
     setSelectedItem(updatedItem);
@@ -31,15 +31,15 @@ function EmployeePage() {
 
   // Handle deleting an item
   const handleItemDelete = (deletedItemId) => {
-    setEmployeeData(prevData => 
-      prevData.filter(item => item.employeeid !== deletedItemId)
+    setFoodItemsData(prevData => 
+      prevData.filter(item => item.foodid !== deletedItemId)
     );
     setSelectedItem(null);
   };
 
-  // Handle adding a new employee
-  const handleNewEmployeeAdd = (newItem) => {
-    setEmployeeData(prevData => [...prevData, newItem]); // Add the new employee to the employee list
+  // Handle adding a new food item
+  const handleNewFoodItemAdd = (newItem) => {
+    setFoodItemsData(prevData => [...prevData, newItem]); // Add new item to food items list
   };
 
   // Handle navigation clicks
@@ -51,7 +51,7 @@ function EmployeePage() {
       navigate("/inventory"); // Navigate to Inventory page
     } 
     else if (text === "Food Items") {
-      navigate("/fooditems"); // Navigate to Items page
+      navigate("/fooditems"); // Navigate to Food Items page
     } 
     else if (text === "Employees") {
       navigate("/employees"); // Navigate to Employee page
@@ -70,7 +70,7 @@ function EmployeePage() {
         
         {/* Manager Navigation */}
         <div className='manager-nav'>
-        <span 
+          <span 
             onClick={() => handleNavClick("Order History")}
             className={activePage === "Order History" ? "active-nav" : ""}
           >
@@ -110,19 +110,19 @@ function EmployeePage() {
         </div>
       </div>
 
-      <div className="employee-container">
-        <div className="employee-header">
-          <h1>Employees</h1>
-          <div className="employee-body">
-            <EmployeeTable 
-              data={employeeData} 
-              setData={setEmployeeData} 
+      <div className="fooditems-container">
+        <div className="fooditems-header">
+          <h1>Food Items</h1>
+          <div className="fooditems-body">
+            <FoodItemsTable 
+              data={foodItemsData} 
+              setData={setFoodItemsData} 
               onSelectItem={handleSelectItem} 
             />
           </div>
         </div>
 
-        <EmployeeDetails 
+        <FoodItemsDetails 
           selectedItem={selectedItem} 
           onItemUpdate={handleItemUpdate}
           onItemDelete={handleItemDelete}
@@ -130,12 +130,12 @@ function EmployeePage() {
 
         <div className="divider"></div>
 
-        <AddEmployeePanel 
-          onItemAdd={handleNewEmployeeAdd} 
+        <AddFoodItemsPanel 
+          onItemAdd={handleNewFoodItemAdd} 
         />
       </div>
     </div>
   );
 }
 
-export default EmployeePage;
+export default FoodItemsPage;

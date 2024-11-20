@@ -1,20 +1,33 @@
 import './StartPage.css';
 import Logo from '../../assets/images/logo.png';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { getFoodItemFromID } from '../../api/GetFoodItemFromID'
+import { useState, useEffect } from 'react';
+import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/clerk-react";
 
 function StartPage() {
   const navigate = useNavigate();
+  const { user } = useUser(); // Use Clerk's hook to get the user
   const [inputCustomerId, setInputCustomerId] = useState("");
 
+  useEffect(() => {
+    if (user) {
+      // Automatically set the customer ID based on the user's email or Clerk ID
+      // const customerId = user.id; // Or use a hashed version of user.emailAddress
+      setInputCustomerId(user.id);
+      localStorage.setItem("customerId", user.id);
+    }
+  }, [user]);
+
   const handleSaveCustomerId = () => {
-    localStorage.setItem("customerId", inputCustomerId);
-    navigate("/new-order");
+    if (inputCustomerId.trim()) {
+      localStorage.setItem("customerId", inputCustomerId.trim());
+      navigate("/new-order");
+    } else {
+      alert("Please enter a valid Customer ID.");
+    }
   };
 
   const handleEmployeeClick = () => {
-    console.log("Employee button clicked");
     navigate("/inventory");
   };
 
@@ -27,26 +40,47 @@ function StartPage() {
   return (
     <div className="start-page">
       <img src={Logo} alt="Panda Express Logo" />
-      <input
-        className="button"
-        type="text"
-        placeholder="Enter Customer ID"
-        value={inputCustomerId}
-        onChange={(e) => setInputCustomerId(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            handleSaveCustomerId();
-          }
-        }}
-      />
 
-      <button onClick={handleSaveCustomerId}>New Order</button>
+      <SignedOut>
+        <div className="auth-buttons">
+          <button className="employee-button" onClick={handleEmployeeClick}>
+            I'm an Employee
+          </button>
+          <SignInButton mode="modal">
+            <button className="auth-button">Sign In</button>
+          </SignInButton>
+          <button
+            className="auth-button"
+            onClick={() => {
+              localStorage.removeItem("customerId");
+              navigate("/new-order");
+            }}
+          >
+            Continue As Guest
+          </button>
+        </div>
+      </SignedOut>
 
-      {/* Employee Button */}
-      <button className="employee-button" onClick={handleEmployeeClick}>
-        I'm an employee
-      </button>
-
+      <SignedIn>
+        <div className="auth-buttons">
+          <button className="employee-button" onClick={handleEmployeeClick}>
+            I'm an Employee
+          </button>
+          <UserButton />
+          {/* <button
+            className="auth-button"
+            onClick={() => {
+              localStorage.removeItem("customerId");
+              navigate("/");
+            }}
+          >
+            Sign Out
+          </button> */}
+          <button className="action-button" onClick={handleSaveCustomerId}>
+          New Order
+          </button>
+        </div>
+      </SignedIn>
     </div>
   );
 }

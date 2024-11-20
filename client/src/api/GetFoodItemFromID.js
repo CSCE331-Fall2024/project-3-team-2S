@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://project-3-team-2-s-dep-server.vercel.app/api';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export async function getFoodItemFromID(foodID) {
   try {
@@ -7,7 +7,7 @@ export async function getFoodItemFromID(foodID) {
       throw new Error('Failed to fetch food item');
     }
     const data = await response.json();
-    return data.name
+    return data
   } catch (error) {
     console.error('Error fetching food items:', error);
     throw error;

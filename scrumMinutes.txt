@@ -241,3 +241,52 @@ We reviewed each component in the system and ensured that everyone understood th
 **Minutes from Previous Meeting:**
 
 During this meeting, we discussed initial feedback from testing and identified critical areas for improvement, especially in the cashier flow. The team agreed that while functionality was mostly stable, refining the UI and error messages could significantly improve the user experience. We also confirmed the analytics features for the manager view, which will allow store managers to monitor sales performance effectively. The next phase will focus on finalizing and testing all aspects to ensure a smooth user experience before the next sprint.
+
+
+
+SCRUM Meeting 6 
+
+Prepared by: Aaditya Srinivasan
+Meeting Date: 11/15/2024
+
+Meeting Attendees:
+
+Johan Lanting
+Aaditya Srinivasan
+David Higgins
+Timothy Wong
+
+Meeting Agenda Items:
+Review progress on final tasks from Sprint 2.
+Discuss testing results and areas requiring final adjustments.
+Plan final integration steps for deployment readiness.
+Status Update Since Last Meeting
+Accomplishments:
+
+Implemented Google Authentication for user login.
+Integrated Weather API to enhance the customer experience by recommending items based on weather.
+Created detailed reports for managers, including sales trends and staff performance metrics.
+Finalized the cashier interface, ensuring robust error handling and seamless order management.
+Tasks Completed:
+
+Task Description	Assigned to	Completed? (yes/no)
+Implement Google Authentication for user login	Aaditya Srinivasan	Yes
+Integrate Weather API for dynamic customer suggestions	Johan Lanting	Yes
+Create reports for manager view	Timothy Wong	Yes
+Finalize and test cashier interface	David Higgins	Yes
+
+Before The Next Meeting
+
+Plans:
+Perform end-to-end testing with real-world scenarios.
+Collect and address final feedback from users during testing.
+Prepare for presentation/demo of the completed application.
+Task Assignments:
+
+Task Description	Assigned to
+Perform end-to-end testing and resolve remaining bugs	Entire Team/ Johan Lanting
+Incorporate user feedback into UI/UX improvements	Timothy Wong
+Finish Cashier and Backend Processes 			David Higgins
+Prepare demo materials and finalize documentation	Aaditya Srinivasan
+Minutes from Previous Meeting:
+We reviewed the tasks from the previous sprint and were pleased to see significant progress, particularly in implementing key features like Google Authentication and the Weather API. The cashier interface was refined to ensure optimal functionality, including error handling for edge cases. Reports were successfully generated, providing managers with actionable insights into sales and performance.

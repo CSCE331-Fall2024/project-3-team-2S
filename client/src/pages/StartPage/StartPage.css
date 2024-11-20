@@ -95,3 +95,28 @@ body {
   .employee-button:hover {
     opacity: 0.8; /* Slight opacity change on hover */
   }
+
+
+  /* Auth Buttons */
+.auth-buttons {
+  display: flex;
+  margin-bottom: 20px;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; 
+}
+
+.auth-button {
+  background-color: #500000; /* Maroon */
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.auth-button:hover {
+  background-color: #750000; /* Lighter Maroon */
+}
