@@ -26,7 +26,9 @@ function FoodItemPage() {
     alacarte: null,
     drink: null,
   });
-
+  console.log(foodItems)
+  console.log(selectionStep)
+  console.log(selection)
   const entreeLimit = menuItemType === "Bowl" ? 1 : menuItemType === "Plate" ? 2 : menuItemType === "Bigger Plate" ? 3 : 0;
 
   useEffect(() => {
