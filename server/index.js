@@ -122,7 +122,7 @@ app.get('/api/getorders', async (req, res) => {
 
 app.post('/api/send-order', async (req, res) => {
   const orders = req.body;
-  console.log(orders);
+
   try {
     await pool.query('BEGIN');
 
@@ -583,6 +583,50 @@ app.get('/api/test', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+app.get('/api/customer-total-price', async (req, res) => {
+  const { customerId } = req.query;
+
+  if (!customerId) {
+    return res.status(400).json({ error: 'Customer ID is required' });
+  }
+
+  try {
+    const result = await pool.query(
+      `
+      SELECT 
+          o.customerid,
+          SUM(m.price) AS total_price
+      FROM 
+          orders o
+      JOIN 
+          menuitems m
+      ON 
+          o.ordernum = m.ordernum
+      WHERE 
+          o.customerid = $1
+      GROUP BY 
+          o.customerid
+      `,
+      [customerId]
+    );
+
+    // Extract rows from the result
+    const rows = result.rows;
+
+    // Log the results for debugging
+    console.log("Query result:", rows);
+
+    // Send the first row or a default response
+    res.json(rows[0] || { customerid: customerId, total_price: 0 });
+  } catch (err) {
+    console.error("Error during query execution:", err.message);
+    console.error(err.stack);
+    res.status(500).json({ error: `Database query failed: ${err.message}` });
+  }
+});
+
+
 
 app.get('/', (req, res) => {
     res.send('Welcome to the Express server!');

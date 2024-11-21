@@ -8,6 +8,7 @@ import CheckoutCard from '../../components/CheckoutCard/CheckoutCard';
 import Receipt from '../../components/Receipt/Receipt';
 import CompletedModal from '../../components/CompletedModal/CompletedModal';
 import { getNextOrderNum } from '../../api/NextOrderNum'; // Import the function
+import { SendOrder } from '../../api/SendOrder';
 
 function CheckoutPage() {
   const navigate = useNavigate();
@@ -16,35 +17,60 @@ function CheckoutPage() {
   const [orderDetails, setOrderDetails] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [orderNumber, setOrderNumber] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(null);
+  const [rewardPoints, setRewardPoints] = useState(null);
+
+  const customerId = localStorage.getItem("customerId");
 
   useEffect(() => {
-    const fetchOrderDetails = async () => {
-      const details = await Promise.all(
-        orders.map(async (order) => {
-          const sideName = order.side ? (await getFoodItemFromID(order.side)).name : null;
-          const entreeNames = order.entrees ? await Promise.all(order.entrees.map(async id => (await getFoodItemFromID(id)).name)) : [];
-          const appetizerName = order.appetizer ? (await getFoodItemFromID(order.appetizer)).name : null;
-          const alacarteName = order.alacarte ? (await getFoodItemFromID(order.alacarte)).name : null;
-          const drinkName = order.drink ? (await getFoodItemFromID(order.drink)).name : null;
+    const fetchData = async () => {
+      try {
+        // Fetch order details first
+        const details = await Promise.all(
+          orders.map(async (order) => {
+            const sideName = order.side ? (await getFoodItemFromID(order.side)).name : null;
+            const entreeNames = order.entrees ? await Promise.all(order.entrees.map(async id => (await getFoodItemFromID(id)).name)) : [];
+            const appetizerName = order.appetizer ? (await getFoodItemFromID(order.appetizer)).name : null;
+            const alacarteName = order.alacarte ? (await getFoodItemFromID(order.alacarte)).name : null;
+            const drinkName = order.drink ? (await getFoodItemFromID(order.drink)).name : null;
 
-          return {
-            menuItemType: order.menuItemType,
-            price: order.price,
-            side: sideName,
-            entrees: entreeNames,
-            appetizer: appetizerName,
-            alacarte: alacarteName,
-            drink: drinkName,
-          };
-        })
-      );
-      setOrderDetails(details);
+            return {
+              menuItemType: order.menuItemType,
+              price: order.price,
+              side: sideName,
+              entrees: entreeNames,
+              appetizer: appetizerName,
+              alacarte: alacarteName,
+              drink: drinkName,
+            };
+          })
+        );
+        setOrderDetails(details);
+
+        // Fetch total price and reward points only if customerId is available
+        if (customerId) {
+          const response = await fetch(
+            `http://localhost:3001/api/customer-total-price?customerId=${customerId}`
+          );
+          const data = await response.json();
+
+          if (data.total_price) {
+            setTotalPrice(data.total_price);
+            setRewardPoints(data.total_price * 100);  // Calculate reward points
+          } else {
+            console.error("Total price not found");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
-    if (orders.length >= 0) {
-      fetchOrderDetails();
+    // Trigger the fetchData when orders or customerId changes
+    if (orders.length > 0 || customerId) {
+      fetchData();
     }
-  }, [orders]);
+  }, [orders, customerId]);
 
   const handlePlaceOrder = async () => {
     try {
@@ -53,6 +79,8 @@ function CheckoutPage() {
     } catch (error) {
       console.error('Failed to fetch next order number:', error);
     }
+
+    SendOrder(orders)
     setIsModalVisible(true);
   };
 
@@ -69,6 +97,14 @@ function CheckoutPage() {
         <div className="header-container">
           <img src={Logo} alt="Logo" />
           <h1>Checkout</h1>
+          {totalPrice !== null ? (
+            <div>
+              <p><strong>Total Price: </strong>${totalPrice.toFixed(2)}</p>
+              <p><strong>Reward Points: </strong>{rewardPoints.toFixed(2)}</p>
+            </div>
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
         <div className="checkout-content">
           <div className="order-container">
@@ -97,7 +133,7 @@ function CheckoutPage() {
             )}
           </div>
           <div className="receipt-container">
-            <Receipt orders={orders} onPlaceOrder={handlePlaceOrder} />
+            <Receipt orders={orders} handlePlaceOrder={handlePlaceOrder} />
           </div>
         </div>
         <div className="nav-btn-container">
