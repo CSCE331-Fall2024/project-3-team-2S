@@ -109,6 +109,20 @@ app.get('/api/inventory', async (req, res) => {
   }
 });
 
+
+app.get('/api/getmenuitems', async (req, res) => {
+  const { ordernum } = req.params;
+
+  try {
+    const result = await pool.query('SELECT * from menuitems where ordernum = $1', [ordernum]);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error executing query:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 app.get('/api/getorders', async (req, res) => {
   try {
     const result = await pool.query('SELECT orders.ordernum AS ordernum, customer.name AS name, COALESCE(SUM(menuitems.price), 0) AS price FROM orders JOIN customer ON orders.customerid = customer.customerid LEFT JOIN menuitems ON orders.ordernum = menuitems.ordernum WHERE orders.timecompleted IS NULL GROUP BY orders.ordernum, customer.name ORDER BY orders.ordernum;');
@@ -118,6 +132,7 @@ app.get('/api/getorders', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
 
 
 app.post('/api/send-order', async (req, res) => {
