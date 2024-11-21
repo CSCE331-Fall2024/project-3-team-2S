@@ -26,9 +26,7 @@ function FoodItemPage() {
     alacarte: null,
     drink: null,
   });
-  console.log(foodItems)
-  console.log(selectionStep)
-  console.log(selection)
+
   const entreeLimit = menuItemType === "Bowl" ? 1 : menuItemType === "Plate" ? 2 : menuItemType === "Bigger Plate" ? 3 : 0;
 
   useEffect(() => {
@@ -69,17 +67,7 @@ function FoodItemPage() {
 
   useEffect(() => {
     if (currentEditOrder) {
-      // TODO work in progress
-      // TODO I need to insert each imagesrc into the imageUrls list in order to insert them into the chevron
-      // console.log("editing order");
-      // for(const item of currentEditOrder.entrees) {
-      //   for(const foodItem of foodItems) {
-      //     console.log("next item is " + item + "   and the src is " + foodItem.foodid);
-      //     if(item === foodItem.foodid) {
-      //       setImageUrls((prevUrls) => [...prevUrls, foodItem.foodid]);
-      //     }
-      //   }
-      // }
+      // Update selection
       setSelection({
         side: currentEditOrder.side || null,
         entrees: currentEditOrder.entrees || [],
@@ -87,16 +75,40 @@ function FoodItemPage() {
         alacarte: currentEditOrder.alacarte || null,
         drink: currentEditOrder.drink || null,
       });
-    } else {
-      setSelection({
-        side: null,
-        entrees: [],
-        appetizer: null,
-        alacarte: null,
-        drink: null,
-      });
+  
+      // Update imageUrls for the chevron based on the currentEditOrder
+      const updateImageUrls = async () => {
+        const allFoodItems = await getFoodItems();
+        const urls = [];
+        if (currentEditOrder.side) {
+          const sideItem = allFoodItems.find(item => item.foodid === currentEditOrder.side);
+          if (sideItem) urls.push(sideItem.imagesrc);
+        }
+        if (currentEditOrder.entrees && currentEditOrder.entrees.length > 0) {
+          currentEditOrder.entrees.forEach(entreeId => {
+            const entreeItem = allFoodItems.find(item => item.foodid === entreeId);
+            if (entreeItem) urls.push(entreeItem.imagesrc);
+          });
+        }
+        if (currentEditOrder.appetizer) {
+          const appetizerItem = allFoodItems.find(item => item.foodid === currentEditOrder.appetizer);
+          if (appetizerItem) urls.push(appetizerItem.imagesrc);
+        }
+        if (currentEditOrder.alacarte) {
+          const alacarteItem = allFoodItems.find(item => item.foodid === currentEditOrder.alacarte);
+          if (alacarteItem) urls.push(alacarteItem.imagesrc);
+        }
+        if (currentEditOrder.drink) {
+          const drinkItem = allFoodItems.find(item => item.foodid === currentEditOrder.drink);
+          if (drinkItem) urls.push(drinkItem.imagesrc);
+        }
+        setImageUrls(urls);
+      };
+  
+      updateImageUrls();
     }
-  }, [currentEditOrder, menuItemType]);
+  }, [currentEditOrder, menuItemType, foodItems]);
+  
 
   const handleIncrease = (foodid, category, newUrl) => {
     setSelection(prevSelection => {
