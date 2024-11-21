@@ -4,6 +4,8 @@ import StartPage from './pages/StartPage/StartPage'
 import NewOrderPage from './pages/NewOrderPage/NewOrderPage'
 import FoodItemPage from './pages/FoodItemPage/FoodItemPage'
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage'
+import RewardsPage from './pages/RewardsPage/RewardsPage'
+
 
 import OrderHistoryPage from './pages/manager/OrderHistoryPage/OrderHistoryPage'
 import InventoryPage from './pages/manager/InventoryPage/InventoryPage'
@@ -27,6 +29,8 @@ function App() {
           <Route path="/new-order" element={<NewOrderPage />} />
           <Route path="/food-item" element={<FoodItemPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/rewards" element={<RewardsPage />} />
+
 
           {/* MANAGER */}
           <Route path="/orderhistory" element={<OrderHistoryPage />} />
