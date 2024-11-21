@@ -15,7 +15,7 @@ function FoodItemPage() {
   const [imageUrls, setImageUrls] = useState([ ]);
 
   const navigate = useNavigate();
-  const { menuItemType, addToOrder, currentEditOrder, setFoodItemDetailsInContext, isFoodItemDetailsModalVisible, openFoodItemDetailsModal } = useOrderContext();
+  const { menuItemType, addToOrder, currentEditOrder, setFoodItemDetailsInContext, isFoodItemDetailsModalVisible, openFoodItemDetailsModal, exitEditOrder } = useOrderContext();
 
   const [foodItems, setFoodItems] = useState([]);
   const [selectionStep, setSelectionStep] = useState("Side");
@@ -107,7 +107,7 @@ function FoodItemPage() {
   
       updateImageUrls();
     }
-  }, [currentEditOrder, menuItemType, foodItems]);
+  }, [currentEditOrder]);
   
 
   const handleIncrease = (foodid, category, newUrl) => {
@@ -290,6 +290,9 @@ function FoodItemPage() {
           <button onClick={() => {
           if (selectionStep === "Entree") {
             setSelectionStep("Side");
+          } else if (currentEditOrder) {
+            exitEditOrder();
+            navigate("/checkout");
           } else {
             navigate("/new-order");
           }
@@ -301,11 +304,17 @@ function FoodItemPage() {
           <button onClick={() => setSelectionStep("Entree")}>Next</button>
         )}
         
-        {(totalSteps === imageUrls.length) ? (
-        // {((menuItemType === "Bowl" || menuItemType === "Plate" || menuItemType === "Bigger Plate") && selectionStep === "Entree") ||
-        //   (menuItemType !== "Bowl" && menuItemType !== "Plate" && menuItemType !== "Bigger Plate") ? (
-          <button onClick={handleAddToOrder}>{currentEditOrder ? "Update Order" : "Add to Order"}</button>
-        ) : null}
+        {
+        totalSteps === imageUrls.length &&
+          (
+            (["Bowl", "Plate", "Bigger Plate"].includes(menuItemType) && selectionStep === "Entree") ||
+            (!["Bowl", "Plate", "Bigger Plate"].includes(menuItemType))
+          ) && (
+            <button onClick={handleAddToOrder}>
+              {currentEditOrder ? "Update Order" : "Add to Order"}
+            </button>
+          )
+        }
       </div>
       {isFoodItemDetailsModalVisible && <FoodItemDetailsModal />}
     </div>
