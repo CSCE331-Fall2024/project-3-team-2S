@@ -1,73 +1,63 @@
 import React, { useState } from 'react';
 import './CashierPage.css';
-import { useNavigate } from 'react-router-dom'; // Import for routing
+import { useNavigate } from 'react-router-dom';
 import Logo from "../../assets/images/logo.png";
 import OrderTable from '../../components/OrderTable/OrderTable';
 
 function CashierPage() {
   const [selectedItem, setSelectedItem] = useState(null);
-  const [orderData, setOrderData] = useState([]);
-  const [activePage, setActivePage] = useState("Cashier"); // Track the active page
+  const [orderData, setOrderData] = useState([]); // Ensure orderData includes ordernum
+  const [activePage, setActivePage] = useState("Cashier");
   
-  const navigate = useNavigate(); // Initialize navigate for routing
+  const navigate = useNavigate();
 
   // Handle selecting an item from the table
   const handleSelectItem = (item) => {
     setSelectedItem(item);
   };
 
-  // Handle updating an existing item
-  const handleItemUpdate = (updatedItem) => {
-    setOrderData(prevData => 
-      prevData.map(item => 
-        item.ingrid === updatedItem.ingrid ? updatedItem : item
-      )
-    );
-    setSelectedItem(updatedItem);
+  // Handle deleting an order
+  const handleItemDelete = () => {
+    if (selectedItem) {
+      setOrderData(prevData => 
+        prevData.filter(item => item.ordernum !== selectedItem.ordernum)
+      );
+      setSelectedItem(null);
+    }
   };
 
-  // Handle deleting an item
-  const handleItemDelete = (deletedItemId) => {
-    setOrderData(prevData => 
-      prevData.filter(item => item.ingrid !== deletedItemId)
-    );
-    setSelectedItem(null);
-  };
-
-  // Handle navigation clicks
-  const handleNavClick = (text) => {
-    if (text === "Inventory") {
-      navigate("/inventory"); // Navigate to Inventory page
-    } else if (text === "Employees") {
-      navigate("/employees"); // Navigate to Employee page
-    } else if (text === "Reports") {
-      navigate("/reports"); // Navigate to Reports page
+  // Handle completing an order
+  const handleItemComplete = () => {
+    if (selectedItem) {
+      alert(`Order ${selectedItem.ordernum} has been completed!`);
+      handleItemDelete(); // Assume completion also removes the order from uncompleted orders
     }
   };
 
   return (
     <div>
+      {/* Header Section */}
       <div className="header-container">
         <img src={Logo} alt="Logo" />
         <h1>Cashier</h1>
-        <div className='bar'></div>
-        
-        {/* Manager Navigation */}
+        <div className="bar"></div>
+
+        {/* Navigation */}
         <div className='cashier-nav'>
           <span 
-            onClick={() => handleNavClick("Inventory")}
-            className={activePage === "Inventory" ? "active-nav" : ""}
+            onClick={() => navigate("/orders")} 
+            className={activePage === "Cashier" ? "active-nav" : ""}
           >
-            Inventory
+            Uncompleted Orders
           </span>
           <span 
-            onClick={() => handleNavClick("Employees")}
+            onClick={() => navigate("/employees")} 
             className={activePage === "Employees" ? "active-nav" : ""}
           >
             Employees
           </span>
           <span 
-            onClick={() => handleNavClick("Reports")}
+            onClick={() => navigate("/reports")} 
             className={activePage === "Reports" ? "active-nav" : ""}
           >
             Reports
@@ -79,27 +69,42 @@ function CashierPage() {
         </div>
       </div>
 
+      {/* Inventory Section */}
       <div className="inventory-container">
         <div className="inventory-header">
-          <h1>Inventory</h1>
-          <div className="inventory-body">
-            <OrderTable 
-              data={orderData} 
-              setData={setOrderData} 
-              onSelectItem={handleSelectItem} 
-            />
-          </div>
+          <h1>Uncompleted Orders</h1>
+          <button className="create-order-button" onClick={() => alert("Create new order coming soon!")}>
+            Create New Order
+          </button>
         </div>
 
-        {/* <InventoryDetails 
-          selectedItem={selectedItem} 
-          onItemUpdate={handleItemUpdate}
-          onItemDelete={handleItemDelete}
-        /> */}
-
-        <div className="divider"></div>
-
+        <div className="inventory-body">
+          <OrderTable 
+            data={orderData} 
+            setData={setOrderData} 
+            onSelectItem={handleSelectItem} 
+          />
+        </div>
       </div>
+
+      {/* Popup Order Details */}
+      {selectedItem && (
+        <div className="order-details-popup">
+          <h2>Order Details</h2>
+          <p><strong>ID:</strong> {selectedItem.ordernum}</p>
+          <p><strong>Name:</strong> {selectedItem.name}</p>
+          <p><strong>Price:</strong> ${selectedItem.price.toFixed(2)}</p>
+          
+          <div className="popup-actions">
+            <button className="complete-order-button" onClick={handleItemComplete}>
+              Complete Order
+            </button>
+            <button className="delete-order-button" onClick={handleItemDelete}>
+              Delete Order
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
