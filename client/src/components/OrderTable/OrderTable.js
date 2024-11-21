@@ -11,28 +11,13 @@ const columns = [
     sortable: true
   },
   {
-    name: 'Menu name',
-    selector: row => row.menu_name,
+    name: 'Customer Name',
+    selector: row => row.name,
     sortable: true
   },
   {
-    name: 'Food item 1',
-    selector: row => row.food1_name,
-    sortable: true
-  },
-  {
-    name: 'Food item 2',
-    selector: row => row.food2_name,
-    sortable: true
-  },
-  {
-    name: 'Food item 3',
-    selector: row => row.food3_name,
-    sortable: true
-  },
-  {
-    name: 'Food item 4',
-    selector: row => row.food4_name,
+    name: 'Price',
+    selector: row => row.price,
     sortable: true
   },
 ];
