@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getOrders } from '../../api/GetOrders';
 import Logo from "../../assets/images/logo.png";
 import ManagerProfileDropdown from '../../components/ManagerProfileDropdown/ManagerProfileDropdown';
-import MenuItemsDetails from '../../components/MenuItemsDetails/MenuItemsDetails';
+import UncompletedOrderDetails from '../../components/UncompletedOrderDetails/UncompletedOrderDetails';
 import ReactPaginate from 'react-paginate';
 
 function CashierPage() {
@@ -80,7 +80,7 @@ function CashierPage() {
       let bValue = b[sortConfig.key];
   
       // Convert to numbers for numerical columns
-      if (sortConfig.key === 'ordernum' || sortConfig.key === 'customerid' || sortConfig.key === 'employeeid') {
+      if (sortConfig.key === 'ordernum' || sortConfig.key === 'name' || sortConfig.key === 'price') {
         aValue = Number(aValue);
         bValue = Number(bValue);
       }
@@ -185,20 +185,20 @@ function CashierPage() {
                         )}
                       </th>
                       <th onClick={() => sortData('name')} className="sortable-header">
-                        Customer Name {sortConfig.key === 'name' && (
+                        Customer ID {sortConfig.key === 'name' && (
                           <span>{sortConfig.direction === 'ascending' ? '↑' : '↓'}</span>
                         )}
                       </th>
-                      <th onClick={() => sortData('employeeid')} className="sortable-header">
-                        Employee ID {sortConfig.key === 'employeeid' && (
+                      <th onClick={() => sortData('price')} className="sortable-header">
+                        Order Price {sortConfig.key === 'price' && (
                           <span>{sortConfig.direction === 'ascending' ? '↑' : '↓'}</span>
                         )}
                       </th>
-                      <th onClick={() => sortData('timecompleted')} className="sortable-header">
+                      {/* <th onClick={() => sortData('timecompleted')} className="sortable-header">
                         Time Completed {sortConfig.key === 'timecompleted' && (
                           <span>{sortConfig.direction === 'ascending' ? '↑' : '↓'}</span>
                         )}
-                      </th>
+                      </th> */}
                     </tr>
                   </thead>
                   <tbody>
@@ -209,9 +209,8 @@ function CashierPage() {
                         className={selectedOrder?.ordernum === order.ordernum ? 'selected-row' : ''}
                       >
                         <td>{order.ordernum}</td>
-                        <td>{order.customerid}</td>
-                        <td>{order.employeeid}</td>
-                        <td>{order.timecompleted}</td>
+                        <td>{order.name}</td>
+                        <td>{order.price}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -251,7 +250,7 @@ function CashierPage() {
         </div>
         <div className="details-container">
           {selectedOrder ? (
-            <MenuItemsDetails
+            <UncompletedOrderDetails
               selectedOrder={selectedOrder}
               onClose={() => setSelectedOrder(null)}
             />
