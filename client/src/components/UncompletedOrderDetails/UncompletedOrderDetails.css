@@ -1,0 +1,104 @@
+.details-panel {
+  flex: 1;
+  max-width: 600px; /* Increased max-width for better table display */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 2px solid black;
+  padding: 20px;
+  background-color: #fff;
+  position: relative; 
+}
+
+.details-panel h2 {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.details-panel h3 {
+  color: #333;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.error-message {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.details-panel div {
+  margin-bottom: 15px;
+}
+
+.details-panel label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #495057;
+}
+
+.details-panel input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #f8f9fa; /* Light gray background for readonly inputs */
+}
+
+
+/* .delete-button, .close-button {
+  position: absolute;
+  top: 10px;
+  padding: 5px 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.delete-button:hover, .close-button:hover {
+  background-color: #e9ecef;
+}
+
+.close-button {
+  right: 10px;
+}
+
+.delete-button {
+  right: 70px;
+} */
+
+
+.menu-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.menu-items-table th,
+.menu-items-table td {
+  border: 1px solid #ced4da;
+  padding: 10px;
+  text-align: left;
+}
+
+.menu-items-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+  color: #495057;
+}
+
+.menu-items-table tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.menu-items-table tr:hover {
+  background-color: #e9ecef;
+}
