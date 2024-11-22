@@ -52,7 +52,7 @@
 }
 
 
-/* .delete-button, .close-button {
+.delete-button, .close-button {
   position: absolute;
   top: 10px;
   padding: 5px 10px;
@@ -73,7 +73,7 @@
 
 .delete-button {
   right: 70px;
-} */
+}
 
 
 .menu-items-table {
