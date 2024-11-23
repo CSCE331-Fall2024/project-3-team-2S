@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './UncompletedOrderDetails.css';
 import { getMenuItems, getMenuItemsAndFoodItems } from '../../api/GetMenuItems';
+import { deleteOrder } from '../../api/DeleteOrder';
 
 function UncompletedOrderDetails({ selectedOrder, onClose}) {
   const [menuItems, setMenuItems] = useState([]);
@@ -64,7 +65,9 @@ function UncompletedOrderDetails({ selectedOrder, onClose}) {
     <div className="details-panel">
       <h2>Order Details</h2>
       <button className="close-button" onClick={onClose}>Close</button>
-      <button className="delete-button" onClock={onClose}>Delete</button>
+      <button className="delete-button" onClick={() => {
+        deleteOrder(selectedOrder.ordernum);
+      }}>Delete</button>
       
       <div>
         <label>Order Number:</label>

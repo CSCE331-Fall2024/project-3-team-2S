@@ -266,6 +266,25 @@ app.delete('/api/inventory/:ingrid', async (req, res) => {
   }
 });
 
+
+app.delete('/api/deleteOrder/:ordernum', async (req, res) => {
+  const { ordernum } = req.params;
+
+  try {
+    const result1 = await pool.query('DELETE FROM orders WHERE ordernum = $1 RETURNING *', [ordernum]);
+    // const result2 = await pool.query('DELETE FROM menuitems WHERE ordernum = $1', [ordernum]);
+
+    if (result1.rows.length === 0 || result2.rows.length === 0) {
+      return res.status(404).json({ message: 'Inventory item not found' });
+    }
+
+    // res.json({ message: 'Inventory item deleted successfully', deletedItem: result.rows[0] });
+  } catch (error) {
+    console.error('Error deleting inventory item:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 app.post('/api/send-order', async (req, res) => {
   const orders = req.body;
   console.log(orders);
