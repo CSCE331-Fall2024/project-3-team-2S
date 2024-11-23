@@ -253,6 +253,7 @@ function CashierPage() {
             <UncompletedOrderDetails
               selectedOrder={selectedOrder}
               onClose={() => setSelectedOrder(null)}
+              // onDelete={() => deleteOrder}
             />
           ) : (
             <div className="placeholder-panel">
