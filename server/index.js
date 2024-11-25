@@ -111,7 +111,7 @@ app.get('/api/inventory', async (req, res) => {
 
 app.get('/api/getorders', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM uncompleted_orders');
+    const result = await pool.query('SELECT orders.ordernum AS ordernum, customer.name AS name, COALESCE(SUM(menuitems.price), 0) AS price FROM orders JOIN customer ON orders.customerid = customer.customerid LEFT JOIN menuitems ON orders.ordernum = menuitems.ordernum WHERE orders.timecompleted IS NULL GROUP BY orders.ordernum, customer.name ORDER BY orders.ordernum;');
     res.json(result.rows);
   } catch (error) {
     console.error('Error executing query:', error.stack);
@@ -122,7 +122,7 @@ app.get('/api/getorders', async (req, res) => {
 
 app.post('/api/send-order', async (req, res) => {
   const orders = req.body;
-  console.log(orders);
+
   try {
     await pool.query('BEGIN');
 

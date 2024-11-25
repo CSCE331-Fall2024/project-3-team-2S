@@ -8,6 +8,7 @@ import CheckoutCard from '../../components/CheckoutCard/CheckoutCard';
 import Receipt from '../../components/Receipt/Receipt';
 import CompletedModal from '../../components/CompletedModal/CompletedModal';
 import { getNextOrderNum } from '../../api/NextOrderNum'; // Import the function
+import { SendOrder } from '../../api/SendOrder';
 
 function CheckoutPage() {
   const navigate = useNavigate();
@@ -78,6 +79,8 @@ function CheckoutPage() {
     } catch (error) {
       console.error('Failed to fetch next order number:', error);
     }
+
+    SendOrder(orders)
     setIsModalVisible(true);
   };
 
@@ -130,7 +133,7 @@ function CheckoutPage() {
             )}
           </div>
           <div className="receipt-container">
-            <Receipt orders={orders} onPlaceOrder={handlePlaceOrder} />
+            <Receipt orders={orders} handlePlaceOrder={handlePlaceOrder} />
           </div>
         </div>
         <div className="nav-btn-container">

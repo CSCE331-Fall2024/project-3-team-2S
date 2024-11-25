@@ -55,8 +55,6 @@ export async function SendOrder(orders) {
       employeeid: 1
     });
 
-    console.log(ordersWithFoodIds);
-
     const postResponse = await fetch(`${API_BASE_URL}/send-order`, {
       method: 'POST',
       headers: {
