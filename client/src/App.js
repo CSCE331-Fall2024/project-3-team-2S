@@ -32,9 +32,12 @@ function App() {
           <Route path="/orderhistory" element={<OrderHistoryPage />} />
           <Route path="/inventory" element={<InventoryPage />} />
           <Route path="/fooditems" element={<FoodItemsPage />} />
-          <Route path="/cashier" element={<CashierPage />} />
           <Route path="/employees" element={<EmployeePage />} />
           <Route path="/reports" element={<ReportsPage />} />
+
+          {/* CASHIER */}
+          <Route path="/cashier" element={<CashierPage />} />
+          
         </Routes>
       </Router>
     </OrderProvider>
