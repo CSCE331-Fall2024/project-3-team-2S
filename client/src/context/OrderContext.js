@@ -41,6 +41,11 @@ export const OrderProvider = ({ children }) => {
     setCurrentEditOrder(null);
   };
 
+  const exitEditOrder = () => {
+    setEditOrderIndex(null)
+    setCurrentEditOrder(null)
+  }
+
   const setFoodItemDetailsInContext = (foodDetails) => {
     setFoodItemDetails(foodDetails);
   };
@@ -67,7 +72,8 @@ export const OrderProvider = ({ children }) => {
       setFoodItemDetailsInContext,
       closeFoodItemDetailsModal,
       openFoodItemDetailsModal,
-      isFoodItemDetailsModalVisible
+      isFoodItemDetailsModalVisible,
+      exitEditOrder
     }}>
       {children}
     </OrderContext.Provider>
