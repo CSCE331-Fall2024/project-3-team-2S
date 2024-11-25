@@ -5,6 +5,7 @@ import { getOrders } from '../../api/GetOrders';
 import Logo from "../../assets/images/logo.png";
 import ManagerProfileDropdown from '../../components/ManagerProfileDropdown/ManagerProfileDropdown';
 import UncompletedOrderDetails from '../../components/UncompletedOrderDetails/UncompletedOrderDetails';
+import { deleteOrder } from '../../api/DeleteOrder';
 import ReactPaginate from 'react-paginate';
 
 function CashierPage() {
@@ -27,7 +28,9 @@ function CashierPage() {
       try {
         setLoading(true);
         const data = await getOrders();
-        setOrders(data);
+        const sortedData = data.sort((a, b) => b.ordernum - a.ordernum);
+        setOrders(sortedData);
+        setSortConfig({ key: 'ordernum', direction: 'descending' });
         setError(null);
       } catch (err) {
         console.error('Failed to fetch orders:', err);
@@ -36,9 +39,21 @@ function CashierPage() {
         setLoading(false);
       }
     };
-
     fetchOrders();
   }, []);
+
+  const handleOrderDelete = async (orderNum) => {
+    try {
+      await deleteOrder(orderNum);
+      // Update the orders state by filtering out the deleted order
+      setOrders(prevOrders => prevOrders.filter(order => order.ordernum !== orderNum));
+      setSelectedOrder(null); // Clear the selected order
+      // Optionally, you can add a success message here
+    } catch (error) {
+      console.error('Failed to delete order:', error);
+      // Optionally, you can add an error message here
+    }
+  };
 
   const handleRowsPerPageChange = (event) => {
     const newRowsPerPage = event.target.value === 'all' 
@@ -250,11 +265,11 @@ function CashierPage() {
         </div>
         <div className="details-container">
           {selectedOrder ? (
-            <UncompletedOrderDetails
-              selectedOrder={selectedOrder}
-              onClose={() => setSelectedOrder(null)}
-              // onDelete={() => deleteOrder}
-            />
+            <UncompletedOrderDetails 
+            selectedOrder={selectedOrder} 
+            onClose={() => setSelectedOrder(null)}
+            onDelete={handleOrderDelete}
+          />
           ) : (
             <div className="placeholder-panel">
               <p>Select an order to view details</p>

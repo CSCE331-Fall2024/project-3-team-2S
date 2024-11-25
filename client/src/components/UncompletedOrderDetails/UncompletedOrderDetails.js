@@ -3,7 +3,7 @@ import './UncompletedOrderDetails.css';
 import { getMenuItems, getMenuItemsAndFoodItems } from '../../api/GetMenuItems';
 import { deleteOrder } from '../../api/DeleteOrder';
 
-function UncompletedOrderDetails({ selectedOrder, onClose}) {
+function UncompletedOrderDetails({ selectedOrder, onClose, onDelete }) {
   const [menuItems, setMenuItems] = useState([]);
   const [foodItems, setFoodItems] = useState({});
   const [loading, setLoading] = useState(true);
@@ -66,7 +66,7 @@ function UncompletedOrderDetails({ selectedOrder, onClose}) {
       <h2>Order Details</h2>
       <button className="close-button" onClick={onClose}>Close</button>
       <button className="delete-button" onClick={() => {
-        deleteOrder(selectedOrder.ordernum);
+        onDelete(selectedOrder.ordernum);
       }}>Delete</button>
       
       <div>
