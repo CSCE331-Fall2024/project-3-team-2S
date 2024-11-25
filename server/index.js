@@ -272,7 +272,7 @@ app.delete('/api/deleteOrder/:ordernum', async (req, res) => {
 
   try {
     const result1 = await pool.query('DELETE FROM orders WHERE ordernum = $1 RETURNING *', [ordernum]);
-    // const result2 = await pool.query('DELETE FROM menuitems WHERE ordernum = $1', [ordernum]);
+    // const result2 = await pool.query('DELETE FROM menuitems WHERE ordernum = $1', [ordernum]); // TODO uncomment
 
     if (result1.rows.length === 0 || result2.rows.length === 0) {
       return res.status(404).json({ message: 'Inventory item not found' });
