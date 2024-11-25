@@ -267,23 +267,34 @@ app.delete('/api/inventory/:ingrid', async (req, res) => {
 });
 
 
-app.delete('/api/deleteOrder/:ordernum', async (req, res) => {
+app.delete('/api/delete-order/:ordernum', async (req, res) => {
   const { ordernum } = req.params;
 
   try {
-    const result1 = await pool.query('DELETE FROM orders WHERE ordernum = $1 RETURNING *', [ordernum]);
-    // const result2 = await pool.query('DELETE FROM menuitems WHERE ordernum = $1', [ordernum]); // TODO uncomment
+    await pool.query('BEGIN');
 
-    if (result1.rows.length === 0 || result2.rows.length === 0) {
-      return res.status(404).json({ message: 'Inventory item not found' });
+    const deleteMenuItems = await pool.query('DELETE FROM menuitems WHERE ordernum = $1 RETURNING *', [ordernum]);
+    console.log('Deleted menuitems:', deleteMenuItems.rowCount);
+
+    const deleteOrders = await pool.query('DELETE FROM orders WHERE ordernum = $1 RETURNING *', [ordernum]);
+    console.log('Deleted orders:', deleteOrders.rowCount);
+
+    if (deleteOrders.rowCount === 0) {
+      console.error(`Order not found: ${ordernum}`);
+      await pool.query('ROLLBACK');
+      return res.status(404).json({ error: 'Order not found' });
     }
 
-    // res.json({ message: 'Inventory item deleted successfully', deletedItem: result.rows[0] });
+    await pool.query('COMMIT');
+    res.json({ message: 'Order deleted successfully' });
   } catch (error) {
-    console.error('Error deleting inventory item:', error.stack);
-    res.status(500).json({ message: 'Internal server error' });
+    await pool.query('ROLLBACK');
+    console.error('Error deleting order:', error.message || error);
+    res.status(500).json({ error: 'Failed to delete order' });
   }
 });
+
+
 
 app.post('/api/send-order', async (req, res) => {
   const orders = req.body;
