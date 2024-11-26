@@ -11,7 +11,8 @@ import OrderHistoryPage from './pages/manager/OrderHistoryPage/OrderHistoryPage'
 import InventoryPage from './pages/manager/InventoryPage/InventoryPage'
 import FoodItemsPage from './pages/manager/FoodItemsPage/FoodItemsPage'
 import EmployeePage from './pages/manager/EmployeePage/EmployeePage'
-import ReportsPage from './pages/manager/ReportsPage/ReportsPage'
+import XReportPage from './pages/manager/XReportPage/XReportPage'
+import ZReportPage from './pages/manager/ZReportPage/ZReportPage'
 
 import CashierOrderPage from './pages/CashierOrderPage/CashierOrderPage'
 import { OrderProvider } from './context/OrderContext'
@@ -37,7 +38,9 @@ function App() {
           <Route path="/inventory" element={<InventoryPage />} />
           <Route path="/fooditems" element={<FoodItemsPage />} />
           <Route path="/employees" element={<EmployeePage />} />
-          <Route path="/reports" element={<ReportsPage />} />
+            {/* REPORTS */}
+            <Route path="/reports/xreport" element={<XReportPage />} />
+            <Route path="/reports/zreport" element={<ZReportPage />} />
 
           {/* CASHIER */}
           <Route path="/cashier" element={<CashierPage />} />
