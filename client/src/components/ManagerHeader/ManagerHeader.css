@@ -1,0 +1,141 @@
+.header-container {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    background-color: #c8102e;
+    color: #fff;
+}
+.header-container h1 {
+    font-size: 1.8rem;
+    font-weight: bold; 
+    margin-right: 1rem;
+  }
+
+  .header-container button {
+    width: 120px;
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: auto; 
+    margin-right: 30px;
+  }
+  
+  /* Manager Navigation */
+  .manager-nav {
+    display: flex;
+    justify-content: flex-end; /* Aligns items to the right */
+    gap: 50px; /* Adds generous spacing between items */
+  }
+  
+  .manager-nav span {
+    color: white; /* White text */
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .manager-nav span:hover {
+    opacity: 0.7; /* Slight hover effect */
+  }
+
+.manager-profile-dropdown {
+    padding-right: 10px;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  /* Sign Out Button */
+.sign-out-button { 
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .sign-out-button:hover {
+    background-color: #f0f0f0; /* Slight hover effect */
+  }
+
+  .header-right {
+    display: flex; /* Flex container for profile icon and sign out button */
+    align-items: center; /* Vertically center items */
+    margin-left: auto;
+  }
+
+/* Reports Dropdown Container */
+/* Dropdown Container */
+.reports-dropdown-container {
+    position: relative; /* Ensure dropdown is positioned relative to its trigger */
+  }
+  
+  /* Dropdown Trigger */
+  .reports-span {
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  /* Dropdown Menu */
+  .reports-dropdown {
+    position: absolute;
+    top: calc(100% + 5px); /* Position below the Reports span */
+    left: 0;
+    background-color: #c8102e;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px;
+    border-radius: 5px;
+    padding: 10px;
+    width: 250px; /* Adjust width as needed */
+    
+    /* Initially hidden */
+    opacity: 0;
+    visibility: hidden;
+    
+    /* Smooth transition for opening and closing */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+
+    z-index: 9999;
+  }
+  
+  /* Show dropdown on hover */
+  .reports-dropdown-container:hover .reports-dropdown {
+    opacity: 1; /* Fully visible */
+    visibility: visible; /* Make it visible */
+  }
+  
+  /* Add delay for hiding the dropdown */
+  .reports-dropdown-container .reports-dropdown {
+    transition-delay: 0.5s; /* Add delay when hiding */
+  }
+  
+  .reports-dropdown-container:hover .reports-dropdown {
+    transition-delay: 0s; /* No delay when showing */
+  }
+  
+  /* Dropdown Links */
+  .reports-dropdown span {
+    display: block;
+    padding: 5px;
+  }
+  
+  .reports-dropdown span:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

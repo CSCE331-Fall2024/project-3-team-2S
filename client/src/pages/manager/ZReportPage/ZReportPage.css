@@ -1,0 +1,89 @@
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #ffe5e5;
+    color: #333;
+    box-sizing: border-box;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .top-container {
+    width: 100%;
+  }
+  
+  .logo {
+    width: 50px;
+    height: auto;
+    margin-right: 1rem;
+    margin-left: 30px;
+  }
+  
+  .bar {
+    border-left: 2px solid white; /* Adjust thickness and color as needed */
+    height: 50px; /* Adjust height as needed */
+    margin-left: 10px;
+    margin-right: 50px;
+  }
+
+/* Underline active navigation item */
+.active-nav {
+  text-decoration: underline;
+}
+
+  .inventory-container {
+    display: flex;
+    gap: 30px;
+    padding: 50px; /* Optional padding around the container */
+  }
+
+  .inventory-header {
+    display: flex;
+    flex-direction: column; /* Stack h1 and table vertically */
+  }
+
+  .inventory-body {
+      flex: 0.5; /* Adjust the size ratio */
+      padding-top: 30px;
+      padding-bottom: 30px;
+      width: 40vw;
+  }
+  /* Divider */
+  .divider {
+    border-left: 5px solid black; /* Adjust thickness and color as needed */
+    height: 500px; /* Adjust height as needed */
+    margin-top: 70px;
+    margin-left: 70px;
+    margin-right: 70px;
+  }
+
+  /* Add Ingredient Section */
+  .add-ingredient-section {
+    margin-left: 100px; /* Space between divider and this section */
+  }
+
+  .add-ingredient-section h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .add-button {
+    width: 50px;
+    height: 50px;
+    background-color: #ccc; /* Grey background */
+    color: #000; /* Black + symbol */
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 8px; /* Rounded corners */
+    border: 2px solid #000; /* Black border */
+    cursor: pointer;
+  }
+
+  .add-button:hover {
+    opacity: 0.8; /* Slight hover effect */
+  }
