@@ -70,15 +70,14 @@ function StartPage() {
             I'm an Employee
           </button>
           <UserButton />
-          {/* <button
+          <button
             className="auth-button"
             onClick={() => {
-              localStorage.removeItem("customerId");
-              navigate("/");
+              navigate("/rewards");
             }}
           >
-            Sign Out
-          </button> */}
+            Rewards
+          </button>
           <button className="action-button" onClick={handleSaveCustomerId}>
           New Order
           </button>
