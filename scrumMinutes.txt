@@ -290,3 +290,159 @@ Finish Cashier and Backend Processes 			David Higgins
 Prepare demo materials and finalize documentation	Aaditya Srinivasan
 Minutes from Previous Meeting:
 We reviewed the tasks from the previous sprint and were pleased to see significant progress, particularly in implementing key features like Google Authentication and the Weather API. The cashier interface was refined to ensure optimal functionality, including error handling for edge cases. Reports were successfully generated, providing managers with actionable insights into sales and performance.
+
+
+
+
+
+
+SCRUM Meeting 7
+
+Prepared by: David Higgins
+Meeting Date: 11/18/2024
+
+Meeting Attendees:
+
+Johan Lanting
+Aaditya Srinivasan
+David Higgins
+Timothy Wong
+
+Meeting Agenda Items:
+Review progress on final tasks from Sprint 3.
+Discuss progress and link all implementations together
+Discuss future tasks to do and assign them to people
+
+Status Update Since Last Meeting
+Accomplishments:
+
+Added the weather API
+Made significant progress on Cashier GUI
+Worked out bugs in the program
+
+Tasks Completed:
+
+Task Description	Assigned to	Completed? (yes/no)
+Implement Google Authentication for user login	            Aaditya Srinivasan	Yes
+Integrate Weather API for dynamic customer suggestions	    Johan Lanting	Yes
+Create additional reports for manager view	                Timothy Wong	Yes
+Make even more progress on cashier interface                David Higgins	Yes
+
+Before The Next Meeting
+
+Plans:
+Get more testing data from users
+Fix bugs with the logic of the chevron
+Fix database deletion bugs
+
+
+Task Assignments:
+
+Task Description	                                Assigned to
+Ask people in industry to test system and offer improvements	Entire Team/ Johan Lanting
+Fix bugs with the databse	Timothy Wong
+Continue to work on Cashier and Backend Processes 			David Higgins
+Prepare demo materials and finalize documentation	Aaditya Srinivasan
+
+Minutes from Previous Meeting:
+In the previous meeting, we talked about the progress that we had. David shared his code and asked for assitance fixing a bug that he was having trouble diagnosing the progem. Then Timothy offered to take a look at the code afterward to he would be able to help. Johan and Aaditya then talked about the progress they made with adding additional APIs and making the entire user experience cleaner.
+
+
+
+
+
+
+SCRUM Meeting 8
+
+Prepared by: David Higgins
+Meeting Date: 11/21/2024
+
+Meeting Attendees:
+
+Johan Lanting
+Aaditya Srinivasan
+David Higgins
+Timothy Wong
+
+Meeting Agenda Items:
+Review progress on final tasks from Sprint 3.
+Fix bugs and offer insights
+Discuss future tasks to do and assign them to people
+
+Status Update Since Last Meeting
+Accomplishments:
+
+More progress done with the Cashier page
+More bugs fixed
+Accessability features added
+
+Tasks Completed:
+
+Task Description	Assigned to	Completed? (yes/no)
+Improve and Accessability features to the program           Aaditya and Johan Yes
+Add features to the manager page        	                Timothy Wong	Yes
+Fix bugs with the cashier and make it look better           David Higgins	Yes
+
+Before The Next Meeting
+
+Plans:
+Work on documentation and paperwork
+Work on adding more accessability features for people who would have unusual difficulties with the prgoram
+
+
+Task Assignments:
+
+Task Description	                                Assigned to
+Work on paperwork and documentatoin                 Entire Team
+Finalize API and accessability feauters             Aaditya and Timothy
+Add text box for custom instructions                David
+
+Minutes from Previous Meeting:
+We discussed how our project is almost entirely finished. We have a few minor additions that we need to make cleaner, then we just have the paper work and writing left to do. There are a few bonus featuers that aren't nessessarily needed to get the 100, however they would add to the product and make it look cleaner. 
+
+
+
+
+
+
+SCRUM Meeting 9
+
+Prepared by: David Higgins
+Meeting Date: 11/23/2024
+
+Meeting Attendees:
+
+Johan Lanting
+Aaditya Srinivasan
+David Higgins
+Timothy Wong
+
+Meeting Agenda Items:
+Work on writing portion together
+
+Status Update Since Last Meeting
+Accomplishments:
+
+Finished Cashier
+Finished API additional features
+
+Tasks Completed:
+
+Task Description	Assigned to	Completed? (yes/no)
+API and accessability done                                  Aaditya and Johan Yes
+Manager done                               	                Timothy Wong	Yes
+Cashier done                                                David Higgins	Yes
+
+Before The Next Meeting
+
+Plans:
+Finish writing portion
+
+
+Task Assignments:
+
+Task Description	                                Assigned to
+Work on the writing assignment for the project before it is due.                Entire team
+
+Minutes from Previous Meeting:
+We talked about the people that we interviewed and the suggestions that they offered to us. We then showed off all of the final products that we added to the project that we have been working on over the last few scrum meetings. Overall the meeting was very short since we are finished up the assignment and have very little left to add.
