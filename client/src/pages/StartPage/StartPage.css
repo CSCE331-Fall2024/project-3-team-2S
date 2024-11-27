@@ -75,6 +75,22 @@ body {
     background-color: #f1f1f1; /* Slightly darker on hover */
   }
   
+  .cashier-button {
+    position: absolute;
+    bottom: 20px; /* Position near the bottom */
+    left: 250px; /* Position near the left */
+    
+    background-color: red; /* Red background */
+    color: white; /* White text */
+    
+    border: none; /* No border */
+    
+    border-radius: 8px; /* Rounded corners */
+    
+    padding: 10px; /* Padding inside the button */
+    
+    cursor: pointer; /* Pointer cursor on hover */
+  }
   .employee-button {
     position: absolute;
     bottom: 20px; /* Position near the bottom */

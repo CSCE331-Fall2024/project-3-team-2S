@@ -30,6 +30,10 @@ function StartPage() {
     }
   };
 
+  const handleCashierClick = () => {
+    navigate("/cashier");
+  };
+
   const handleEmployeeClick = () => {
     navigate("/orderhistory");
   };
@@ -46,6 +50,9 @@ function StartPage() {
 
       <SignedOut>
         <div className="auth-buttons">
+          <button className="cashier-button" onClick={handleCashierClick}>
+            I'm a Cashier
+          </button>
           <button className="employee-button" onClick={handleEmployeeClick}>
             I'm an Employee
           </button>
@@ -66,6 +73,9 @@ function StartPage() {
 
       <SignedIn>
         <div className="auth-buttons">
+          <button className="cashier-button" onClick={handleCashierClick}>
+            I'm a Cashier
+          </button>
           <button className="employee-button" onClick={handleEmployeeClick}>
             I'm an Employee
           </button>
