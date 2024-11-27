@@ -64,10 +64,13 @@ function UncompletedOrderDetails({ selectedOrder, onClose, onDelete }) {
   return (
     <div className="details-panel">
       <h2>Order Details</h2>
-      <button className="close-button" onClick={onClose}>Close</button>
-      <button className="delete-button" onClick={() => {
+      <button className="close-button"  style={{ right: '10px' }} onClick={onClose}>Close</button>
+      <button className="close-button"  style={{ right: '80px' }}  onClick={() => {
         onDelete(selectedOrder.ordernum);
       }}>Delete</button>
+      <button className="close-button"  style={{ right: '150px' }}  onClick={() => {
+        // onDelete(selectedOrder.ordernum);
+      }}>Complete</button>
       
       <div>
         <label>Order Number:</label>
