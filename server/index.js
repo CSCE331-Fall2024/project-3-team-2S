@@ -672,6 +672,22 @@ app.get('/api/customer-total-price', async (req, res) => {
 });
 
 
+// X Report
+// X Report endpoint
+app.get('/api/xreport', async (req, res) => {
+  const { date } = req.query;
+
+  try {
+    const result = await pool.query(
+      'SELECT EXTRACT(HOUR FROM timecompleted) AS hour, COUNT(*) AS total_orders FROM orders WHERE DATE(timecompleted) = $1 GROUP BY EXTRACT(HOUR FROM timecompleted) ORDER BY hour',
+      [date]
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error executing X Report query:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 app.get('/', (req, res) => {
     res.send('Welcome to the Express server!');
