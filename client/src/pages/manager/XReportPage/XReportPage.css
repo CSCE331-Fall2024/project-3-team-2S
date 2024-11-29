@@ -1,89 +1,80 @@
-  body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #ffe5e5;
-    color: #333;
-    box-sizing: border-box;
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .top-container {
-    width: 100%;
-  }
-  
-  .logo {
-    width: 50px;
-    height: auto;
-    margin-right: 1rem;
-    margin-left: 30px;
-  }
-  
-  .bar {
-    border-left: 2px solid white; /* Adjust thickness and color as needed */
-    height: 50px; /* Adjust height as needed */
-    margin-left: 10px;
-    margin-right: 50px;
-  }
-
-/* Underline active navigation item */
-.active-nav {
-  text-decoration: underline;
+/* Center the chart container in the screen */
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 900px;
+  height: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-sizing: border-box;
 }
 
-  .inventory-container {
-    display: flex;
-    gap: 30px;
-    padding: 50px; /* Optional padding around the container */
-  }
+/* Style for the input container */
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
 
-  .inventory-header {
-    display: flex;
-    flex-direction: column; /* Stack h1 and table vertically */
-  }
+/* Style for the label */
+.input-container label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
 
-  .inventory-body {
-      flex: 0.5; /* Adjust the size ratio */
-      padding-top: 30px;
-      padding-bottom: 30px;
-      width: 40vw;
-  }
-  /* Divider */
-  .divider {
-    border-left: 5px solid black; /* Adjust thickness and color as needed */
-    height: 500px; /* Adjust height as needed */
-    margin-top: 70px;
-    margin-left: 70px;
-    margin-right: 70px;
-  }
+/* Style for the input */
+.input-container input {
+  font-size: 14px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s;
+}
 
-  /* Add Ingredient Section */
-  .add-ingredient-section {
-    margin-left: 100px; /* Space between divider and this section */
-  }
+.input-container input:focus {
+  border-color: #c8102e;
+}
 
-  .add-ingredient-section h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
+/* Style for the buttons */
+.input-container button {
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  background-color: #c8102e;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
-  .add-button {
-    width: 50px;
-    height: 50px;
-    background-color: #ccc; /* Grey background */
-    color: #000; /* Black + symbol */
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 8px; /* Rounded corners */
-    border: 2px solid #000; /* Black border */
-    cursor: pointer;
-  }
+.input-container button:hover {
+  background-color: #c8102e;
+}
 
-  .add-button:hover {
-    opacity: 0.8; /* Slight hover effect */
-  }
+.chart-date {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+.chart-date h2 {
+  margin: 0;
+  padding: 0;
+}
