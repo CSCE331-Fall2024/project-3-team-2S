@@ -93,6 +93,8 @@ function StartPage() {
           </button>
         </div>
       </SignedIn>
+      <div className="translate-btn-container">
+      </div>
     </div>
   );
 }
