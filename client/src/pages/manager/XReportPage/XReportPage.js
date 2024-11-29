@@ -86,7 +86,7 @@ function XReportPage() {
           <XAxis 
             dataKey="hour" 
             label={{ value: 'Hour', position: 'insideBottomRight', offset: -5 }}
-            domain={[9, 20]}
+            domain={[0, 24]}
           />
           <YAxis 
             label={{ value: 'Number of Orders', angle: -90, position: 'insideLeft' }} 

@@ -54,7 +54,7 @@ function StartPage() {
             I'm a Cashier
           </button>
           <button className="employee-button" onClick={handleEmployeeClick}>
-            I'm an Employee
+            I'm a Manager
           </button>
           <SignInButton mode="modal">
             <button className="auth-button">Sign In</button>
@@ -77,7 +77,7 @@ function StartPage() {
             I'm a Cashier
           </button>
           <button className="employee-button" onClick={handleEmployeeClick}>
-            I'm an Employee
+            I'm a Manager
           </button>
           <UserButton />
           <button
