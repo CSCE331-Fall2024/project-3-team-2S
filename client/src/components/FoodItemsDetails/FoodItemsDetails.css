@@ -63,6 +63,7 @@
     font-weight: bold;
     cursor: pointer;
     transition: opacity 0.3s ease;
+    position: static;
   }
   
   .details-panel .save-button {
