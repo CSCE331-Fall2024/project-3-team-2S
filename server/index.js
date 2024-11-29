@@ -159,10 +159,17 @@ app.post('/api/send-order', async (req, res) => {
     // Extract customer and employee information from the last item in the array
     const { customerid, employeeid } = orders[orders.length - 1];
 
-    // Insert into orders table with timecompleted as NULL
+    // // Insert into orders table with timecompleted as NULL
+    // await pool.query(
+    //   `INSERT INTO orders (ordernum, customerid, employeeid, timecompleted)
+    //    VALUES ($1, $2, $3, NULL)`,
+    //   [nextOrderNum, customerid, employeeid]
+    // );
+
+    // Insert into orders table with timecompleted as NOW
     await pool.query(
       `INSERT INTO orders (ordernum, customerid, employeeid, timecompleted)
-       VALUES ($1, $2, $3, NULL)`,
+       VALUES ($1, $2, $3, NOW())`,
       [nextOrderNum, customerid, employeeid]
     );
 
@@ -671,8 +678,6 @@ app.get('/api/customer-total-price', async (req, res) => {
   }
 });
 
-
-// X Report
 // X Report endpoint
 app.get('/api/xreport', async (req, res) => {
   const { date } = req.query;
@@ -685,6 +690,44 @@ app.get('/api/xreport', async (req, res) => {
     res.json(result.rows);
   } catch (error) {
     console.error('Error executing X Report query:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Z Report endpoint
+app.get('/api/zreport', async (req, res) => {
+  const yesterdayDate = new Date();
+  yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+  const year = yesterdayDate.getFullYear();
+  const month = String(yesterdayDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const day = String(yesterdayDate.getDate()).padStart(2, '0');
+  const formattedDate = `${year}-${month}-${day}`;
+  // const formattedDate = '2024-09-20'; // TESTING
+
+  try {
+    const query = `
+      SELECT menuitems.name AS menu_name, COUNT(*) AS item_count, COALESCE(SUM(menuitems.price), 0) AS total_price 
+      FROM menuitems 
+      LEFT JOIN orders ON orders.ordernum = menuitems.ordernum 
+      WHERE DATE(orders.timecompleted) = $1 
+      GROUP BY menuitems.name;
+    `;
+    
+    const empQuery = `
+      SELECT orders.employeeid, COUNT(orders.*) AS order_count, employees.name 
+      FROM orders 
+      JOIN employees ON orders.employeeid = employees.employeeid 
+      WHERE DATE(timecompleted) = $1 
+      GROUP BY orders.employeeid, employees.name 
+      ORDER BY order_count DESC;
+    `;
+
+    const salesResult = await pool.query(query, [formattedDate]);
+    const empResult = await pool.query(empQuery, [formattedDate]);
+
+    res.json({ sales: salesResult.rows, employees: empResult.rows });
+  } catch (error) {
+    console.error('Error generating Z Report:', error.stack);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
