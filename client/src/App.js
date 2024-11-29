@@ -19,6 +19,7 @@ import { OrderProvider } from './context/OrderContext'
 import { CashierOrderProvider } from './context/CashierOrderContext'
 import './App.css'
 import CashierPage from './pages/CashierPage/CashierPage'
+import TranslateBtn from './components/TranslateBtn/TranslateBtn'
 
 function App() {
   return (
@@ -32,26 +33,23 @@ function App() {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/rewards" element={<RewardsPage />} />
 
-
           {/* MANAGER */}
           <Route path="/orderhistory" element={<OrderHistoryPage />} />
           <Route path="/inventory" element={<InventoryPage />} />
           <Route path="/fooditems" element={<FoodItemsPage />} />
           <Route path="/employees" element={<EmployeePage />} />
-            {/* REPORTS */}
-            <Route path="/reports/xreport" element={<XReportPage />} />
-            <Route path="/reports/zreport" element={<ZReportPage />} />
+          {/* REPORTS */}
+          <Route path="/reports/xreport" element={<XReportPage />} />
+          <Route path="/reports/zreport" element={<ZReportPage />} />
 
           {/* CASHIER */}
           <Route path="/cashier" element={<CashierPage />} />
-          
         </Routes>
       </Router>
+      <TranslateBtn />
     </OrderProvider>
-    // <CashierOrderProvider>
-    //   <CashierOrderPage />
-    // </CashierOrderProvider>
-  )
+  );
 }
+
 
 export default App;
