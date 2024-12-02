@@ -562,6 +562,25 @@ app.get('/api/employees', async (req, res) => {
   }
 });
 
+
+app.get('/api/employees/:employeeId/position', async (req, res) => {
+  const { employeeId } = req.params;
+
+  try {
+    const result = await pool.query('SELECT position FROM employees WHERE employeeid = $1', [employeeId]);
+    
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Employee not found' });
+    }
+
+    res.json({ position: result.rows[0].position });
+  } catch (error) {
+    console.error(`Error fetching employee position: ${error.message}`);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 // Order History API
 app.get('/api/orderhistory', async (req, res) => {
   try {
