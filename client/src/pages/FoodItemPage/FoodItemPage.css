@@ -5,98 +5,153 @@ body, html {
   background-color: #ffe5e5;
   color: #333;
   box-sizing: border-box;
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape mode */
+}
+
+* {
+  box-sizing: border-box;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
-  .top-container {
-    width: 100%;
-  }
+.top-container {
+  width: 100%;
+}
 
-  .header-container {
-    display: flex;
-    align-items: center;
-    padding: 1rem 0;
-    background-color: #c8102e;
-    color: #fff;
-  }
-  
-  .header-container img {
-    width: 50px;
-    height: auto;
-    margin-right: 1rem;
-    margin-left: 30px;
-  }
-  
-  .header-container h1 {
-    font-size: 1.8rem;
-    font-weight: bold;
-  }
-  
-  .food-item-type-container {
-    margin: 3rem 0 0 0;
-    font-size: 1.2rem;
-    text-align: center;
-    color: #c8102e;
-    font-weight: bold;
-    font-size: 1.5rem;
-  }
-  
-  .food-item-container {
-    /* width: 60%; */
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Fixed to 3 columns */
-    gap: 0.5rem; /* Minimal gap between items */
-    padding: 1.5rem;
-    justify-items: center;
-  }
-  
-  /* .food-item-container button {
-    width: 260px;
-    height: 260px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    border: 2px solid #c8102e;
-    color: #333;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  } */
-  
-  .nav-btn-container {
-    display: flex;
-    justify-content: center;
-    padding: 1rem;
-  }
-  
-  .nav-btn-container button {
-    width: 120px;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .nav-btn-container button:hover {
-    background-color: #555;
-  }
-  
-  /* Grayed-out overlay for modal */
+.header-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #c8102e;
+  color: #fff;
+}
+
+.header-container img {
+  width: 40px;
+  height: auto;
+  margin-right: 1rem;
+}
+
+.header-container h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.chevron-tier {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.food-item-type-container {
+  margin: 1.5rem 0;
+  text-align: center;
+  color: #c8102e;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.food-item-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+  gap: 0.5rem;
+  padding: 0.5rem;
+  justify-items: center;
+  width: 100%;
+}
+
+.food-item-btn {
+  width: 100%; /* Full width within grid cell */
+  max-width: 180px; /* Maximum width to prevent overly large buttons */
+  aspect-ratio: 1 / 1; /* Maintain square shape */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border: 2px solid #c8102e;
+  color: #333;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 0.5rem;
+  text-align: center;
+  position: relative; /* For count positioning */
+}
+
+.food-item-btn img {
+  max-width: 80%; /* Ensure image fits within button */
+  max-height: 60%; /* Limit image height */
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.food-item-btn .item-count {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #c8102e;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+.food-item-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.food-item-btn.selected {
+  background-color: #f0f0f0;
+  border-color: #ff4500;
+}
+
+.nav-btn-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  width: 90%;
+  max-width: 600px;
+}
+
+.nav-btn-container button {
+  flex-grow: 1;
+  margin: 0 0.25rem;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-btn-container button:hover {
+  background-color: #555;
+}
+
 .overlay {
   position: fixed;
   top: 0;
@@ -105,16 +160,102 @@ body, html {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 10;
-  pointer-events: none; /* Prevent interaction */
+  pointer-events: none;
 }
 
-/* Blur and disable interactions with the rest of the page */
 .blurred {
-  filter: blur(4px); /* Blur effect */
-  pointer-events: none; /* Disable interactions */
+  filter: blur(4px);
+  pointer-events: none;
 }
 
-/* Ensure modal is always on top */
 .fooditemdetails-modal-container {
-  z-index: 20; /* Above overlay */
+  z-index: 20;
+}
+
+/* Tablet Styles */
+@media screen and (min-width: 600px) {
+  .food-item-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on tablets */
+    gap: 1rem;
+  }
+
+  .header-container {
+    padding: 1rem 2rem;
+  }
+
+  .header-container h1 {
+    font-size: 1.8rem;
+  }
+
+  .food-item-type-container {
+    font-size: 1.5rem;
+  }
+
+  .food-item-btn {
+    max-width: 220px;
+    font-size: 1rem;
+  }
+
+  .nav-btn-container button {
+    font-size: 1rem;
+    padding: 12px;
+  }
+}
+
+/* Desktop Styles */
+@media screen and (min-width: 1024px) {
+  .food-item-container {
+    grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
+    gap: 1.5rem;
+    max-width: 1200px;
+  }
+
+  .header-container {
+    padding: 1rem 3rem;
+  }
+
+  .food-item-btn {
+    max-width: 260px;
+    font-size: 1.1rem;
+  }
+
+  .nav-btn-container {
+    max-width: 800px;
+  }
+}
+
+/* Mobile Touch Optimization */
+@media (hover: none) and (pointer: coarse) {
+  .nav-btn-container button {
+    min-height: 44px; /* Minimum touch target size */
+    padding: 12px;
+  }
+
+  .food-item-btn {
+    min-height: 44px; /* Ensure touch-friendly size */
+  }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background-color: white;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  .nav-btn-container,
+  .overlay,
+  .blurred {
+    display: none;
+  }
 }
