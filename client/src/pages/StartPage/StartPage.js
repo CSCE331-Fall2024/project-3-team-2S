@@ -62,7 +62,7 @@ function StartPage() {
           {showPopup && ( <ManagerIDPopup onClose={() => setShowPopup(false)} />)} */}
 
           <button className="employee-button" onClick={() => setShowPopup(true)} >
-            I'm a Manager
+            I'm an Employee
           </button>
           {showPopup && ( <ManagerIDPopup onClose={() => setShowPopup(false)} />)}
             
@@ -93,7 +93,7 @@ function StartPage() {
           </button> */}
 
           <button className="employee-button" onClick={() => setShowPopup(true)} >
-            I'm a Manager
+            I'm an Employee
           </button>
           {showPopup && ( <ManagerIDPopup onClose={() => setShowPopup(false)} />)}
 
