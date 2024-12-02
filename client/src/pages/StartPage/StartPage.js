@@ -56,10 +56,10 @@ function StartPage() {
           {/* <button className="cashier-button" onClick={handleCashierClick}>
             I'm a Cashier
           </button> */}
-          <button className="employee-button" onClick={() => setShowPopup(true)} >
+          {/* <button className="employee-button" onClick={() => setShowPopup(true)} >
             I'm a Cashier
           </button>
-          {showPopup && ( <ManagerIDPopup onClose={() => setShowPopup(false)} />)}
+          {showPopup && ( <ManagerIDPopup onClose={() => setShowPopup(false)} />)} */}
 
           <button className="employee-button" onClick={() => setShowPopup(true)} >
             I'm a Manager
@@ -88,9 +88,9 @@ function StartPage() {
       <SignedIn>
         <div className="auth-buttons">
 
-          <button className="cashier-button" onClick={handleCashierClick}>
+          {/* <button className="cashier-button" onClick={handleCashierClick}>
             I'm a Cashier
-          </button>
+          </button> */}
 
           <button className="employee-button" onClick={() => setShowPopup(true)} >
             I'm a Manager
