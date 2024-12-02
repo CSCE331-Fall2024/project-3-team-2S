@@ -123,10 +123,10 @@ function CashierPage() {
   // Handle navigation clicks
   const handleNavClick = (text) => {
     if (text === "Uncompleted Orders") {
-      navigate("/cashier"); // Navigate to Order History page
+      navigate("/cashier", { state: { role: "cashier" } }); // Navigate to Order History page
     } 
     else if (text === "New Order") {
-      navigate("/new-order"); // Navigate to Inventory page
+      navigate("/new-order", { state: { role: "cashier" } }); // Navigate to Inventory page
     } 
     // else if (text === "Food Items") {
     //   navigate("/fooditems"); // Navigate to Items page
