@@ -87,3 +87,26 @@ export async function deleteEmployee(employeeId) {
     throw error;
   }
 }
+
+
+// Find an employee's position by ID
+export async function findEmployee(employeeId) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/employees/${employeeId}/position`);
+
+    if (response.ok) {
+      const { position } = await response.json();
+      console.log(`Position of employee with ID ${employeeId}: ${position}`);
+      return position;
+    } else if (response.status === 404) {
+      console.error(`Employee with ID ${employeeId} not found.`);
+      throw new Error(`Employee not found with ID: ${employeeId}`);
+    } else {
+      console.error(`Failed to fetch position for employee with ID ${employeeId}. Status: ${response.status}`);
+      throw new Error(`Fetch failed with status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error(`Error fetching position for employee with ID ${employeeId}: ${error.message}`);
+    throw error;
+  }
+}

@@ -69,7 +69,7 @@ function UncompletedOrderDetails({ selectedOrder, onClose, onDelete }) {
         onDelete(selectedOrder.ordernum);
       }}>Delete</button>
       <button className="close-button"  style={{ right: '150px' }}  onClick={() => {
-        // onDelete(selectedOrder.ordernum);
+        onDelete(selectedOrder.ordernum);
       }}>Complete</button>
       
       <div>
