@@ -9,6 +9,8 @@ import Receipt from '../../components/Receipt/Receipt';
 import CompletedModal from '../../components/CompletedModal/CompletedModal';
 import { getNextOrderNum } from '../../api/NextOrderNum'; // Import the function
 import { SendOrder } from '../../api/SendOrder';
+import { useLocation } from 'react-router-dom';
+
 
 function CheckoutPage() {
   const navigate = useNavigate();
@@ -19,6 +21,9 @@ function CheckoutPage() {
   const [orderNumber, setOrderNumber] = useState(null);
   const [totalPrice, setTotalPrice] = useState(null);
   const [rewardPoints, setRewardPoints] = useState(null);
+
+  const location = useLocation();
+  const role = location.state?.role || "customer";
 
   const customerId = localStorage.getItem("customerId");
 
@@ -87,8 +92,13 @@ function CheckoutPage() {
   const handleCloseModal = () => {
     setIsModalVisible(false);
     clearOrder();
-    navigate("/");
+    if(role === "customer") {
+      navigate("/");
+    } else {
+      navigate("/cashier");
+    }
   };
+
 
   return (
     <div>
@@ -126,7 +136,7 @@ function CheckoutPage() {
                   handleCardRemove={() => removeOrder(index)}
                   handleEditOrder={() => {
                     editOrder(index);
-                    navigate("/food-item");
+                    navigate("/food-item", { state: { role } });
                   }}
                 />
               ))
@@ -137,7 +147,7 @@ function CheckoutPage() {
           </div>
         </div>
         <div className="nav-btn-container">
-          <button onClick={() => navigate("/new-order")}>Back</button>
+          <button onClick={() => navigate("/new-order", { state: { role } })}>Back</button>
         </div>
       </div>
       {isModalVisible && (

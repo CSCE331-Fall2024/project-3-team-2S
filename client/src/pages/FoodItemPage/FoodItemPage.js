@@ -8,6 +8,8 @@ import FoodItemBtn from '../../components/FoodItemBtn/FoodItemBtn';
 import Chevron from '../../components/Chevron/Chevron';
 import { getFoodItemFromID } from '../../api/GetFoodItemFromID';
 import FoodItemDetailsModal from '../../components/FoodItemDetailsModal/FoodItemDetailsModal';
+import { useLocation } from 'react-router-dom';
+
 
 function FoodItemPage() {
   // Used for chevron
@@ -26,6 +28,9 @@ function FoodItemPage() {
     alacarte: null,
     drink: null,
   });
+
+  const location = useLocation();
+  const role = location.state?.role || "customer";
 
   const entreeLimit = menuItemType === "Bowl" ? 1 : menuItemType === "Plate" ? 2 : menuItemType === "Bigger Plate" ? 3 : 0;
 
@@ -179,7 +184,7 @@ function FoodItemPage() {
       price,
       ...selection,
     };
-    currentEditOrder ? navigate("/checkout") : navigate("/new-order");
+    currentEditOrder ? navigate("/checkout", { state: { role } }) : navigate("/new-order", { state: { role } });
     addToOrder(orderItem);
   };
 
@@ -235,6 +240,7 @@ function FoodItemPage() {
       foodID={item.foodid}
       name={item.name}
       imgSrc={item.imagesrc}
+      details={role === "customer"}
       isSelected={
         item.foodid === selection.side || 
         item.foodid === selection.appetizer || 
@@ -267,10 +273,10 @@ function FoodItemPage() {
           <img src={Logo} alt="Logo" />
           <h1>{currentEditOrder ? "Edit" : "New"} {menuItemType}</h1>
           <div className="chevron-tier"> {/* Add the chevron-tier div */}
-            <Chevron
+            {role === "customer" && <Chevron
               totalSteps={totalSteps}
               imageUrls={imageUrls} 
-            />
+            />}
           </div>
         </div>
         <div className="food-item-type-container">
@@ -292,9 +298,9 @@ function FoodItemPage() {
             setSelectionStep("Side");
           } else if (currentEditOrder) {
             exitEditOrder();
-            navigate("/checkout");
+            navigate("/checkout", { state: { role } });
           } else {
-            navigate("/new-order");
+            navigate("/new-order", { state: { role } });
           }
         }}>
           Back
