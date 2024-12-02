@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import './RewardsPage.css';
+import { useNavigate } from 'react-router-dom';
 
 const RewardsPage = () => {
+  const navigate = useNavigate();
   const [rewardPoints, setRewardPoints] = useState(0);
   const [customerId, setCustomerId] = useState("");
   
@@ -46,6 +49,10 @@ const RewardsPage = () => {
       alert("Not enough points to redeem this item.");
     }
   };
+
+  const handleBack = () => {
+    navigate("/");
+  }
 
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
@@ -93,6 +100,9 @@ const RewardsPage = () => {
           </li>
         ))}
       </ul>
+      <button className="back-button" onClick={handleBack}>
+        Back
+      </button>
     </div>
   );
 };
