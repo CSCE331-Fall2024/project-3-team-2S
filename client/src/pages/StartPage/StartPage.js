@@ -4,11 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/clerk-react";
 import { CreateCustomer } from '../../api/CreateCustomer';
+import ManagerIDPopup from '../../components/ManagerIDPopup/ManagerIDPopup';
 
 function StartPage() {
   const navigate = useNavigate();
   const { user } = useUser(); // Use Clerk's hook to get the user
   const [inputCustomerId, setInputCustomerId] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+
 
   useEffect(() => {
     if (user) {
@@ -50,12 +53,23 @@ function StartPage() {
 
       <SignedOut>
         <div className="auth-buttons">
-          <button className="cashier-button" onClick={handleCashierClick}>
+          {/* <button className="cashier-button" onClick={handleCashierClick}>
+            I'm a Cashier
+          </button> */}
+          <button className="employee-button" onClick={() => setShowPopup(true)} >
             I'm a Cashier
           </button>
-          <button className="employee-button" onClick={handleEmployeeClick}>
+          {showPopup && ( <ManagerIDPopup onClose={() => setShowPopup(false)} />)}
+
+          <button className="employee-button" onClick={() => setShowPopup(true)} >
             I'm a Manager
           </button>
+          {showPopup && ( <ManagerIDPopup onClose={() => setShowPopup(false)} />)}
+            
+          {/* <button className="employee-button" onClick={handleEmployeeClick}>
+            I'm a Manager
+          </button> */}
+
           <SignInButton mode="modal">
             <button className="auth-button">Sign In</button>
           </SignInButton>
@@ -73,12 +87,20 @@ function StartPage() {
 
       <SignedIn>
         <div className="auth-buttons">
+
           <button className="cashier-button" onClick={handleCashierClick}>
             I'm a Cashier
           </button>
-          <button className="employee-button" onClick={handleEmployeeClick}>
+
+          <button className="employee-button" onClick={() => setShowPopup(true)} >
             I'm a Manager
           </button>
+          {showPopup && ( <ManagerIDPopup onClose={() => setShowPopup(false)} />)}
+
+          {/* <button className="employee-button" onClick={handleEmployeeClick}>
+            I'm a Manager
+          </button> */}
+
           <UserButton />
           <button
             className="auth-button"
