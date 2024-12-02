@@ -15,6 +15,7 @@ import { useLocation } from 'react-router-dom';
 function CheckoutPage() {
   const navigate = useNavigate();
   const { orders, removeOrder, editOrder, clearOrder } = useOrderContext();
+  const { menuItemType, addToOrder, currentEditOrder, setFoodItemDetailsInContext, isFoodItemDetailsModalVisible, openFoodItemDetailsModal, exitEditOrder } = useOrderContext();
 
   const [orderDetails, setOrderDetails] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -89,6 +90,17 @@ function CheckoutPage() {
     setIsModalVisible(true);
   };
 
+  const addFoodItemPromoToOrder = (foodItem) => {
+    const promoItem = {
+      menuItemType: `${foodItem.menuItemType} Promo`,
+      price: -1 * foodItem.price, // Assuming the same price calculation logic applies
+      foodid: foodItem.foodid, // Associate with the original food item
+      promo: true, // Flag to indicate it's a promo item
+    };
+    addToOrder(promoItem);
+  };
+
+
   const handleCloseModal = () => {
     setIsModalVisible(false);
     clearOrder();
@@ -138,6 +150,9 @@ function CheckoutPage() {
                     editOrder(index);
                     navigate("/food-item", { state: { role } });
                   }}
+                  promo={ role === "cashier" }
+                  promoOrder={addFoodItemPromoToOrder}
+                  currentOrder={order}
                 />
               ))
             )}
@@ -152,8 +167,7 @@ function CheckoutPage() {
       </div>
       {isModalVisible && (
         <div className="modal-container">
-          <CompletedModal onClose={handleCloseModal} orderNumber={orderNumber} />
-        </div>
+          <CompletedModal onClose={handleCloseModal} orderNumber={orderNumber} cashier={role === "casher"} /> </div>
       )}
     </div>
   );

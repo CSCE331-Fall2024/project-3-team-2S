@@ -2,49 +2,51 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export async function SendOrder(orders) {
   try {
-    const ordersWithFoodIds = orders.map(order => {
-      let foodid1 = null, foodid2 = null, foodid3 = null, foodid4 = null;
-      
-      switch (order.menuItemType) {
-        case "Bowl":
-          foodid1 = order.side || null;
-          foodid2 = order.entrees[0] || null;
-          break;
-        case "Plate":
-          foodid1 = order.side || null;
-          foodid2 = order.entrees[0] || null;
-          foodid3 = order.entrees[1] || null;
-          break;
-        case "Bigger Plate":
-          foodid1 = order.side || null;
-          foodid2 = order.entrees[0] || null;
-          foodid3 = order.entrees[1] || null;
-          foodid4 = order.entrees[2] || null;
-          break;
-        case "A La Carte":
-          foodid1 = order.alacarte || null;
-          break;
-        case "Appetizer":
-          foodid1 = order.appetizer || null;
-          break;
-        case "Drink":
-          foodid1 = order.drink || null;
-          break;
-        default:
-          throw new Error('Invalid menu item type');
-      }
+    const ordersWithFoodIds = orders
+      .filter(order => !order.menuItemType.endsWith("Promo")) // Filter out promo items
+      .map(order => {
+        let foodid1 = null, foodid2 = null, foodid3 = null, foodid4 = null;
+        
+        switch (order.menuItemType) {
+          case "Bowl":
+            foodid1 = order.side || null;
+            foodid2 = order.entrees[0] || null;
+            break;
+          case "Plate":
+            foodid1 = order.side || null;
+            foodid2 = order.entrees[0] || null;
+            foodid3 = order.entrees[1] || null;
+            break;
+          case "Bigger Plate":
+            foodid1 = order.side || null;
+            foodid2 = order.entrees[0] || null;
+            foodid3 = order.entrees[1] || null;
+            foodid4 = order.entrees[2] || null;
+            break;
+          case "A La Carte":
+            foodid1 = order.alacarte || null;
+            break;
+          case "Appetizer":
+            foodid1 = order.appetizer || null;
+            break;
+          case "Drink":
+            foodid1 = order.drink || null;
+            break;
+          default:
+            throw new Error('Invalid menu item type');
+        }
 
-      return {
-        price: order.price,
-        name: order.menuItemType,
-        foodid1,
-        foodid2,
-        foodid3,
-        foodid4
-      };
-    });
+        return {
+          price: order.price,
+          name: order.menuItemType,
+          foodid1,
+          foodid2,
+          foodid3,
+          foodid4
+        };
+      });
 
-    // Last element in ordersWithFoodIds will contain data about customerid and employeeid
+    // Add customer and employee info
     let tempCustomerId = localStorage.getItem("customerId");
     if(tempCustomerId === null) {
       tempCustomerId = "1";
@@ -55,6 +57,7 @@ export async function SendOrder(orders) {
       employeeid: 1
     });
 
+    // Send the order
     const postResponse = await fetch(`${API_BASE_URL}/send-order`, {
       method: 'POST',
       headers: {

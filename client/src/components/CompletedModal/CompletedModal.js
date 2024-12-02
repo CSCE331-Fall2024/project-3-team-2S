@@ -1,6 +1,6 @@
 import './CompletedModal.css';
 
-function CompletedModal({ onClose, orderNumber }) {
+function CompletedModal({ onClose, orderNumber, cashier = false}) {
   return (
     <div className="completed-modal-container">
       <div className="completed-modal-text-container">
@@ -11,7 +11,8 @@ function CompletedModal({ onClose, orderNumber }) {
         <hr></hr>
       </div>
       <div className="completed-modal-btn-container">
-        <button onClick={onClose}>Start New Order</button>
+        {cashier && <button onClick={onClose}>Start New Order</button>}
+        {!cashier && <button onClick={onClose}>Back to Cashier Home</button>}
       </div>
     </div>
   );

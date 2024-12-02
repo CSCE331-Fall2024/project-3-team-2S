@@ -1,6 +1,6 @@
 import './CheckoutCard.css';
 
-function CheckoutCard({ menuItemType, orderDetails, price, handleCardRemove, handleEditOrder }) {
+function CheckoutCard({ menuItemType, orderDetails, price, handleCardRemove, handleEditOrder, promo = false, promoOrder, currentOrder }) {
 
   return (
     <div className="card-container">
@@ -14,8 +14,17 @@ function CheckoutCard({ menuItemType, orderDetails, price, handleCardRemove, han
         </div>
       </div>
       <div className="btn-container">
-        <button onClick={handleEditOrder}>Edit</button>
-        <button onClick={handleCardRemove}>Remove</button>
+
+        <button style={{ width: promo ? '30%' : '48%' }} onClick={handleEditOrder}>
+          Edit
+        </button>
+        <button style={{ width: promo ? '30%' : '48%' }} onClick={handleCardRemove}>
+          Remove
+        </button>
+        {promo && ( <button style={{ width: '30%' }} onClick={() => promoOrder(currentOrder)}>
+          Promo
+        </button>
+        )}
       </div>
     </div>
   );
