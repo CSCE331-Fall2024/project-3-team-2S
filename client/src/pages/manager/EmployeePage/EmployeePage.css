@@ -19,7 +19,7 @@
   .header-container {
       display: flex;
       align-items: center;
-      padding: 1rem 0;
+      padding: 1rem 1rem;
       background-color: #c8102e;
       color: #fff;
   }
@@ -27,7 +27,6 @@
     width: 50px;
     height: auto;
     margin-right: 1rem;
-    margin-left: 30px;
   }
   
   .header-container h1 {

@@ -142,7 +142,7 @@ function CashierPage() {
   return (
     
     <div>
-      <div className="header-container">
+      <div className="cashier-header-container">
         <img src={Logo} alt="Logo" className="logo"/>
         <h1>Cashier</h1>
         <div className='bar'></div>
