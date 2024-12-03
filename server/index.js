@@ -751,6 +751,63 @@ app.get('/api/zreport', async (req, res) => {
   }
 });
 
+app.get('/api/totalsales', async (req, res) => {
+  const { range } = req.query;
+
+  let dateCondition = '';
+  if (range === 'day') {
+    dateCondition = `WHERE DATE(hour_start) >= NOW() - INTERVAL '1 day'`;
+  } else if (range === 'week') {
+    dateCondition = `WHERE DATE(hour_start) >= NOW() - INTERVAL '1 week'`;
+  } else if (range === 'month') {
+    dateCondition = `WHERE DATE(hour_start) >= NOW() - INTERVAL '1 month'`;
+  } else if (range === 'year') {
+    dateCondition = `WHERE DATE(hour_start) >= NOW() - INTERVAL '1 year'`;
+  }
+
+  try {
+    const result = await pool.query(`
+      SELECT DATE(hour_start) AS sale_date, SUM(total_sales) AS total_sales 
+      FROM public.realisticsaleshistory 
+      ${dateCondition} 
+      GROUP BY sale_date 
+      ORDER BY sale_date
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching total sales data:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Gross Revenue endpoint
+app.get('/api/grossrevenue', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT foodid, total_gross_revenue 
+      FROM public.grossrevenueperfood
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching gross revenue data:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Employee Productivity endpoint
+app.get('/api/employeeproductivity', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT employeeid, name, position, total_orders_completed 
+      FROM public.employeeproductivity
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching employee productivity data:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 app.get('/', (req, res) => {
     res.send('Welcome to the Express server!');
   });
