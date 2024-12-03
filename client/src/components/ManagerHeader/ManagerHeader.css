@@ -1,17 +1,17 @@
-.header-container {
+.manager-header-container {
     display: flex;
     align-items: center;
-    padding: 1rem 0;
+    padding: 1rem;
     background-color: #c8102e;
     color: #fff;
 }
-.header-container h1 {
+.manager-header-container h1 {
     font-size: 1.8rem;
     font-weight: bold; 
     margin-right: 1rem;
   }
 
-  .header-container button {
+  .manager-header-container button {
     width: 120px;
     padding: 10px;
     background-color: #fff;
