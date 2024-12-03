@@ -159,19 +159,19 @@ app.post('/api/send-order', async (req, res) => {
     // Extract customer and employee information from the last item in the array
     const { customerid, employeeid } = orders[orders.length - 1];
 
-    // // Insert into orders table with timecompleted as NULL
-    // await pool.query(
-    //   `INSERT INTO orders (ordernum, customerid, employeeid, timecompleted)
-    //    VALUES ($1, $2, $3, NULL)`,
-    //   [nextOrderNum, customerid, employeeid]
-    // );
-
-    // Insert into orders table with timecompleted as NOW
+    // Insert into orders table with timecompleted as NULL
     await pool.query(
       `INSERT INTO orders (ordernum, customerid, employeeid, timecompleted)
-       VALUES ($1, $2, $3, NOW())`,
+       VALUES ($1, $2, $3, NULL)`,
       [nextOrderNum, customerid, employeeid]
     );
+
+    // Insert into orders table with timecompleted as NOW
+    // await pool.query(
+    //   `INSERT INTO orders (ordernum, customerid, employeeid, timecompleted)
+    //    VALUES ($1, $2, $3, NOW())`,
+    //   [nextOrderNum, customerid, employeeid]
+    // );
 
     await pool.query('COMMIT');
     res.status(201).json({ message: 'Orders added successfully' });
