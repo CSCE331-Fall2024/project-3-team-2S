@@ -164,9 +164,6 @@ function CashierPage() {
         </div>
 
         <div className="header-right">
-            <div className='manager-profile-dropdown'>
-              <ManagerProfileDropdown /> 
-            </div>
             <button className='sign-out-button' onClick={() => navigate('/')}>Sign Out</button>
         </div>
       </div>
