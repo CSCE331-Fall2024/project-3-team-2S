@@ -182,6 +182,34 @@ app.post('/api/send-order', async (req, res) => {
   }
 });
 
+// Complete Order Endpoint
+app.put('/api/complete-order/:ordernum', async (req, res) => {
+  const { ordernum } = req.params;
+
+  try {
+    // Update the timecompleted field to NOW() for the given ordernum
+    const result = await pool.query(
+      `UPDATE orders 
+       SET timecompleted = NOW() 
+       WHERE ordernum = $1 
+       RETURNING *`,
+      [ordernum]
+    );
+
+    // Check if the order exists
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+
+    // Return the updated order
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error('Error completing order:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 app.post('/api/create-customer', async (req, res) => {
   const { customerid, name, cardid } = req.body;
 

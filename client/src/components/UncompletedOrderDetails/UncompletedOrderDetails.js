@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './UncompletedOrderDetails.css';
 import { getMenuItems, getMenuItemsAndFoodItems } from '../../api/GetMenuItems';
-import { deleteOrder } from '../../api/DeleteOrder';
 
-function UncompletedOrderDetails({ selectedOrder, onClose, onDelete }) {
+function UncompletedOrderDetails({ selectedOrder, onClose, onDelete, onComplete }) {
   const [menuItems, setMenuItems] = useState([]);
   const [foodItems, setFoodItems] = useState({});
   const [loading, setLoading] = useState(true);
@@ -69,7 +68,7 @@ function UncompletedOrderDetails({ selectedOrder, onClose, onDelete }) {
         onDelete(selectedOrder.ordernum);
       }}>Delete</button>
       <button className="close-button"  style={{ right: '150px' }}  onClick={() => {
-        onDelete(selectedOrder.ordernum);
+        onComplete(selectedOrder.ordernum);
       }}>Complete</button>
       
       <div>
