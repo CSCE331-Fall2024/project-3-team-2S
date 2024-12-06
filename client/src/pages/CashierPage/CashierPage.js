@@ -3,9 +3,9 @@ import './CashierPage.css';
 import { useNavigate } from 'react-router-dom';
 import { getOrders } from '../../api/GetOrders';
 import Logo from "../../assets/images/logo.png";
-import ManagerProfileDropdown from '../../components/ManagerProfileDropdown/ManagerProfileDropdown';
 import UncompletedOrderDetails from '../../components/UncompletedOrderDetails/UncompletedOrderDetails';
 import { deleteOrder } from '../../api/DeleteOrder';
+import { completeOrder } from '../../api/CompleteOrder';
 import ReactPaginate from 'react-paginate';
 
 function CashierPage() {
@@ -51,6 +51,19 @@ function CashierPage() {
       // Optionally, you can add a success message here
     } catch (error) {
       console.error('Failed to delete order:', error);
+      // Optionally, you can add an error message here
+    }
+  };
+
+  const handleOrderComplete = async (orderNum) => {
+    try {
+      await completeOrder(orderNum);
+      // Update the orders state by filtering out the completed order
+      setOrders(prevOrders => prevOrders.filter(order => order.ordernum !== orderNum));
+      setSelectedOrder(null); // Clear the selected order
+      // Optionally, you can add a success message here
+    } catch (error) {
+      console.error('Failed to complete order:', error);
       // Optionally, you can add an error message here
     }
   };
@@ -140,9 +153,8 @@ function CashierPage() {
   };
   
   return (
-    
     <div>
-      <div className="header-container">
+      <div className="cashier-header-container">
         <img src={Logo} alt="Logo" className="logo"/>
         <h1>Cashier</h1>
         <div className='bar'></div>
@@ -164,9 +176,6 @@ function CashierPage() {
         </div>
 
         <div className="header-right">
-            <div className='manager-profile-dropdown'>
-              <ManagerProfileDropdown /> 
-            </div>
             <button className='sign-out-button' onClick={() => navigate('/')}>Sign Out</button>
         </div>
       </div>
@@ -269,6 +278,7 @@ function CashierPage() {
             selectedOrder={selectedOrder} 
             onClose={() => setSelectedOrder(null)}
             onDelete={handleOrderDelete}
+            onComplete={handleOrderComplete}
           />
           ) : (
             <div className="placeholder-panel">

@@ -182,6 +182,34 @@ app.post('/api/send-order', async (req, res) => {
   }
 });
 
+// Complete Order Endpoint
+app.put('/api/complete-order/:ordernum', async (req, res) => {
+  const { ordernum } = req.params;
+
+  try {
+    // Update the timecompleted field to NOW() for the given ordernum
+    const result = await pool.query(
+      `UPDATE orders 
+       SET timecompleted = NOW() 
+       WHERE ordernum = $1 
+       RETURNING *`,
+      [ordernum]
+    );
+
+    // Check if the order exists
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
+
+    // Return the updated order
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error('Error completing order:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
 app.post('/api/create-customer', async (req, res) => {
   const { customerid, name, cardid } = req.body;
 
@@ -747,6 +775,63 @@ app.get('/api/zreport', async (req, res) => {
     res.json({ sales: salesResult.rows, employees: empResult.rows });
   } catch (error) {
     console.error('Error generating Z Report:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.get('/api/totalsales', async (req, res) => {
+  const { range } = req.query;
+
+  let dateCondition = '';
+  if (range === 'day') {
+    dateCondition = `WHERE DATE(hour_start) >= NOW() - INTERVAL '1 day'`;
+  } else if (range === 'week') {
+    dateCondition = `WHERE DATE(hour_start) >= NOW() - INTERVAL '1 week'`;
+  } else if (range === 'month') {
+    dateCondition = `WHERE DATE(hour_start) >= NOW() - INTERVAL '1 month'`;
+  } else if (range === 'year') {
+    dateCondition = `WHERE DATE(hour_start) >= NOW() - INTERVAL '1 year'`;
+  }
+
+  try {
+    const result = await pool.query(`
+      SELECT DATE(hour_start) AS sale_date, SUM(total_sales) AS total_sales 
+      FROM public.realisticsaleshistory 
+      ${dateCondition} 
+      GROUP BY sale_date 
+      ORDER BY sale_date
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching total sales data:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Gross Revenue endpoint
+app.get('/api/grossrevenue', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT foodid, total_gross_revenue 
+      FROM public.grossrevenueperfood
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching gross revenue data:', error.stack);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Employee Productivity endpoint
+app.get('/api/employeeproductivity', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT employeeid, name, position, total_orders_completed 
+      FROM public.employeeproductivity
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching employee productivity data:', error.stack);
     res.status(500).json({ message: 'Internal server error' });
   }
 });

@@ -17,10 +17,10 @@
   .top-container {
     width: 100%;
   }
-  .header-container {
+  .cashier-header-container {
       display: flex;
       align-items: center;
-      padding: 1rem 0;
+      padding: 1rem 1rem;
       background-color: #c8102e;
       color: #fff;
   }
@@ -28,13 +28,13 @@
     width: 50px;
     height: auto;
     margin-right: 1rem;
-    margin-left: 30px;
   }
   
-  .header-container h1 {
+  .cashier-header-container h1 {
     font-size: 1.8rem;
     font-weight: bold; 
     margin-right: 1rem;
+    flex-grow: 0;
   }
   .bar {
     border-left: 2px solid white; 
@@ -43,7 +43,7 @@
     margin-right: 50px;
   }
 
-  .header-container button {
+  .cashier-header-container button {
     width: 120px;
     padding: 10px;
     background-color: #fff;
@@ -55,7 +55,6 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-left: auto; 
-    margin-right: 30px;
   }
 
   /* Manager Navigation */
