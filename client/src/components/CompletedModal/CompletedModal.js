@@ -1,6 +1,7 @@
 import './CompletedModal.css';
 
-function CompletedModal({ onClose, orderNumber, cashier = false}) {
+function CompletedModal({ onClose, orderNumber, cashier = true
+}) {
   return (
     <div className="completed-modal-container">
       <div className="completed-modal-text-container">
