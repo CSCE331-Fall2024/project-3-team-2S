@@ -41,11 +41,6 @@ function NewOrderPage() {
       <div className="header-container">
         <img src={Logo} alt="Logo" />
         <h1>New Order</h1>
-        {role === "cashier" ? (
-        <p>Viewing as Cashier</p>
-      ) : (
-        <p>Viewing as Customer</p>
-      )}
         <div className="header-right">
           {customerId && (
             <div className="customer-id-display">
