@@ -197,7 +197,7 @@ function CheckoutPage() {
       </div>
       {isModalVisible && (
         <div className="modal-container">
-          <CompletedModal onClose={handleCloseModal} orderNumber={orderNumber} cashier={role === "casher"} /> </div>
+          <CompletedModal onClose={handleCloseModal} orderNumber={orderNumber} cashier={role === "customer"} /> </div>
       )}
     </div>
   );
