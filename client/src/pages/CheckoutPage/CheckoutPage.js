@@ -12,6 +12,7 @@ import { SendOrder } from '../../api/SendOrder';
 import { useLocation } from 'react-router-dom';
 
 
+
 function CheckoutPage() {
   const navigate = useNavigate();
   const { orders, removeOrder, editOrder, clearOrder } = useOrderContext();
