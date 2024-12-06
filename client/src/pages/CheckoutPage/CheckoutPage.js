@@ -12,6 +12,7 @@ import { SendOrder } from '../../api/SendOrder';
 import { useLocation } from 'react-router-dom';
 
 
+
 function CheckoutPage() {
   const navigate = useNavigate();
   const { orders, removeOrder, editOrder, clearOrder } = useOrderContext();
@@ -100,6 +101,26 @@ function CheckoutPage() {
     addToOrder(promoItem);
   };
 
+  const handleApplyRewardPoints = (index) => {
+    setOrderDetails((prevOrderDetails) => {
+      const updatedDetails = [...prevOrderDetails];
+      const item = { ...updatedDetails[index] }; // Clone item to avoid mutation
+  
+      if (rewardPoints >= item.price * 100) {
+        const pointsToDeduct = item.price * 100;
+        item.price = -item.price; // Mark item as paid with points
+        updatedDetails[index] = item; // Update the cloned array
+        // setRewardPoints((prevPoints) => prevPoints - pointsToDeduct); // Deduct points
+      } else {
+        alert("Not enough reward points to apply to this item.");
+      }
+  
+      return updatedDetails;
+    });
+  };
+  
+  
+
 
   const handleCloseModal = () => {
     setIsModalVisible(false);
@@ -142,18 +163,27 @@ function CheckoutPage() {
                     ...(order.entrees || []),
                     order.appetizer,
                     order.alacarte,
-                    order.drink
-                  ].filter(Boolean).join(', ')}
-                  price={(order.price).toFixed(2)}
+                    order.drink,
+                  ]
+                    .filter(Boolean)
+                    .join(", ")}
+                  price={order.price.toFixed(2)}
                   handleCardRemove={() => removeOrder(index)}
                   handleEditOrder={() => {
                     editOrder(index);
                     navigate("/food-item", { state: { role } });
                   }}
-                  promo={ role === "cashier" }
+                  promo={role === "cashier"}
                   promoOrder={addFoodItemPromoToOrder}
                   currentOrder={order}
-                />
+                  handleRewards={() => handleApplyRewardPoints(index)}
+                >
+                  {rewardPoints >= Math.abs(order.price) * 100 && (
+                    <button onClick={() => handleApplyRewardPoints(index)}>
+                      Apply Points
+                    </button>
+                  )}
+                </CheckoutCard>  
               ))
             )}
           </div>

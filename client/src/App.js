@@ -11,8 +11,11 @@ import OrderHistoryPage from './pages/manager/OrderHistoryPage/OrderHistoryPage'
 import InventoryPage from './pages/manager/InventoryPage/InventoryPage'
 import FoodItemsPage from './pages/manager/FoodItemsPage/FoodItemsPage'
 import EmployeePage from './pages/manager/EmployeePage/EmployeePage'
-import XReportPage from './pages/manager/XReportPage/XReportPage'
-import ZReportPage from './pages/manager/ZReportPage/ZReportPage'
+  import XReportPage from './pages/manager/XReportPage/XReportPage'
+  import ZReportPage from './pages/manager/ZReportPage/ZReportPage'
+  import TotalSalesPage from './pages/manager/TotalSalesPage/TotalSalesPage'
+  import GrossRevenuePage from './pages/manager/GrossRevenuePage/GrossRevenuePage'
+  import EmployeeProductivityPage from './pages/manager/EmployeeProductivityPage/EmployeeProductivityPage'
 
 import CashierOrderPage from './pages/CashierOrderPage/CashierOrderPage'
 import { OrderProvider } from './context/OrderContext'
@@ -38,9 +41,12 @@ function App() {
           <Route path="/inventory" element={<InventoryPage />} />
           <Route path="/fooditems" element={<FoodItemsPage />} />
           <Route path="/employees" element={<EmployeePage />} />
-          {/* REPORTS */}
-          <Route path="/reports/xreport" element={<XReportPage />} />
-          <Route path="/reports/zreport" element={<ZReportPage />} />
+            {/* REPORTS */}
+            <Route path="/reports/xreport" element={<XReportPage />} />
+            <Route path="/reports/zreport" element={<ZReportPage />} />
+            <Route path="/reports/totalsales" element={<TotalSalesPage />} />
+            <Route path="/reports/grossrevenue" element={<GrossRevenuePage />} />
+            <Route path="/reports/employeeproductivity" element={<EmployeeProductivityPage />} />
 
           {/* CASHIER */}
           <Route path="/cashier" element={<CashierPage />} />

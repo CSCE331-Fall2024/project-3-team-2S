@@ -102,14 +102,14 @@ function StartPage() {
           </button> */}
 
           <UserButton />
-          <button
+          {/* <button
             className="auth-button"
             onClick={() => {
               navigate("/rewards");
             }}
           >
             Rewards
-          </button>
+          </button> */}
           <button className="action-button" onClick={handleSaveCustomerId}>
           New Order
           </button>
