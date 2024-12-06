@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import './RewardsPage.css';
 import { useNavigate } from 'react-router-dom';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
 const RewardsPage = () => {
   const navigate = useNavigate();
   const [rewardPoints, setRewardPoints] = useState(0);
@@ -23,7 +25,7 @@ const RewardsPage = () => {
       if (storedCustomerId) {
         try {
           const response = await fetch(
-            `http://localhost:3001/api/customer-total-price?customerId=${storedCustomerId}`
+            `${API_BASE_URL}/customer-total-price?customerId=${storedCustomerId}`
           );
           const data = await response.json();
 
