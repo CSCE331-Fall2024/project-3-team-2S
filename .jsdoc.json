@@ -1,0 +1,11 @@
+{
+    "source": {
+      "include": ["client/src"],
+      "exclude": ["node_modules"],
+      "recurse": true
+    },
+    "opts": {
+      "destination": "docs"
+    }
+  }
+  
