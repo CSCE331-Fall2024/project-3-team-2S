@@ -65,7 +65,7 @@ body, html {
 
 .food-item-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.5rem;
   padding: 0.5rem;
   justify-items: center;
@@ -173,9 +173,9 @@ body, html {
 }
 
 /* Tablet Styles */
-@media screen and (min-width: 600px) {
+@media screen and (max-width: 600px) {
   .food-item-container {
-    grid-template-columns: repeat(3, 1fr); /* 3 columns on tablets */
+    grid-template-columns: repeat(1, 1fr) !important; /* 3 columns on tablets */
     gap: 1rem;
   }
 
@@ -199,6 +199,10 @@ body, html {
   .nav-btn-container button {
     font-size: 1rem;
     padding: 12px;
+  }
+
+  .customer-id-display {
+    font-size: 18px;
   }
 }
 

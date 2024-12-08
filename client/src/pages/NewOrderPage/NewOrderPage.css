@@ -116,3 +116,14 @@ body, html {
 .nav-btn-container button:hover {
   background-color: #555;
 }
+
+@media screen and (max-width: 600px) {
+
+  .menu-item-container {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    justify-items: center;
+  }
+}
