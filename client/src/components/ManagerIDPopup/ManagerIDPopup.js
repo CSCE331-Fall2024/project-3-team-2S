@@ -19,6 +19,7 @@ function ManagerIDPopup({ onClose }) {
 
   const handleButtonClick = () => {
     console.log(`Manager ID entered: ${managerId}`);
+    localStorage.setItem("employeeId", managerId);
     
     findEmployee(managerId)
       .then((position) => {

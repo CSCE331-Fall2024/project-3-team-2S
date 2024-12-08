@@ -40,6 +40,7 @@ function CheckoutPage() {
             const appetizerName = order.appetizer ? (await getFoodItemFromID(order.appetizer)).name : null;
             const alacarteName = order.alacarte ? (await getFoodItemFromID(order.alacarte)).name : null;
             const drinkName = order.drink ? (await getFoodItemFromID(order.drink)).name : null;
+            const employeeId = 1;
 
             return {
               menuItemType: order.menuItemType,
@@ -49,6 +50,7 @@ function CheckoutPage() {
               appetizer: appetizerName,
               alacarte: alacarteName,
               drink: drinkName,
+              employee: employeeId,
             };
           })
         );

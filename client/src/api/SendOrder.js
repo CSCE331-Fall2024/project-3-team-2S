@@ -47,6 +47,10 @@ export async function SendOrder(orders) {
       });
 
     // Add customer and employee info
+    let tempEmployeeId = localStorage.getItem("employeeId");
+    if(tempEmployeeId === null) {
+      tempEmployeeId = "1";
+    }
     let tempCustomerId = localStorage.getItem("customerId");
     if(tempCustomerId === null) {
       tempCustomerId = "1";
@@ -54,7 +58,7 @@ export async function SendOrder(orders) {
     console.log("customer id is " + tempCustomerId);
     ordersWithFoodIds.push({
       customerid: tempCustomerId,
-      employeeid: 1
+      employeeid: tempEmployeeId,
     });
 
     // Send the order
