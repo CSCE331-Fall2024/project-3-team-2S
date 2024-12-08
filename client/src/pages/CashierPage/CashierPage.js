@@ -180,6 +180,7 @@ function CashierPage() {
       navigate("/cashier", { state: { role: "cashier" } }); // Navigate to Order History page
     } 
     else if (text === "New Order") {
+      localStorage.setItem("customerId", "Cashier Order");
       navigate("/new-order", { state: { role: "cashier" } }); // Navigate to Inventory page
     } 
     // else if (text === "Food Items") {
