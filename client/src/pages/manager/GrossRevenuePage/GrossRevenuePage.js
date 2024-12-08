@@ -38,7 +38,7 @@ function GrossRevenuePage() {
           <YAxis label={{ value: 'Total Gross Revenue', angle: -90, position: 'insideLeft' }} />
           <Tooltip />
           <Legend />
-          <Bar dataKey="total_gross_revenue" fill="#c41e3a" />
+          <Bar dataKey="gross_revenue" fill="#c41e3a" />
         </BarChart>
       </div>
     </div>

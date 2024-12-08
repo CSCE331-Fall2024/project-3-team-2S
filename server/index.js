@@ -812,8 +812,8 @@ app.get('/api/totalsales', async (req, res) => {
 app.get('/api/grossrevenue', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT foodid, total_gross_revenue 
-      FROM public.grossrevenueperfood
+      SELECT foodid, gross_revenue 
+      FROM public.grossrevenueperfood2
     `);
     res.json(result.rows);
   } catch (error) {
