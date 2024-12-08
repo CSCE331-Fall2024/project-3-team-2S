@@ -1,4 +1,32 @@
-import React, { useState, useEffect } from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: CashierPage/CashierPage.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: CashierPage/CashierPage.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect } from 'react';
 import './CashierPage.css';
 import { useNavigate } from 'react-router-dom';
 import { getOrders } from '../../api/GetOrders';
@@ -111,8 +139,8 @@ function CashierPage() {
    */
   const filteredOrders = orders.filter(order => 
     Object.values(order).some(value => 
-      value !== null && // Check for null
-      value !== undefined && // Check for undefined
+      value !== null &amp;&amp; // Check for null
+      value !== undefined &amp;&amp; // Check for undefined
       String(value).toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
@@ -123,7 +151,7 @@ function CashierPage() {
    */
   const sortData = (key) => {
     let direction = 'ascending';
-    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+    if (sortConfig.key === key &amp;&amp; sortConfig.direction === 'ascending') {
       direction = 'descending';
     }
     setSortConfig({ key, direction });
@@ -150,7 +178,7 @@ function CashierPage() {
         bValue = Number(bValue);
       }
   
-      if (aValue < bValue) {
+      if (aValue &lt; bValue) {
         return sortConfig.direction === 'ascending' ? -1 : 1;
       }
       if (aValue > bValue) {
@@ -194,110 +222,110 @@ function CashierPage() {
   };
   
   return (
-    <div>
-      <div className="cashier-header-container">
-        <img src={Logo} alt="Logo" className="logo"/>
-        <h1>Cashier</h1>
-        <div className='bar'></div>
+    &lt;div>
+      &lt;div className="cashier-header-container">
+        &lt;img src={Logo} alt="Logo" className="logo"/>
+        &lt;h1>Cashier&lt;/h1>
+        &lt;div className='bar'>&lt;/div>
         
         {/* Manager Navigation */}
-        <div className='manager-nav'>
-          <span 
+        &lt;div className='manager-nav'>
+          &lt;span 
             onClick={() => handleNavClick("Uncompleted Orders")}
             className={activePage === "Uncompleted Orders" ? "active-nav" : ""}
           >
             Uncompleted Orders
-          </span>
-          <span 
+          &lt;/span>
+          &lt;span 
             onClick={() => handleNavClick("New Order")}
             className={activePage === "Inventory" ? "active-nav" : ""}
           >
             New Order
-          </span>
-        </div>
+          &lt;/span>
+        &lt;/div>
 
-        <div className="header-right">
-            <button className='sign-out-button' onClick={() => navigate('/')}>Sign Out</button>
-        </div>
-      </div>
+        &lt;div className="header-right">
+            &lt;button className='sign-out-button' onClick={() => navigate('/')}>Sign Out&lt;/button>
+        &lt;/div>
+      &lt;/div>
       
-      <div className="order-history-wrapper">
-        <div className="order-history-container">
-          <h1>Uncompleted Orders</h1>
-          <div className="search-container">
-            <input
+      &lt;div className="order-history-wrapper">
+        &lt;div className="order-history-container">
+          &lt;h1>Uncompleted Orders&lt;/h1>
+          &lt;div className="search-container">
+            &lt;input
               type="text"
               placeholder="Search orders..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="search-input"
             />
-          </div>
+          &lt;/div>
         
-          <div className="orders-table-container">
+          &lt;div className="orders-table-container">
             {loading ? (
-              <p>Loading orders...</p>
+              &lt;p>Loading orders...&lt;/p>
             ) : error ? (
-              <p className="error-message">{error}</p>
+              &lt;p className="error-message">{error}&lt;/p>
             ) : (
-              <>
-                <table className="orders-table">
-                  <thead>
-                    <tr>
-                      <th onClick={() => sortData('ordernum')} className="sortable-header">
-                        Order # {sortConfig.key === 'ordernum' && (
-                          <span>{sortConfig.direction === 'ascending' ? '↑' : '↓'}</span>
+              &lt;>
+                &lt;table className="orders-table">
+                  &lt;thead>
+                    &lt;tr>
+                      &lt;th onClick={() => sortData('ordernum')} className="sortable-header">
+                        Order # {sortConfig.key === 'ordernum' &amp;&amp; (
+                          &lt;span>{sortConfig.direction === 'ascending' ? '↑' : '↓'}&lt;/span>
                         )}
-                      </th>
-                      <th onClick={() => sortData('name')} className="sortable-header">
-                        Customer ID {sortConfig.key === 'name' && (
-                          <span>{sortConfig.direction === 'ascending' ? '↑' : '↓'}</span>
+                      &lt;/th>
+                      &lt;th onClick={() => sortData('name')} className="sortable-header">
+                        Customer ID {sortConfig.key === 'name' &amp;&amp; (
+                          &lt;span>{sortConfig.direction === 'ascending' ? '↑' : '↓'}&lt;/span>
                         )}
-                      </th>
-                      <th onClick={() => sortData('price')} className="sortable-header">
-                        Order Price {sortConfig.key === 'price' && (
-                          <span>{sortConfig.direction === 'ascending' ? '↑' : '↓'}</span>
+                      &lt;/th>
+                      &lt;th onClick={() => sortData('price')} className="sortable-header">
+                        Order Price {sortConfig.key === 'price' &amp;&amp; (
+                          &lt;span>{sortConfig.direction === 'ascending' ? '↑' : '↓'}&lt;/span>
                         )}
-                      </th>
-                      {/* <th onClick={() => sortData('timecompleted')} className="sortable-header">
-                        Time Completed {sortConfig.key === 'timecompleted' && (
-                          <span>{sortConfig.direction === 'ascending' ? '↑' : '↓'}</span>
+                      &lt;/th>
+                      {/* &lt;th onClick={() => sortData('timecompleted')} className="sortable-header">
+                        Time Completed {sortConfig.key === 'timecompleted' &amp;&amp; (
+                          &lt;span>{sortConfig.direction === 'ascending' ? '↑' : '↓'}&lt;/span>
                         )}
-                      </th> */}
-                    </tr>
-                  </thead>
-                  <tbody>
+                      &lt;/th> */}
+                    &lt;/tr>
+                  &lt;/thead>
+                  &lt;tbody>
                     {getSortedData(currentOrders).map((order) => (
-                      <tr
+                      &lt;tr
                         key={order.ordernum}
                         onClick={() => handleOrderSelect(order)}
                         className={selectedOrder?.ordernum === order.ordernum ? 'selected-row' : ''}
                       >
-                        <td>{order.ordernum}</td>
-                        <td>{order.name}</td>
-                        <td>{order.price}</td>
-                      </tr>
+                        &lt;td>{order.ordernum}&lt;/td>
+                        &lt;td>{order.name}&lt;/td>
+                        &lt;td>{order.price}&lt;/td>
+                      &lt;/tr>
                     ))}
-                  </tbody>
-                </table>
-                <div className="pagination-container">
-                  <div className="rows-per-page">
-                    <label htmlFor="rows-select">Rows per page:</label>
-                    <select
+                  &lt;/tbody>
+                &lt;/table>
+                &lt;div className="pagination-container">
+                  &lt;div className="rows-per-page">
+                    &lt;label htmlFor="rows-select">Rows per page:&lt;/label>
+                    &lt;select
                       id="rows-select"
                       value={rowsPerPage === filteredOrders.length ? 'all' : rowsPerPage}
                       onChange={handleRowsPerPageChange}
                       className="rows-select"
                     >
-                      <option value="10">10</option>
-                      <option value="15">15</option>
-                      <option value="20">20</option>
-                      <option value="50">50</option>
-                      <option value="100">100</option>
-                      <option value="all">All</option>
-                    </select>
-                  </div>
-                  <ReactPaginate
+                      &lt;option value="10">10&lt;/option>
+                      &lt;option value="15">15&lt;/option>
+                      &lt;option value="20">20&lt;/option>
+                      &lt;option value="50">50&lt;/option>
+                      &lt;option value="100">100&lt;/option>
+                      &lt;option value="all">All&lt;/option>
+                    &lt;/select>
+                  &lt;/div>
+                  &lt;ReactPaginate
                     previousLabel={"← Previous"}
                     nextLabel={"Next →"}
                     pageCount={Math.ceil(filteredOrders.length / rowsPerPage)}
@@ -308,28 +336,51 @@ function CashierPage() {
                     disabledClassName={"pagination__link--disabled"}
                     activeClassName={"pagination__link--active"}
                   />
-                </div>
-              </>
+                &lt;/div>
+              &lt;/>
             )}
-          </div>
-        </div>
-        <div className="details-container">
+          &lt;/div>
+        &lt;/div>
+        &lt;div className="details-container">
           {selectedOrder ? (
-            <UncompletedOrderDetails 
+            &lt;UncompletedOrderDetails 
             selectedOrder={selectedOrder} 
             onClose={() => setSelectedOrder(null)}
             onDelete={handleOrderDelete}
             onComplete={handleOrderComplete}
           />
           ) : (
-            <div className="placeholder-panel">
-              <p>Select an order to view details</p>
-            </div>
+            &lt;div className="placeholder-panel">
+              &lt;p>Select an order to view details&lt;/p>
+            &lt;/div>
           )}
         
-      </div></div>
-    </div>
+      &lt;/div>&lt;/div>
+    &lt;/div>
   );
 }
 
 export default CashierPage;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#CashierOrderPage">CashierOrderPage</a></li><li><a href="global.html#CashierPage">CashierPage</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat Dec 07 2024 21:35:54 GMT-0600 (Central Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
