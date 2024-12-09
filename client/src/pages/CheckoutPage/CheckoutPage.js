@@ -60,7 +60,7 @@ function CheckoutPage() {
         // Fetch total price and reward points only if customerId is available
         if (customerId) {
           const response = await fetch(
-            `http://localhost:3001/api/customer-total-price?customerId=${customerId}`
+            `https://project-3-team-2-s-dep-server.vercel.app/api/customer-total-price?customerId=${customerId}`
           );
           const data = await response.json();
 
