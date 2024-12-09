@@ -9,6 +9,7 @@ export const OrderProvider = ({ children }) => {
   const [currentEditOrder, setCurrentEditOrder] = useState(null); // Store order details in edit mode
   const [foodItemDetails, setFoodItemDetails] = useState(null);
   const [isFoodItemDetailsModalVisible, setFoodItemDetailsModalVisible] = useState(false);
+  // const [rewards, setRewardsBool] = useState(false);
 
   const addToOrder = (orderItem) => {
     if (editOrderIndex !== null) {
@@ -58,6 +59,14 @@ export const OrderProvider = ({ children }) => {
     setFoodItemDetailsModalVisible(true);
   }
 
+  // const setRewardsBoolTrue = () => {
+  //   setRewardsBool(true);
+  // }
+
+  // const setRewardsBoolFalse = () => {
+  //   setRewardsBool(false);
+  // }
+
   return (
     <OrderContext.Provider value={{
       menuItemType,
@@ -73,6 +82,7 @@ export const OrderProvider = ({ children }) => {
       closeFoodItemDetailsModal,
       openFoodItemDetailsModal,
       isFoodItemDetailsModalVisible,
+      // rewards,
       exitEditOrder
     }}>
       {children}
