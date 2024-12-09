@@ -180,7 +180,7 @@ function CheckoutPage() {
           {totalPrice !== null ? (
             <div>
               {/* <p><strong>Total Price: </strong>${totalPrice.toFixed(2)}</p> */}
-              <p><strong>Reward Points: </strong>{rewardPoints.toFixed(2)}</p>
+              <p><strong>Reward Points: </strong>{rewardPoints.toFixed(0)}</p>
             </div>
           ) : (
             <p>Loading...</p>
