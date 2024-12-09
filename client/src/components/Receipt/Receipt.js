@@ -3,8 +3,11 @@ import './Receipt.css';
 function Receipt({ orders, handlePlaceOrder }) {
 
   function calculateSubtotal(orders) {
-    return orders.reduce((subtotal, order) => subtotal + order.price, 0);
+    return orders.reduce((subtotal, order) => {
+      return subtotal + (order.rewards ? 0 : order.price);
+    }, 0);
   }
+
   
   function calculateTax(orders) {
     return parseFloat((calculateSubtotal(orders) * 0.0625).toFixed(2));

@@ -42,6 +42,7 @@ function CheckoutPage() {
             const drinkName = order.drink ? (await getFoodItemFromID(order.drink)).name : null;
             const employeeId = 1;
 
+
             return {
               menuItemType: order.menuItemType,
               price: order.price,
@@ -89,7 +90,7 @@ function CheckoutPage() {
       console.error('Failed to fetch next order number:', error);
     }
 
-    SendOrder(orders)
+    SendOrder(orders) 
     setIsModalVisible(true);
   };
 
@@ -109,10 +110,44 @@ function CheckoutPage() {
       const item = { ...updatedDetails[index] }; // Clone item to avoid mutation
   
       if (rewardPoints >= item.price * 100) {
-        const pointsToDeduct = item.price * 100;
-        item.price = -item.price; // Mark item as paid with points
+        let pointsToDeduct = item.price * 100;
+        console.log("cost is " + item.price);
+        if(item.price > 0) { // TODO TOGGLE REWARDS HERE TO PASS TO order.rewards FOR EACH INDIVIDUAL ITEM
+          item.price = 0;
+          orders[index].rewards = true;
+        } else {
+          orders[index].rewards = false;
+          // item.rewards = false;
+          console.log("item type is " + item.menuItemType); 
+          switch(item.menuItemType) {
+            case "Bowl":
+              item.price = 8.30;
+              break;
+            case "Plate":
+              item.price = 9.80;
+              break;
+            case "Bigger Plate":
+              item.price = 11.30;
+              break;
+            case "Appetizer":
+              item.price = 2.0;
+              break;
+            case "A La Carte":
+              item.price = 4.0;
+              break;
+            case "Drink":
+              item.price = 1;
+              break;
+            default:
+              item.price = 0;
+              break;
+          }
+          pointsToDeduct = item.price * -100;
+          // pointsToDeduct = 0;
+        }
         updatedDetails[index] = item; // Update the cloned array
-        // setRewardPoints((prevPoints) => prevPoints - pointsToDeduct); // Deduct points
+        console.log("difference is " + pointsToDeduct);
+        setRewardPoints((prevPoints) => prevPoints - pointsToDeduct); // Deduct points
       } else {
         alert("Not enough reward points to apply to this item.");
       }
@@ -166,6 +201,7 @@ function CheckoutPage() {
                     order.appetizer,
                     order.alacarte,
                     order.drink,
+                    order.rewards
                   ]
                     .filter(Boolean)
                     .join(", ")}
