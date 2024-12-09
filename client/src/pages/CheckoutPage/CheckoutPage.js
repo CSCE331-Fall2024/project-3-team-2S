@@ -179,7 +179,7 @@ function CheckoutPage() {
           <h1>Checkout</h1>
           {totalPrice !== null ? (
             <div>
-              <p><strong>Total Price: </strong>${totalPrice.toFixed(2)}</p>
+              {/* <p><strong>Total Price: </strong>${totalPrice.toFixed(2)}</p> */}
               <p><strong>Reward Points: </strong>{rewardPoints.toFixed(2)}</p>
             </div>
           ) : (
