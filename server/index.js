@@ -142,7 +142,7 @@ app.post('/api/send-order', async (req, res) => {
     await pool.query('BEGIN');
 
     // Get the next order number
-    const result = await pool.query('SELECT MAX(ordernum) AS highest_ordernum FROM menuitems');
+    const result = await pool.query('SELECT MAX(ordernum) AS highest_ordernum FROM orders');
     const nextOrderNum = result.rows[0].highest_ordernum + 1;
 
     // Insert each order item (excluding the last one)
@@ -339,13 +339,13 @@ app.post('/api/send-order', async (req, res) => {
     await pool.query('BEGIN');
 
     // Get the next order number
-    const result = await pool.query('SELECT MAX(ordernum) AS highest_ordernum FROM menuitems');
+    const result = await pool.query('SELECT MAX(ordernum) AS highest_ordernum FROM orders');
     const nextOrderNum = result.rows[0].highest_ordernum + 1;
 
     // Insert each order item (excluding the last one)
     for (let i = 0; i < orders.length - 1; i++) {
       const { price, name, foodid1, foodid2, foodid3, foodid4 } = orders[i];
-
+      
       await pool.query(
         `INSERT INTO menuitems (ordernum, price, name, foodid1, foodid2, foodid3, foodid4)
          VALUES ($1, $2, $3, $4, $5, $6, $7)`,
