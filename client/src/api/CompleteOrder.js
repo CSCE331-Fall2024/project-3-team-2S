@@ -6,6 +6,7 @@ export const completeOrder = async (ordernum) => {
       method: 'PUT',  // Use PUT to update the order
     });
 
+    
     console.log('Completing order number:', ordernum);
 
     if (!response.ok) {
