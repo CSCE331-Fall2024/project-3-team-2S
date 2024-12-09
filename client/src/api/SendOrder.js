@@ -36,7 +36,7 @@ export async function SendOrder(orders) {
             throw new Error('Invalid menu item type');
         }
         console.log("is rewards? " + order.rewards);
-        if(order.rewards) { //TODO check rewards
+        if(order.rewards) { 
           order.price = -1 * order.price;
         }
 
