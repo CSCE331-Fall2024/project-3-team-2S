@@ -78,11 +78,6 @@ Restaurants need efficient and user-friendly systems to manage orders, track inv
 
 5. Access the system on localhost:3000 for the frontend.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-
 ## Acknowledgments
 
 - **React** for making the UI easy to build and scale.
