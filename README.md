@@ -87,6 +87,8 @@ Restaurants need efficient and user-friendly systems to manage orders, track inv
 - **Clerk** for simplifying Google Authentication integration.
 - **Google Translate** for powering machine translation on the website.
 
+## Website Link
+https://project-3-team-2-s-client.vercel.app/
 
 
 
