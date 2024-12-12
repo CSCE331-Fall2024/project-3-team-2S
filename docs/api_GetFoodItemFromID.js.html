@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: api/GetFoodItemFromID.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,44 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: api/GetFoodItemFromID.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Base URL for the API, sourced from environment variables.
+ * @constant {string}
+ */
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+/**
+ * Fetches a food item by its ID from the API.
+ * @async
+ * @param {string} foodID - The ID of the food item to fetch.
+ * @returns {Promise&lt;Object>} The data of the fetched food item.
+ * @throws Will throw an error if the request fails or the response is not ok.
+ */
+export async function getFoodItemFromID(foodID) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/fooditems/${foodID}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch food item');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching food items:', error);
+    throw error;
+  }
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

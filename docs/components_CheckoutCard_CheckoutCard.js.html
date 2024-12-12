@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: components/CheckoutCard/CheckoutCard.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,77 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: components/CheckoutCard/CheckoutCard.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import './CheckoutCard.css';
 
+/**
+ * CheckoutCard component for displaying a checkout card with order details.
+ * @component
+ * @param {Object} props - The component props.
+ * @param {string} props.menuItemType - The type of menu item.
+ * @param {string} props.orderDetails - Details of the order.
+ * @param {number} props.price - The price of the order.
+ * @param {function} props.handleCardRemove - Function to handle removing the card.
+ * @param {function} props.handleEditOrder - Function to handle editing the order.
+ * @param {boolean} [props.promo=false] - Indicates if the promo button should be displayed.
+ * @param {function} props.promoOrder - Function to handle promo orders.
+ * @param {Object} props.currentOrder - The current order details.
+ * @param {function} props.handleRewards - Function to handle rewards.
+ */
+function CheckoutCard({ 
+  menuItemType, 
+  orderDetails, 
+  price, 
+  handleCardRemove, 
+  handleEditOrder, 
+  promo = false, 
+  promoOrder, 
+  currentOrder, 
+  handleRewards 
+}) {
+  return (
+    &lt;div className="card-container">
+      &lt;div className="info-container">
+        &lt;div className="text-container">
+          &lt;h2>{menuItemType}&lt;/h2>
+          &lt;h3>{orderDetails}&lt;/h3>
+        &lt;/div>
+        &lt;div className="price-container">
+          &lt;h2>${price}&lt;/h2>
+        &lt;/div>
+      &lt;/div>
+      &lt;div className="btn-container">
+        &lt;button style={{ width: promo ? '30%' : '48%' }} onClick={handleEditOrder}>
+          Edit
+        &lt;/button>
+        &lt;button style={{ width: promo ? '30%' : '48%' }} onClick={handleCardRemove}>
+          Remove
+        &lt;/button>
+        {promo &amp;&amp; (
+          &lt;button style={{ width: '30%' }} onClick={() => promoOrder(currentOrder)}>
+            Promo
+          &lt;/button>
+        )}
+        &lt;button style={{ width: promo ? '30%' : '48%' }} onClick={handleRewards}>
+          Rewards
+        &lt;/button>
+      &lt;/div>
+    &lt;/div>
+  );
+}
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default CheckoutCard;
+</code></pre>
+        </article>
+    </section>
 
 
 

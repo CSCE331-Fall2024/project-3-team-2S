@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: components/DeleteConfirmationModal/DeleteConfirmationModal.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,52 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: components/DeleteConfirmationModal/DeleteConfirmationModal.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+import './DeleteConfirmationModal.css';
 
+/**
+ * DeleteConfirmationModal component for confirming deletion of an item.
+ * @component
+ * @param {Object} props - The component props.
+ * @param {boolean} props.show - Boolean to show or hide the modal.
+ * @param {function} props.onClose - Function to handle closing the modal.
+ * @param {function} props.onConfirm - Function to handle confirming the deletion.
+ * @param {string} props.itemName - The name of the item to delete.
+ */
+function DeleteConfirmationModal({ show, onClose, onConfirm, itemName }) {
+  if (!show) {
+    return null; // Do not render anything if `show` is false
+  }
 
-    <h3> </h3>
+  return (
+    &lt;div className="modal-overlay">
+      &lt;div className="modal-content">
+        &lt;h2>Delete Item&lt;/h2>
+        &lt;p>
+          Are you sure you want to delete "&lt;strong>{itemName}&lt;/strong>"? All contents will be permanently destroyed.
+        &lt;/p>
+        &lt;div className="modal-actions">
+          &lt;button className="cancel-button" onClick={onClose}>Cancel&lt;/button>
+          &lt;button className="delete-button" onClick={onConfirm}>Delete&lt;/button>
+        &lt;/div>
+      &lt;/div>
+    &lt;/div>
+  );
+}
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default DeleteConfirmationModal;
+</code></pre>
+        </article>
+    </section>
 
 
 

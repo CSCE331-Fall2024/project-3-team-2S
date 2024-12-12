@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/AddFoodItemsPanel/AddFoodItemsPanel.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/AddFoodItemsPanel/AddFoodItemsPanel.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from 'react';
+import './AddFoodItemsPanel.css';
+import { addFoodItem } from '../../api/FoodItems'; // Import FoodItems API
+import Alert from '../Alert/Alert'; // Import Alert component
+
+/**
+ * AddFoodItemsPanel component for adding a new food item.
+ * @component
+ * @param {Object} props - The component props.
+ * @param {function} props.onItemAdd - Function to handle adding the new food item.
+ */
+function AddFoodItemsPanel({ onItemAdd }) {
+  const [newItem, setNewItem] = useState({
+    foodid: '',
+    name: '',
+    category: '',
+    calories: '',
+    isgf: false,
+    isvegetarian: false,
+    isspicy: false,
+    ispremium: false,
+    imagesrc: ''
+  });
+  
+  const [error, setError] = useState(null);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [addedFoodName, setAddedFoodName] = useState(''); // Store added food name
+
+  /**
+   * Handles input change events for the form fields.
+   * @param {Object} e - The event object.
+   */
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewItem(prev => ({ ...prev, [name]: value }));
+  };
+
+  /**
+   * Handles checkbox change events for the form fields.
+   * @param {Object} e - The event object.
+   */
+  const handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    setNewItem(prev => ({ ...prev, [name]: checked }));
+  };
+
+  /**
+   * Handles adding a new food item.
+   * @async
+   */
+  const handleAdd = async () => {
+    try {
+      await addFoodItem(newItem); // Call API to add new food item
+      onItemAdd(newItem); // Pass the new item back to parent component
+      setAddedFoodName(newItem.name); // Set the added food name for success message
+      setShowSuccessAlert(true); // Show success alert when item is successfully added
+      setNewItem({
+        foodid: '',
+        name: '',
+        category: '',
+        calories: '',
+        isgf: false,
+        isvegetarian: false,
+        isspicy: false,
+        ispremium: false,
+        imagesrc: ''
+      }); // Reset form after adding
+    } catch (error) {
+      console.error('Error adding item:', error);
+      setError(error.message);
+    }
+  };
+
+  return (
+    &lt;div className="add-fooditems-panel">
+      &lt;h2>Add New Food Item&lt;/h2>
+
+      {/* Show success alert when entry is added */}
+      {showSuccessAlert &amp;&amp; (
+        &lt;Alert 
+          message={`New food item "${addedFoodName}" added successfully!`} 
+          onClose={() => setShowSuccessAlert(false)} 
+        />
+      )}
+
+      {error &amp;&amp; &lt;p className="error-message">{error}&lt;/p>}
+
+      &lt;div>
+        &lt;label>Food ID:&lt;/label>
+        &lt;input 
+          type="text" 
+          name="foodid" 
+          value={newItem.foodid} 
+          onChange={handleInputChange}
+        />
+      &lt;/div>
+
+      &lt;div>
+        &lt;label>Name:&lt;/label>
+        &lt;textarea 
+          name="name" 
+          value={newItem.name} 
+          onChange={handleInputChange}
+        />
+      &lt;/div>
+
+      &lt;div>
+        &lt;label>Category:&lt;/label>
+        &lt;textarea 
+          name="category" 
+          value={newItem.category} 
+          onChange={handleInputChange}
+        />
+      &lt;/div>
+
+      &lt;div>
+        &lt;label>Calories:&lt;/label>
+        &lt;input 
+          type="number" 
+          name="calories" 
+          value={newItem.calories} 
+          onChange={handleInputChange}
+        />
+      &lt;/div>
+
+      {/* Boolean Checkboxes */}
+      &lt;div className="checkbox-group">
+        &lt;label>&lt;input type="checkbox" name="isgf" checked={newItem.isgf} onChange={handleCheckboxChange} /> Gluten-Free&lt;/label>
+        &lt;label>&lt;input type="checkbox" name="isvegetarian" checked={newItem.isvegetarian} onChange={handleCheckboxChange} /> Vegetarian&lt;/label>
+        &lt;label>&lt;input type="checkbox" name="isspicy" checked={newItem.isspicy} onChange={handleCheckboxChange} /> Spicy&lt;/label>
+        &lt;label>&lt;input type="checkbox" name="ispremium" checked={newItem.ispremium} onChange={handleCheckboxChange} /> Premium&lt;/label>
+      &lt;/div>
+
+      {/* Image Source */}
+      &lt;div>
+        &lt;label>Image Source:&lt;/label>
+        &lt;textarea 
+          name="imagesrc" 
+          value={newItem.imagesrc} 
+          onChange={handleInputChange}
+        />
+      &lt;/div>
+
+      {/* Add Button */}
+      &lt;div className="button-container">
+        &lt;button className="save-button" onClick={handleAdd}>Add&lt;/button>
+      &lt;/div>
+    &lt;/div>
+  );
+}
+
+export default AddFoodItemsPanel;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#API_BASE_URL">API_BASE_URL</a></li><li><a href="global.html#AddEmployeePanel">AddEmployeePanel</a></li><li><a href="global.html#AddFoodItemsPanel">AddFoodItemsPanel</a></li><li><a href="global.html#AddIngredientPanel">AddIngredientPanel</a></li><li><a href="global.html#Alert">Alert</a></li><li><a href="global.html#CashierOrderPage">CashierOrderPage</a></li><li><a href="global.html#CashierPage">CashierPage</a></li><li><a href="global.html#CashierReceipt">CashierReceipt</a></li><li><a href="global.html#CashierReceiptItem">CashierReceiptItem</a></li><li><a href="global.html#CheckoutCard">CheckoutCard</a></li><li><a href="global.html#Chevron">Chevron</a></li><li><a href="global.html#CompletedModal">CompletedModal</a></li><li><a href="global.html#CreateCustomer">CreateCustomer</a></li><li><a href="global.html#DeleteConfirmationModal">DeleteConfirmationModal</a></li><li><a href="global.html#Rewards">Rewards</a></li><li><a href="global.html#SendOrder">SendOrder</a></li><li><a href="global.html#addEmployee">addEmployee</a></li><li><a href="global.html#addFoodItem">addFoodItem</a></li><li><a href="global.html#addInventory">addInventory</a></li><li><a href="global.html#completeOrder">completeOrder</a></li><li><a href="global.html#deleteEmployee">deleteEmployee</a></li><li><a href="global.html#deleteFoodItem">deleteFoodItem</a></li><li><a href="global.html#deleteInventory">deleteInventory</a></li><li><a href="global.html#deleteOrder">deleteOrder</a></li><li><a href="global.html#findEmployee">findEmployee</a></li><li><a href="global.html#getCustomers">getCustomers</a></li><li><a href="global.html#getEmployeeProductivity">getEmployeeProductivity</a></li><li><a href="global.html#getEmployees">getEmployees</a></li><li><a href="global.html#getFoodItemFromID">getFoodItemFromID</a></li><li><a href="global.html#getFoodItems">getFoodItems</a></li><li><a href="global.html#getGrossRevenue">getGrossRevenue</a></li><li><a href="global.html#getInventory">getInventory</a></li><li><a href="global.html#getMenuItems">getMenuItems</a></li><li><a href="global.html#getMenuItemsAndFoodItems">getMenuItemsAndFoodItems</a></li><li><a href="global.html#getNextOrderNum">getNextOrderNum</a></li><li><a href="global.html#getOrderHistory">getOrderHistory</a></li><li><a href="global.html#getOrders">getOrders</a></li><li><a href="global.html#getTotalSales">getTotalSales</a></li><li><a href="global.html#getXReport">getXReport</a></li><li><a href="global.html#getZReport">getZReport</a></li><li><a href="global.html#updateEmployee">updateEmployee</a></li><li><a href="global.html#updateFoodItem">updateFoodItem</a></li><li><a href="global.html#updateInventory">updateInventory</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Dec 11 2024 19:38:31 GMT-0600 (Central Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

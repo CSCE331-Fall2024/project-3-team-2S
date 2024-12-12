@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './Alert.css';
 
+/**
+ * Alert component for displaying a message with auto-dismiss functionality.
+ * @component
+ * @param {Object} props - The component props.
+ * @param {string} props.message - The message to display in the alert.
+ * @param {function} props.onClose - Function to handle closing the alert.
+ */
 function Alert({ message, onClose }) {
   const [isVisible, setIsVisible] = useState(true);
 

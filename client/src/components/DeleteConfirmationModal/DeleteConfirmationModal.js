@@ -1,6 +1,15 @@
 import React from 'react';
 import './DeleteConfirmationModal.css';
 
+/**
+ * DeleteConfirmationModal component for confirming deletion of an item.
+ * @component
+ * @param {Object} props - The component props.
+ * @param {boolean} props.show - Boolean to show or hide the modal.
+ * @param {function} props.onClose - Function to handle closing the modal.
+ * @param {function} props.onConfirm - Function to handle confirming the deletion.
+ * @param {string} props.itemName - The name of the item to delete.
+ */
 function DeleteConfirmationModal({ show, onClose, onConfirm, itemName }) {
   if (!show) {
     return null; // Do not render anything if `show` is false

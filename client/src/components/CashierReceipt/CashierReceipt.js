@@ -2,6 +2,7 @@ import './CashierReceipt.css';
 import CashierReceiptItem from '../CashierReceiptItem/CashierReceiptItem';
 import { useCashierOrderContext } from '../../context/CashierOrderContext';
 
+/** * CashierReceipt component for displaying a list of receipt items. * @component */
 function CashierReceipt() {
   const { receiptItems, selectedReceiptItem } = useCashierOrderContext();
 

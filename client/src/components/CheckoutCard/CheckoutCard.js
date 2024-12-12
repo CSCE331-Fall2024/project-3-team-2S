@@ -1,5 +1,19 @@
 import './CheckoutCard.css';
 
+/**
+ * CheckoutCard component for displaying a checkout card with order details.
+ * @component
+ * @param {Object} props - The component props.
+ * @param {string} props.menuItemType - The type of menu item.
+ * @param {string} props.orderDetails - Details of the order.
+ * @param {number} props.price - The price of the order.
+ * @param {function} props.handleCardRemove - Function to handle removing the card.
+ * @param {function} props.handleEditOrder - Function to handle editing the order.
+ * @param {boolean} [props.promo=false] - Indicates if the promo button should be displayed.
+ * @param {function} props.promoOrder - Function to handle promo orders.
+ * @param {Object} props.currentOrder - The current order details.
+ * @param {function} props.handleRewards - Function to handle rewards.
+ */
 function CheckoutCard({ 
   menuItemType, 
   orderDetails, 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: components/AddEmployeePanel/AddEmployeePanel.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,123 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: components/AddEmployeePanel/AddEmployeePanel.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from 'react';
+import './AddEmployeePanel.css';
+import { addEmployee } from '../../api/Employee'; // Import Employee API function
+import Alert from '../Alert/Alert'; // Import Alert component
 
+/**
+ * AddEmployeePanel component for adding a new employee.
+ * @component
+ * @param {Object} props - The component props.
+ * @param {function} props.onItemAdd - Function to handle adding the new employee.
+ */
+function AddEmployeePanel({ onItemAdd }) {
+  const [newEmployee, setNewEmployee] = useState({ employeeid: '', name: '', salary: '', position: '' });
+  const [error, setError] = useState(null);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [addedEmployeeName, setAddedEmployeeName] = useState(''); // Store added employee name
 
-    <h3> </h3>
+  /**
+   * Handles input change events for the form fields.
+   * @param {Object} e - The event object.
+   */
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewEmployee(prev => ({ ...prev, [name]: value }));
+  };
 
+  /**
+   * Handles adding a new employee.
+   * @async
+   */
+  const handleAdd = async () => {
+    try {
+      await addEmployee(newEmployee); // Call API to add new employee
+      onItemAdd(newEmployee); // Pass the new employee back to parent component
+      setAddedEmployeeName(newEmployee.name); // Set the added employee name for success message
+      setShowSuccessAlert(true); // Show success alert when employee is successfully added
+      setNewEmployee({ employeeid: '', name: '', salary: '', position: '' }); // Reset form after adding
+    } catch (error) {
+      console.error('Error adding employee:', error);
+      setError(error.message);
+    }
+  };
 
+  return (
+    &lt;div className="add-employee-panel">
+      &lt;h2>Add New Employee&lt;/h2>
 
+      {/* Show success alert when entry is added */}
+      {showSuccessAlert &amp;&amp; (
+        &lt;Alert 
+          message={`New employee "${addedEmployeeName}" added successfully!`} 
+          onClose={() => setShowSuccessAlert(false)} 
+        />
+      )}
 
+      {error &amp;&amp; &lt;p className="error-message">{error}&lt;/p>}
 
+      &lt;div>
+        &lt;label>Employee ID:&lt;/label>
+        &lt;input 
+          type="text" 
+          name="employeeid" 
+          value={newEmployee.employeeid} 
+          onChange={handleInputChange}
+        />
+      &lt;/div>
 
+      &lt;div>
+        &lt;label>Name:&lt;/label>
+        &lt;input 
+          type="text" 
+          name="name" 
+          value={newEmployee.name} 
+          onChange={handleInputChange}
+        />
+      &lt;/div>
 
+      &lt;div>
+        &lt;label>Salary:&lt;/label>
+        &lt;input 
+          type="text" 
+          name="salary" 
+          value={newEmployee.salary} 
+          onChange={handleInputChange}
+        />
+      &lt;/div>
 
+      &lt;div>
+        &lt;label>Position:&lt;/label>
+        &lt;input 
+          type="text" 
+          name="position" 
+          value={newEmployee.position} 
+          onChange={handleInputChange}
+        />
+      &lt;/div>
 
+      &lt;div className="button-container">
+        &lt;button className="save-button" onClick={handleAdd}>Add&lt;/button>
+      &lt;/div>
+    &lt;/div>
+  );
+}
 
-    
-
-
-
-
-
+export default AddEmployeePanel;
+</code></pre>
+        </article>
+    </section>
 
 
 
