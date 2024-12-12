@@ -3,17 +3,31 @@ import './AddEmployeePanel.css';
 import { addEmployee } from '../../api/Employee'; // Import Employee API function
 import Alert from '../Alert/Alert'; // Import Alert component
 
+/**
+ * AddEmployeePanel component for adding a new employee.
+ * @component
+ * @param {Object} props - The component props.
+ * @param {function} props.onItemAdd - Function to handle adding the new employee.
+ */
 function AddEmployeePanel({ onItemAdd }) {
   const [newEmployee, setNewEmployee] = useState({ employeeid: '', name: '', salary: '', position: '' });
   const [error, setError] = useState(null);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [addedEmployeeName, setAddedEmployeeName] = useState(''); // Store added employee name
 
+  /**
+   * Handles input change events for the form fields.
+   * @param {Object} e - The event object.
+   */
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewEmployee(prev => ({ ...prev, [name]: value }));
   };
 
+  /**
+   * Handles adding a new employee.
+   * @async
+   */
   const handleAdd = async () => {
     try {
       await addEmployee(newEmployee); // Call API to add new employee

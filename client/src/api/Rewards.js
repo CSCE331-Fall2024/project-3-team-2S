@@ -1,6 +1,15 @@
+/**
+ * Base URL for the API, sourced from environment variables.
+ * @constant {string}
+ */
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-const storedCustomerId = localStorage.getItem("customerId");
 
+/**
+ * Retrieves rewards data for the current customer by fetching their total price.
+ * @async
+ * @returns {Promise<Object|null>} The total price data for the customer, or null if an error occurs.
+ * @throws Will throw an error if the request fails or there is no customer ID in localStorage.
+ */
 export async function Rewards() {
   try {
     // Ensure we have a customer ID to work with
