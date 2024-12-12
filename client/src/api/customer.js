@@ -1,7 +1,17 @@
 // API/customer.js
 
+/**
+ * Base URL for the API, sourced from environment variables.
+ * @constant {string}
+ */
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
+/**
+ * Fetches customer data from the database by sending a SQL query to the API.
+ * @async
+ * @returns {Promise<Object[]>} An array of customer data objects.
+ * @throws Will throw an error if the request fails or the response is not ok.
+ */
 export async function getCustomers() {
   const sql = `
     SELECT customerid, "name", cardid

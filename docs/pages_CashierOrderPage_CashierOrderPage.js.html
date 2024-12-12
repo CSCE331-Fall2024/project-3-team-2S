@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/CashierOrderPage/CashierOrderPage.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/CashierOrderPage/CashierOrderPage.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import './CashierOrderPage.css';
+import Logo from "../../assets/images/logo.png";
+import CashierReceipt from '../../components/CashierReceipt/CashierReceipt';
+import { useCashierOrderContext } from '../../context/CashierOrderContext';
+
+/**
+ * CashierOrderPage Component
+ * Displays the cashier interface for creating and managing orders, including menu items and receipt items.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered CashierOrderPage component.
+ */
+function CashierOrderPage() {
+  // Destructure state and actions from the CashierOrderContext
+  const {
+    currentMenuItemType, // The currently selected menu item type (e.g., 'Bowl', 'Plate').
+    receiptItems,        // Array of items currently added to the receipt.
+    setReceiptItems,     // Function to update the receipt items state.
+    selectReceiptItem,   // Function to select a specific receipt item.
+    addToReceiptItem,    // Function to add additional details to a selected receipt item.
+  } = useCashierOrderContext();
+
+  /**
+   * Adds a new receipt item based on the selected menu item type.
+   *
+   * @param {string} menuItemType - The type of menu item to add (e.g., 'Bowl', 'Plate').
+   */
+  const addReceiptItem = (menuItemType) => {
+    const newItem = {
+      id: receiptItems.length + 1, // Assign a unique ID based on the length of the receiptItems array.
+      menuItemType,
+      side: null,
+      entrees: [],
+      alacarte: null,
+      appetizer: null,
+      drink: null,
+      price: 5, // Default price for each item.
+    };
+
+    // Update the receipt items state and select the newly added item.
+    setReceiptItems((prevItems) => [...prevItems, newItem]);
+    selectReceiptItem(newItem);
+  };
+
+  return (
+    &lt;div className="cashier-order-page-container">
+      &lt;div className="cashier-order-page-top">
+        &lt;div className="cashier-fooditems-container">
+          &lt;div className="cashier-menuitems-container">
+            {/* Buttons for adding new menu items to the receipt */}
+            &lt;button onClick={() => addReceiptItem('Bowl')}>New Bowl&lt;/button>
+            &lt;button onClick={() => addReceiptItem('Plate')}>New Plate&lt;/button>
+            &lt;button onClick={() => addReceiptItem('Bigger Plate')}>New Bigger Plate&lt;/button>
+            &lt;button onClick={() => addReceiptItem('A La Carte')}>New A La Carte&lt;/button>
+            &lt;button onClick={() => addReceiptItem('Appetizer')}>New Appetizer&lt;/button>
+            &lt;button onClick={() => addReceiptItem('Drink')}>New Drink&lt;/button>
+          &lt;/div>
+
+          {/* Conditional rendering for sides and entrees based on the current menu item type */}
+          {['Bowl', 'Plate', 'Bigger Plate', 'A La Carte'].includes(currentMenuItemType) &amp;&amp; (
+            &lt;>
+              &lt;div className="cashier-sides">
+                &lt;h3>Sides&lt;/h3>
+                &lt;div className="cashier-btns">
+                  {/* Buttons for adding sides */}
+                  &lt;button onClick={() => addToReceiptItem('side', 'White Rice')}>White Rice&lt;/button>
+                  &lt;button onClick={() => addToReceiptItem('side', 'Fried Rice')}>Fried Rice&lt;/button>
+                  &lt;button onClick={() => addToReceiptItem('side', 'Super Greens')}>Super Greens&lt;/button>
+                &lt;/div>
+              &lt;/div>
+              &lt;div className="cashier-entrees">
+                &lt;h3>Entrees&lt;/h3>
+                &lt;div className="cashier-btns">
+                  {/* Buttons for adding entrees */}
+                  &lt;button onClick={() => addToReceiptItem('entree', 'Orange Chicken')}>Orange Chicken&lt;/button>
+                  &lt;button onClick={() => addToReceiptItem('entree', 'Teriyaki')}>Teriyaki&lt;/button>
+                  &lt;button onClick={() => addToReceiptItem('entree', 'Mushroom Chicken')}>Mushroom Chicken&lt;/button>
+                &lt;/div>
+              &lt;/div>
+            &lt;/>
+          )}
+
+          {/* Conditional rendering for appetizers */}
+          {currentMenuItemType === 'Appetizer' &amp;&amp; (
+            &lt;div className="cashier-appetizers">
+              &lt;h3>Appetizers&lt;/h3>
+              &lt;div className="cashier-btns">
+                &lt;button onClick={() => addToReceiptItem('appetizer', 'Cream Cheese Rangoon')}>Cream Cheese Rangoon&lt;/button>
+                &lt;button onClick={() => addToReceiptItem('appetizer', 'Apple Pie Roll')}>Apple Pie Roll&lt;/button>
+                &lt;button onClick={() => addToReceiptItem('appetizer', 'Apple Slices')}>Apple Slices&lt;/button>
+              &lt;/div>
+            &lt;/div>
+          )}
+
+          {/* Conditional rendering for drinks */}
+          {currentMenuItemType === 'Drink' &amp;&amp; (
+            &lt;div className="cashier-drinks">
+              &lt;h3>Drinks&lt;/h3>
+              &lt;div className="cashier-btns">
+                &lt;button onClick={() => addToReceiptItem('drink', 'Aquafina')}>Aquafina&lt;/button>
+                &lt;button onClick={() => addToReceiptItem('drink', 'Dr Pepper')}>Dr Pepper&lt;/button>
+                &lt;button onClick={() => addToReceiptItem('drink', 'Sweet Tea')}>Sweet Tea&lt;/button>
+              &lt;/div>
+            &lt;/div>
+          )}
+        &lt;/div>
+
+        {/* Receipt display */}
+        &lt;div className="cashier-receipt-container">
+          &lt;CashierReceipt />
+        &lt;/div>
+      &lt;/div>
+
+      &lt;div className="cashier-order-page-bottom">
+        {/* Bottom action buttons */}
+        &lt;button>Delete&lt;/button>
+        &lt;button>Repeat&lt;/button>
+        &lt;button>Pay&lt;/button>
+      &lt;/div>
+    &lt;/div>
+  );
+}
+
+export default CashierOrderPage;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#API_BASE_URL">API_BASE_URL</a></li><li><a href="global.html#CashierOrderPage">CashierOrderPage</a></li><li><a href="global.html#CashierPage">CashierPage</a></li><li><a href="global.html#CreateCustomer">CreateCustomer</a></li><li><a href="global.html#addEmployee">addEmployee</a></li><li><a href="global.html#completeOrder">completeOrder</a></li><li><a href="global.html#deleteEmployee">deleteEmployee</a></li><li><a href="global.html#deleteOrder">deleteOrder</a></li><li><a href="global.html#findEmployee">findEmployee</a></li><li><a href="global.html#getCustomers">getCustomers</a></li><li><a href="global.html#getEmployeeProductivity">getEmployeeProductivity</a></li><li><a href="global.html#getEmployees">getEmployees</a></li><li><a href="global.html#updateEmployee">updateEmployee</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Dec 11 2024 18:52:14 GMT-0600 (Central Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
