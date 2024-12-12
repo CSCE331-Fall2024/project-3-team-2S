@@ -3,6 +3,12 @@ import './AddFoodItemsPanel.css';
 import { addFoodItem } from '../../api/FoodItems'; // Import FoodItems API
 import Alert from '../Alert/Alert'; // Import Alert component
 
+/**
+ * AddFoodItemsPanel component for adding a new food item.
+ * @component
+ * @param {Object} props - The component props.
+ * @param {function} props.onItemAdd - Function to handle adding the new food item.
+ */
 function AddFoodItemsPanel({ onItemAdd }) {
   const [newItem, setNewItem] = useState({
     foodid: '',
@@ -20,16 +26,28 @@ function AddFoodItemsPanel({ onItemAdd }) {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [addedFoodName, setAddedFoodName] = useState(''); // Store added food name
 
+  /**
+   * Handles input change events for the form fields.
+   * @param {Object} e - The event object.
+   */
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewItem(prev => ({ ...prev, [name]: value }));
   };
 
+  /**
+   * Handles checkbox change events for the form fields.
+   * @param {Object} e - The event object.
+   */
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
     setNewItem(prev => ({ ...prev, [name]: checked }));
   };
 
+  /**
+   * Handles adding a new food item.
+   * @async
+   */
   const handleAdd = async () => {
     try {
       await addFoodItem(newItem); // Call API to add new food item

@@ -72,7 +72,7 @@ Restaurants need efficient and user-friendly systems to manage orders, track inv
    ```bash
    cd server
    npm start
-   cd ../client
+   cd ../client 
    npm start
    ```
 

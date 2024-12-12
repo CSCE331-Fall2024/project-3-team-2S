@@ -1,5 +1,15 @@
+/**
+ * Base URL for the API, sourced from environment variables.
+ * @constant {string}
+ */
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
+/**
+ * Fetches all food items from the API.
+ * @async
+ * @returns {Promise<Object[]>} An array of food item data objects.
+ * @throws Will throw an error if the request fails or the response is not ok.
+ */
 export const getFoodItems = async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/fooditems`);
@@ -11,6 +21,22 @@ export const getFoodItems = async () => {
   }
 };
 
+/**
+ * Adds a new food item by sending a POST request to the API.
+ * @async
+ * @param {Object} newItem - The new food item data.
+ * @param {string} newItem.foodid - The food item's ID.
+ * @param {string} newItem.name - The food item's name.
+ * @param {string} newItem.category - The food item's category.
+ * @param {number} newItem.calories - The food item's calorie count.
+ * @param {boolean} [newItem.isgf=false] - Whether the food item is gluten-free.
+ * @param {boolean} [newItem.isvegetarian=false] - Whether the food item is vegetarian.
+ * @param {boolean} [newItem.isspicy=false] - Whether the food item is spicy.
+ * @param {boolean} [newItem.ispremium=false] - Whether the food item is premium.
+ * @param {string} newItem.imagesrc - The source of the food item's image.
+ * @returns {Promise<Object>} The response data from the API.
+ * @throws Will throw an error if the request fails or the response is not ok.
+ */
 export async function addFoodItem(newItem) {
   try {
     const response = await fetch(`${API_BASE_URL}/fooditems`, {
@@ -42,6 +68,22 @@ export async function addFoodItem(newItem) {
   }
 }
 
+/**
+ * Updates an existing food item by sending a PUT request to the API.
+ * @async
+ * @param {Object} item - The food item data to update.
+ * @param {string} item.foodid - The food item's ID.
+ * @param {string} item.name - The food item's name.
+ * @param {string} item.category - The food item's category.
+ * @param {number} item.calories - The food item's calorie count.
+ * @param {boolean} [item.isgf=false] - Whether the food item is gluten-free.
+ * @param {boolean} [item.isvegetarian=false] - Whether the food item is vegetarian.
+ * @param {boolean} [item.isspicy=false] - Whether the food item is spicy.
+ * @param {boolean} [item.ispremium=false] - Whether the food item is premium.
+ * @param {string} item.imagesrc - The source of the food item's image.
+ * @returns {Promise<Object>} The response data from the API.
+ * @throws Will throw an error if the request fails or the response is not ok.
+ */
 export async function updateFoodItem(item) {
   try {
     const response = await fetch(`${API_BASE_URL}/fooditems/${item.foodid}`, {
@@ -59,10 +101,7 @@ export async function updateFoodItem(item) {
       }),
     });
 
-    // Log the response status and body
-    // console.log("RESPONSE STATUS:", response.status);
     const responseBody = await response.text(); // Use text() to capture any error message
-    // console.log("RESPONSE BODY:", responseBody);
 
     if (response.ok) {
       console.log(`Successfully updated food item with ID: ${item.foodid}`);
@@ -76,6 +115,13 @@ export async function updateFoodItem(item) {
   }
 }
 
+/**
+ * Deletes a food item by sending a DELETE request to the API.
+ * @async
+ * @param {string} foodId - The ID of the food item to delete.
+ * @returns {Promise<Object>} The response data from the API.
+ * @throws Will throw an error if the request fails or the response is not ok.
+ */
 export async function deleteFoodItem(foodId) {
   try {
     const response = await fetch(`${API_BASE_URL}/fooditems/${foodId}`, {
