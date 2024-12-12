@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: api/Employee.js</title>
+    <title>JSDoc: Source: api/FoodItems.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: api/Employee.js</h1>
+    <h1 class="page-title">Source: api/FoodItems.js</h1>
 
     
 
@@ -33,148 +33,138 @@
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 /**
- * Fetches all employees from the API.
+ * Fetches all food items from the API.
  * @async
- * @returns {Promise&lt;Object[]>} An array of employee data objects.
+ * @returns {Promise&lt;Object[]>} An array of food item data objects.
  * @throws Will throw an error if the request fails or the response is not ok.
  */
-export const getEmployees = async () => {
+export const getFoodItems = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/employees`);
+    const response = await fetch(`${API_BASE_URL}/fooditems`);
     const data = await response.json();
-    return data;  // Ensure this matches the expected structure
+    return data;  
   } catch (error) {
-    console.error(`Error fetching employees: ${error.message}`);
+    console.error(`Error fetching food items: ${error.message}`);
     throw error;
   }
 };
 
 /**
- * Adds a new employee by sending a POST request to the API.
+ * Adds a new food item by sending a POST request to the API.
  * @async
- * @param {Object} newEmployee - The new employee data.
- * @param {string} newEmployee.employeeid - The employee's ID.
- * @param {string} newEmployee.name - The employee's name.
- * @param {number} newEmployee.salary - The employee's salary.
- * @param {string} newEmployee.position - The employee's position.
+ * @param {Object} newItem - The new food item data.
+ * @param {string} newItem.foodid - The food item's ID.
+ * @param {string} newItem.name - The food item's name.
+ * @param {string} newItem.category - The food item's category.
+ * @param {number} newItem.calories - The food item's calorie count.
+ * @param {boolean} [newItem.isgf=false] - Whether the food item is gluten-free.
+ * @param {boolean} [newItem.isvegetarian=false] - Whether the food item is vegetarian.
+ * @param {boolean} [newItem.isspicy=false] - Whether the food item is spicy.
+ * @param {boolean} [newItem.ispremium=false] - Whether the food item is premium.
+ * @param {string} newItem.imagesrc - The source of the food item's image.
  * @returns {Promise&lt;Object>} The response data from the API.
  * @throws Will throw an error if the request fails or the response is not ok.
  */
-export async function addEmployee(newEmployee) {
+export async function addFoodItem(newItem) {
   try {
-    const response = await fetch(`${API_BASE_URL}/employees`, {
+    const response = await fetch(`${API_BASE_URL}/fooditems`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        employeeid: newEmployee.employeeid,
-        name: newEmployee.name,
-        salary: newEmployee.salary,
-        position: newEmployee.position,
+        foodid: newItem.foodid,
+        name: newItem.name,
+        category: newItem.category,
+        calories: newItem.calories,
+        isgf: newItem.isgf || false, // Default to false if not provided
+        isvegetarian: newItem.isvegetarian || false, // Default to false if not provided
+        isspicy: newItem.isspicy || false, // Default to false if not provided
+        ispremium: newItem.ispremium || false, // Default to false if not provided
+        imagesrc: newItem.imagesrc,
       }),
     });
 
     if (response.ok) {
-      console.log(`Successfully added new employee with ID: ${newEmployee.employeeid}`);
+      console.log(`Successfully added new food item with ID: ${newItem.foodid}`);
       return await response.json();
     } else {
-      console.error(`Failed to add new employee. Status: ${response.status}`);
+      console.error(`Failed to add new food item. Status: ${response.status}`);
       throw new Error(`Add failed with status: ${response.status}`);
     }
   } catch (error) {
-    console.error(`Error adding employee: ${error.message}`);
+    console.error(`Error adding food item: ${error.message}`);
     throw error;
   }
 }
 
 /**
- * Updates an existing employee by sending a PUT request to the API.
+ * Updates an existing food item by sending a PUT request to the API.
  * @async
- * @param {Object} employee - The employee data to update.
- * @param {string} employee.employeeid - The employee's ID.
- * @param {string} employee.name - The employee's name.
- * @param {number} employee.salary - The employee's salary.
- * @param {string} employee.position - The employee's position.
+ * @param {Object} item - The food item data to update.
+ * @param {string} item.foodid - The food item's ID.
+ * @param {string} item.name - The food item's name.
+ * @param {string} item.category - The food item's category.
+ * @param {number} item.calories - The food item's calorie count.
+ * @param {boolean} [item.isgf=false] - Whether the food item is gluten-free.
+ * @param {boolean} [item.isvegetarian=false] - Whether the food item is vegetarian.
+ * @param {boolean} [item.isspicy=false] - Whether the food item is spicy.
+ * @param {boolean} [item.ispremium=false] - Whether the food item is premium.
+ * @param {string} item.imagesrc - The source of the food item's image.
  * @returns {Promise&lt;Object>} The response data from the API.
  * @throws Will throw an error if the request fails or the response is not ok.
  */
-export async function updateEmployee(employee) {
+export async function updateFoodItem(item) {
   try {
-    const response = await fetch(`${API_BASE_URL}/employees/${employee.employeeid}`, {
+    const response = await fetch(`${API_BASE_URL}/fooditems/${item.foodid}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: employee.name,
-        salary: employee.salary,
-        position: employee.position,
+        name: item.name,
+        category: item.category,
+        calories: item.calories,
+        isgf: item.isgf || false,
+        isvegetarian: item.isvegetarian || false,
+        isspicy: item.isspicy || false,
+        ispremium: item.ispremium || false,
+        imagesrc: item.imagesrc,
       }),
     });
 
+    const responseBody = await response.text(); // Use text() to capture any error message
+
     if (response.ok) {
-      console.log(`Successfully updated employee with ID: ${employee.employeeid}`);
-      return await response.json();
-    } else if (response.status === 404) {
-      console.error(`Employee with ID: ${employee.employeeid} not found. Unable to update.`);
-      throw new Error(`Employee not found with ID: ${employee.employeeid}`);
+      console.log(`Successfully updated food item with ID: ${item.foodid}`);
+      return JSON.parse(responseBody); // Parse the JSON if successful
     } else {
-      console.error(`Failed to update employee with ID: ${employee.employeeid}. Status: ${response.status}`);
-      throw new Error(`Update failed with status: ${response.status}`);
+      throw new Error(`Failed to update food item. Status: ${response.status}. Message: ${responseBody}`);
     }
   } catch (error) {
-    console.error(`Error updating employee: ${error.message}`);
+    console.error(`Error updating food item: ${error.message}`);
     throw error;
   }
 }
 
 /**
- * Deletes an employee by sending a DELETE request to the API.
+ * Deletes a food item by sending a DELETE request to the API.
  * @async
- * @param {string} employeeId - The ID of the employee to delete.
+ * @param {string} foodId - The ID of the food item to delete.
  * @returns {Promise&lt;Object>} The response data from the API.
  * @throws Will throw an error if the request fails or the response is not ok.
  */
-export async function deleteEmployee(employeeId) {
+export async function deleteFoodItem(foodId) {
   try {
-    const response = await fetch(`${API_BASE_URL}/employees/${employeeId}`, {
+    const response = await fetch(`${API_BASE_URL}/fooditems/${foodId}`, {
       method: 'DELETE',
     });
 
     if (response.ok) {
-      console.log(`Successfully deleted employee with ID: ${employeeId}`);
+      console.log(`Successfully deleted food item with ID: ${foodId}`);
       return await response.json();
     } else {
-      console.error(`Failed to delete employee with ID: ${employeeId}. Status: ${response.status}`);
+      console.error(`Failed to delete food item with ID: ${foodId}. Status: ${response.status}`);
       throw new Error(`Delete failed with status: ${response.status}`);
     }
   } catch (error) {
-    console.error(`Error deleting employee: ${error.message}`);
-    throw error;
-  }
-}
-
-/**
- * Finds an employee's position by their ID by sending a request to the API.
- * @async
- * @param {string} employeeId - The ID of the employee.
- * @returns {Promise&lt;string>} The position of the employee.
- * @throws Will throw an error if the request fails or the response is not ok.
- */
-export async function findEmployee(employeeId) {
-  try {
-    const response = await fetch(`${API_BASE_URL}/employees/${employeeId}/position`);
-
-    if (response.ok) {
-      const { position } = await response.json();
-      console.log(`Position of employee with ID ${employeeId}: ${position}`);
-      return position;
-    } else if (response.status === 404) {
-      console.error(`Employee with ID ${employeeId} not found.`);
-      throw new Error(`Employee not found with ID: ${employeeId}`);
-    } else {
-      console.error(`Failed to fetch position for employee with ID ${employeeId}. Status: ${response.status}`);
-      throw new Error(`Fetch failed with status: ${response.status}`);
-    }
-  } catch (error) {
-    console.error(`Error fetching position for employee with ID ${employeeId}: ${error.message}`);
+    console.error(`Error deleting food item: ${error.message}`);
     throw error;
   }
 }

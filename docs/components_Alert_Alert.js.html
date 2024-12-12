@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: components/Alert/Alert.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,57 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: components/Alert/Alert.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState } from 'react';
+import './Alert.css';
 
+/**
+ * Alert component for displaying a message with auto-dismiss functionality.
+ * @component
+ * @param {Object} props - The component props.
+ * @param {string} props.message - The message to display in the alert.
+ * @param {function} props.onClose - Function to handle closing the alert.
+ */
+function Alert({ message, onClose }) {
+  const [isVisible, setIsVisible] = useState(true);
 
-    <h3> </h3>
+  useEffect(() => {
+    // Start fade-out after 9 seconds (1 second before auto-dismiss)
+    const fadeOutTimer = setTimeout(() => {
+      setIsVisible(false);
+    }, 9000);
 
+    // Auto-dismiss after 10 seconds
+    const autoDismissTimer = setTimeout(() => {
+      onClose();
+    }, 10000);
 
+    return () => {
+      clearTimeout(fadeOutTimer);
+      clearTimeout(autoDismissTimer);
+    };
+  }, [onClose]);
 
+  return (
+    &lt;div className={`alert-container ${!isVisible ? 'fade-out' : ''}`}>
+      &lt;p>{message}&lt;/p>
+      &lt;button className="close-button" onClick={onClose}>X&lt;/button>
+    &lt;/div>
+  );
+}
 
-
-
-
-
-
-
-    
-
-
-
-
-
+export default Alert;
+</code></pre>
+        </article>
+    </section>
 
 
 

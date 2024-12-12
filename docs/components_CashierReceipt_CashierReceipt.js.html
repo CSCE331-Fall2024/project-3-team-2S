@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: components/CashierReceipt/CashierReceipt.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,47 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: components/CashierReceipt/CashierReceipt.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import './CashierReceipt.css';
+import CashierReceiptItem from '../CashierReceiptItem/CashierReceiptItem';
+import { useCashierOrderContext } from '../../context/CashierOrderContext';
 
+/** * CashierReceipt component for displaying a list of receipt items. * @component */
+function CashierReceipt() {
+  const { receiptItems, selectedReceiptItem } = useCashierOrderContext();
 
-    <h3> </h3>
+  return (
+    &lt;div className="cashier-receipt">
+      {receiptItems.map((item) => (
+        &lt;CashierReceiptItem
+          key={item.id}
+          id={item.id}
+          menuItemType={item.menuItemType}
+          side={item.side}
+          entrees={item.entrees}
+          alacarte={item.alacarte}
+          appetizer={item.appetizer}
+          drink={item.drink}
+          price={item.price}
+          selected={selectedReceiptItem?.id === item.id}
+        />
+      ))}
+    &lt;/div>
+  );
+}
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default CashierReceipt;
+</code></pre>
+        </article>
+    </section>
 
 
 

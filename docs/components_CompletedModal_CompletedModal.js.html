@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: components/CompletedModal/CompletedModal.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,47 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: components/CompletedModal/CompletedModal.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import './CompletedModal.css';
 
+/**
+ * CompletedModal component for displaying a completion message with order details.
+ * @component
+ * @param {Object} props - The component props.
+ * @param {function} props.onClose - Function to handle closing the modal.
+ * @param {string} props.orderNumber - The order number to display.
+ * @param {boolean} [props.cashier=true] - Indicates if the cashier-specific button should be displayed.
+ */
+function CompletedModal({ onClose, orderNumber, cashier = true }) {
+  return (
+    &lt;div className="completed-modal-container">
+      &lt;div className="completed-modal-text-container">
+        Thanks, your order will be ready soon!
+        &lt;hr>&lt;/hr>
+        &lt;p>Order Number: &lt;/p>
+        &lt;h1>{orderNumber}&lt;/h1>
+        &lt;hr>&lt;/hr>
+      &lt;/div>
+      &lt;div className="completed-modal-btn-container">
+        {cashier &amp;&amp; &lt;button onClick={onClose}>Start New Order&lt;/button>}
+        {!cashier &amp;&amp; &lt;button onClick={onClose}>Back to Cashier Home&lt;/button>}
+      &lt;/div>
+    &lt;/div>
+  );
+}
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export default CompletedModal;
+</code></pre>
+        </article>
+    </section>
 
 
 

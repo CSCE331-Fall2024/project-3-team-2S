@@ -3,17 +3,31 @@ import './AddIngredientPanel.css';
 import { addInventory } from '../../api/Inventory'; 
 import Alert from '../Alert/Alert'; // Import Alert component
 
+/**
+ * AddIngredientPanel component for adding a new ingredient.
+ * @component
+ * @param {Object} props - The component props.
+ * @param {function} props.onItemAdd - Function to handle adding the new ingredient.
+ */
 function AddIngredientPanel({ onItemAdd }) {
   const [newItem, setNewItem] = useState({ ingrid: '', ingredient: '', quantity: '' });
   const [error, setError] = useState(null);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [addedIngredientName, setAddedIngredientName] = useState(''); // Store added ingredient name
 
+  /**
+   * Handles input change events for the form fields.
+   * @param {Object} e - The event object.
+   */
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewItem(prev => ({ ...prev, [name]: value }));
   };
 
+  /**
+   * Handles adding a new ingredient.
+   * @async
+   */
   const handleAdd = async () => {
     try {
       await addInventory(newItem); // Call API to add new ingredient
