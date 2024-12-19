@@ -1,0 +1,15 @@
+services:
+  client:
+    build: ./client
+    environment:
+      - REACT_APP_API_BASE_URL=http://server:3000/api  # Pass this to the client container
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
+  server:
+    build: ./server
+    ports:
+      - "5000:3001"  # Map external port 5000 to internal port 3001
+    environment:
+      DATABASE_URL: "postgres://team_2s:lechonk@csce-315-db.engr.tamu.edu:5432/team_2s_db"
