@@ -2,9 +2,9 @@ services:
   client:
     build: ./client
     environment:
-      - REACT_APP_API_BASE_URL=http://server:3001/api
+      - REACT_APP_API_BASE_URL=http://restaurantpos-server-service:3001/api
     ports:
-      - "80:80"
+      - "8080:8080"
     depends_on:
       - server
     networks:
