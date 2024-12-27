@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restaurantpos-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: restaurantpos-server
+  template:
+    metadata:
+      labels:
+        app: restaurantpos-server
+    spec:
+      containers:
+      - name: restaurantpos-server
+        image: restaurantposacr.azurecr.io/restaurantpos-server:latest
+        ports:
+        - containerPort: 3001
+        env:
+          - name: DATABASE_URL
+            value: "postgres://team_2s:lechonk@csce-315-db.engr.tamu.edu:5432/team_2s_db"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "500m"
+          limits:
+            memory: "512Mi"
+            cpu: "1"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: restaurantpos-server-service
+spec:
+  selector:
+    app: restaurantpos-server
+  ports:
+    - protocol: TCP
+      port: 3001
+      targetPort: 3001
+  type: LoadBalancer

@@ -12,6 +12,7 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
  */
 export async function getFoodItems() {
   try {
+    console.log("Api Base Url: " + API_BASE_URL)
     const response = await fetch(`${API_BASE_URL}/fooditems`);
     if (!response.ok) {
       throw new Error('Failed to fetch food items');
