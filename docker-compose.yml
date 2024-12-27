@@ -2,14 +2,22 @@ services:
   client:
     build: ./client
     environment:
-      - REACT_APP_API_BASE_URL=http://server:3000/api  # Pass this to the client container
+      - REACT_APP_API_BASE_URL=http://restaurantpos-server-service:3001/api
     ports:
-      - "3000:80"
+      - "8080:8080"
     depends_on:
       - server
+    networks:
+      - app-network
   server:
     build: ./server
     ports:
-      - "5000:3001"  # Map external port 5000 to internal port 3001
+      - "3001:3001"
     environment:
       DATABASE_URL: "postgres://team_2s:lechonk@csce-315-db.engr.tamu.edu:5432/team_2s_db"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
